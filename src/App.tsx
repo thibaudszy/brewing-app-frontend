@@ -1,16 +1,23 @@
-import { useQuery } from "@apollo/client";
 import React from "react";
+import Switch from "react-bootstrap/esm/Switch";
+import { Route } from "react-router-dom";
 import "./App.css";
 import AppNavbar from "./components/Navbar/AppNavbar";
-import { GET_USERS } from "./graphQL/queries";
+import { login } from "./store/user/actions";
+import Login from "./pages/Login";
 
 function App() {
-  const allUsers = useQuery(GET_USERS);
-  console.log("all users:", allUsers.data);
   return (
     <div className="App">
       <AppNavbar />
       hello
+      <Switch>
+        {/* <Route exact path="/" component={HomePage} /> */}
+
+        {/* <Route path="/signup" component={SignUp} /> */}
+        <Route path="/login" component={Login} />
+        {/* <Route path="/" component={Error404} /> */}
+      </Switch>
     </div>
   );
 }
