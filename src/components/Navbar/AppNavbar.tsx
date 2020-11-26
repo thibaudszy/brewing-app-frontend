@@ -12,18 +12,18 @@ import translation from "./translation";
 export default function AppNavbar() {
   const token = useSelector(selectToken);
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const home = translation.Home[userLanguage];
+  const { Home } = translation[userLanguage];
   return (
     <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Bitter</Navbar.Brand>
+        <Navbar.Brand href="/">Bitter</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">{}</Nav.Link>
-            {token ? LoggedInLinks() : ""}
+            <Nav.Link href="/">{Home}</Nav.Link>
+            {token ? <LoggedInLinks /> : ""}
           </Nav>
-          {token ? LogOutButton() : LoggedOutItems()}
+          {token ? <LogOutButton /> : <LoggedOutItems />}
         </Navbar.Collapse>
       </Navbar>
     </div>
