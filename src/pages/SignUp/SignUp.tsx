@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { login } from "../../store/user/actions";
+import { login, signUp } from "../../store/user/actions";
 import { selectToken, selectUserLanguage } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
@@ -11,13 +11,13 @@ import translation from "./translation";
 
 export default function Login() {
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const [newUser, setNewUser] = useState({
+  const [newUser, setNewUser] = useState<user>({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    language: "",
-    gender: "",
+    language: userLanguage,
+    gender: "other",
   });
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
@@ -46,7 +46,7 @@ export default function Login() {
   function submitForm(event: any) {
     event.preventDefault();
 
-    //dispatch(signUp(newUser));
+    dispatch(signUp(newUser));
   }
 
   return (
@@ -80,7 +80,7 @@ export default function Login() {
           <Form.Control
             value={newUser.email}
             onChange={(event) =>
-              setNewUser({ ...newUser, lastName: event.target.value })
+              setNewUser({ ...newUser, email: event.target.value })
             }
             type="email"
             placeholder={email_address}
@@ -91,8 +91,12 @@ export default function Login() {
           <Form.Label>{language_label}</Form.Label>
           <Form.Control
             as="select"
+            value={newUser.language}
             onChange={(event) =>
-              setNewUser({ ...newUser, language: event.target.value })
+              setNewUser({
+                ...newUser,
+                language: event.target.value as Language,
+              })
             }
             placeholder={language_label}
             required
@@ -106,8 +110,9 @@ export default function Login() {
           <Form.Label>{gender_label}</Form.Label>
           <Form.Control
             as="select"
+            value={newUser.gender}
             onChange={(event) =>
-              setNewUser({ ...newUser, gender: event.target.value })
+              setNewUser({ ...newUser, gender: event.target.value as Gender })
             }
             required
           >
