@@ -6,6 +6,7 @@ import AppNavbar from "./components/Navbar/AppNavbar";
 import Login from "./pages/Login/Login";
 
 import MyFooter from "./components/Footer/Footer";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Switch>
         {/* <Route exact path="/" component={HomePage} /> */}
 
-        {/* <Route path="/signup" component={SignUp} /> */}
+        <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
         {/* <Route path="/" component={Error404} /> */}
       </Switch>
