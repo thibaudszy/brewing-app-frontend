@@ -11,7 +11,7 @@ import {
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
-
+export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 const loginSuccess = (userWithToken: any) => {
   return {
     type: LOGIN_SUCCESS,
@@ -121,5 +121,12 @@ export const getUserWithStoredToken = () => {
       dispatch(logOut());
       dispatch(appDoneLoading());
     }
+  };
+};
+
+export const changeLanguageAction = (language: Language): Action => {
+  return {
+    type: CHANGE_LANGUAGE,
+    payload: language,
   };
 };

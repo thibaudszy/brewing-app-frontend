@@ -3,14 +3,15 @@ import Switch from "react-bootstrap/esm/Switch";
 import { Route } from "react-router-dom";
 import "./App.css";
 import AppNavbar from "./components/Navbar/AppNavbar";
-import { login } from "./store/user/actions";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
+
+import MyFooter from "./components/Footer/Footer";
 
 function App() {
   return (
     <div className="App">
       <AppNavbar />
-      hello
+
       <Switch>
         {/* <Route exact path="/" component={HomePage} /> */}
 
@@ -18,6 +19,9 @@ function App() {
         <Route path="/login" component={Login} />
         {/* <Route path="/" component={Error404} /> */}
       </Switch>
+      <footer>
+        <MyFooter />
+      </footer>
     </div>
   );
 }

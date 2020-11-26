@@ -1,5 +1,9 @@
-import { LOG_OUT, LOGIN_SUCCESS, TOKEN_STILL_VALID } from "./actions";
-import { Action } from "../types";
+import {
+  LOG_OUT,
+  LOGIN_SUCCESS,
+  TOKEN_STILL_VALID,
+  CHANGE_LANGUAGE,
+} from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -15,9 +19,10 @@ export default (state = initialState, action: Action) => {
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       return { ...state, ...action.payload };
+    case CHANGE_LANGUAGE:
+      return { ...state, language: action.payload };
 
     case LOG_OUT:
-      console.log("in the reducer to log out");
       localStorage.removeItem("token");
       return { ...initialState, token: null };
 
