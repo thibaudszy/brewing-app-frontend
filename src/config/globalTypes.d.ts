@@ -10,3 +10,7 @@ interface TranslationItem {
 interface TranslationObject {
   [name: string]: TranslationItem;
 }
+interface Action {
+  type: string;
+  payload: any;
+}

@@ -4,7 +4,6 @@ import {
   SET_MESSAGE,
   CLEAR_MESSAGE,
 } from "./actions";
-import { Action } from "../types";
 
 const initialState = {
   loading: false,
