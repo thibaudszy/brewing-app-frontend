@@ -12,17 +12,17 @@ function App() {
   return (
     <div className="App">
       <AppNavbar />
+      <div className="Body">
+        <Switch>
+          {/* <Route exact path="/" component={HomePage} /> */}
 
-      <Switch>
-        {/* <Route exact path="/" component={HomePage} /> */}
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={Login} />
+          {/* <Route path="/" component={Error404} /> */}
+        </Switch>
+      </div>
 
-        <Route path="/signup" component={SignUp} />
-        <Route path="/login" component={Login} />
-        {/* <Route path="/" component={Error404} /> */}
-      </Switch>
-      <footer>
-        <MyFooter />
-      </footer>
+      <MyFooter />
     </div>
   );
 }
