@@ -1,27 +1,29 @@
 import React from "react";
 import { Button, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectToken, selectUserLanguage } from "../../store/user/selectors";
+import { LoggedInLinks, LogOutButton } from "./LoggedInItems";
+import LoggedOutItems from "./LoggedOutItems";
+import translation from "./translation";
+//import { AvailableLanguages } from "../../config/globalTypes";
 
 export default function AppNavbar() {
+  const token = useSelector(selectToken);
+  const userLanguage: Language = useSelector(selectUserLanguage);
+  const home = translation.Home[userLanguage];
   return (
     <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">My name</Navbar.Brand>
+        <Navbar.Brand href="#home">Bitter</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-
-            <NavDropdown title="Recipes" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">My recipes</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Create a recipe
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#home">Start a brew</Nav.Link>
+            <Nav.Link href="#home">{}</Nav.Link>
+            {token ? LoggedInLinks() : ""}
           </Nav>
-          <Button style={{ marginRight: "1em" }}> Log in </Button>
-          <Button style={{ marginRight: "1em" }}> Sign up </Button>
+          {token ? LogOutButton() : LoggedOutItems()}
         </Navbar.Collapse>
       </Navbar>
     </div>

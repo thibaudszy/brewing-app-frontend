@@ -3,17 +3,21 @@ import { Action } from "../types";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  name: null,
+  firstName: null,
+  lastName: null,
   email: null,
+  language: null,
 };
 
 export default (state = initialState, action: Action) => {
+  console.log("action:", action);
   switch (action.type) {
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       return { ...state, ...action.payload };
 
     case LOG_OUT:
+      console.log("in the reducer to log out");
       localStorage.removeItem("token");
       return { ...initialState, token: null };
 

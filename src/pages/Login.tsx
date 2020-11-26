@@ -15,17 +15,16 @@ export default function Login() {
   const token = useSelector(selectToken);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   if (token !== null) {
-  //     history.push("/");
-  //   }
-  // }, [token, history]);
+  useEffect(() => {
+    if (token !== null) {
+      history.push("/");
+    }
+  }, [token, history]);
 
   function submitForm(event: any) {
     event.preventDefault();
 
     dispatch(login(email, password));
-    console.log("hey");
 
     setEmail("");
     setPassword("");

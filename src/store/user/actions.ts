@@ -25,6 +25,7 @@ const tokenStillValid = (userWithoutToken: any) => ({
 });
 
 export const logOut = () => {
+  console.log("in the log out action");
   return { type: LOG_OUT };
 };
 
@@ -72,20 +73,14 @@ export const login = (email: string, password: string) => {
         email,
         password,
       });
-      console.log("response:", response);
-      const isBlocked = response.data.accountBlocked;
-      console.log("isBlocked:", isBlocked === true);
-      if (isBlocked) {
-        dispatch(setMessage("danger", true, "You are blocked!"));
-        dispatch(appDoneLoading());
-        return;
-      }
+      // console.log("response:", response);
+
       dispatch(loginSuccess(response.data));
       dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
+        //  console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
       } else {
         console.log(error.message);
