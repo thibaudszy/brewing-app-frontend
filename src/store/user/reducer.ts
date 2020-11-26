@@ -6,7 +6,7 @@ const initialState = {
   firstName: null,
   lastName: null,
   email: null,
-  language: null,
+  language: "En-GB",
 };
 
 export default (state = initialState, action: Action) => {
