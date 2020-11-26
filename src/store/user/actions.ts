@@ -29,14 +29,14 @@ export const logOut = () => {
   return { type: LOG_OUT };
 };
 
-export const signUp = (
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  language: "En-GB" | "Fr-FR",
-  gender: "male" | "female" | "other"
-) => {
+export const signUp = ({
+  firstName,
+  lastName,
+  email,
+  password,
+  language,
+  gender,
+}: user) => {
   return async (dispatch: any, getState: any) => {
     dispatch(appLoading());
     try {
