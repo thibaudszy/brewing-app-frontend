@@ -7,6 +7,7 @@ import Login from "./pages/Login/Login";
 
 import MyFooter from "./components/Footer/Footer";
 import SignUp from "./pages/SignUp/SignUp";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <div className="Body">
         <Switch>
           {/* <Route exact path="/" component={HomePage} /> */}
-
+          <Route exact path="/" component={HomePage} />
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={Login} />
           {/* <Route path="/" component={Error404} /> */}

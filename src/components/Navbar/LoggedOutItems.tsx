@@ -10,6 +10,9 @@ export default function LoggedOutItems() {
   const loginClickHandler = () => {
     history.push("/login");
   };
+  const signUpClickHandler = () => {
+    history.push("/signup");
+  };
   const userLanguage: Language = useSelector(selectUserLanguage);
   const { LogIn, SignUp } = translation[userLanguage];
   return (
@@ -20,7 +23,13 @@ export default function LoggedOutItems() {
       >
         {LogIn}
       </Button>
-      <Button style={{ marginRight: "1em" }}> {SignUp} </Button>
+      <Button
+        style={{ marginRight: "1em" }}
+        onClick={() => signUpClickHandler()}
+      >
+        {" "}
+        {SignUp}{" "}
+      </Button>
     </div>
   );
 }
