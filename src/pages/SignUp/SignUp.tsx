@@ -11,7 +11,7 @@ import translation from "./translation";
 
 export default function Login() {
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const [newUser, setNewUser] = useState<user>({
+  const [newUser, setNewUser] = useState<User>({
     firstName: "",
     lastName: "",
     email: "",

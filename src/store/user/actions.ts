@@ -36,7 +36,7 @@ export const signUp = ({
   password,
   language,
   gender,
-}: user) => {
+}: User) => {
   return async (dispatch: any, getState: any) => {
     dispatch(appLoading());
     try {

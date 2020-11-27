@@ -1,0 +1,9 @@
+.buttons-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 2em;
+}
+.section-title {
+  background-color: lightgray;
+  width: 100%;
+}

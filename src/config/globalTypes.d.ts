@@ -21,7 +21,7 @@ interface Action {
   type: string;
   payload: any;
 }
-interface user {
+interface User {
   firstName: string;
   lastName: string;
   email: string;
