@@ -29,3 +29,23 @@ interface User {
   language: "En-GB" | "Fr-FR";
   gender: "male" | "female" | "other";
 }
+
+interface Recipe {
+  id: number;
+  name: string;
+  authorId: number;
+  imageURL: string;
+  description: string;
+  ABV: number;
+  IBU: number;
+  OGinPlato: number;
+  FGinPlato: number;
+  DesiredCarbonationInGramsPerLiter: number;
+  colorInEBC: number;
+  LiquorToGristRatio: number;
+  yeastStrain: string;
+  PitchRateInGramsperLiter: number;
+  BoilDurationInMin: number;
+  FermentationTemperature: number;
+  comments: string;
+}
