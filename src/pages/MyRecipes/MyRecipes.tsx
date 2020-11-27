@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   Button,
   Card,
-  Container,
   Jumbotron,
   ListGroup,
   ListGroupItem,
@@ -69,7 +68,7 @@ export default function MyRecipes() {
                 <ListGroupItem>{`${t_author}: ${author.firstName} ${author.lastName} `}</ListGroupItem>
               </ListGroup>
               <Card.Body>
-                <Card.Link href="#">{t_see_recipe}</Card.Link>
+                <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>
                 {/* <Card.Link href="#">Another Link</Card.Link> */}
               </Card.Body>
             </Card>
