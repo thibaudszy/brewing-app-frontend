@@ -30,7 +30,7 @@ export default function MyRecipes() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserRecipes());
+    // dispatch(getAllRecipes());
   }, [dispatch]);
 
   return (

@@ -1,11 +1,12 @@
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import translation from "./translation";
-import { useHistory } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
-import { selectMyRecipes } from "../../store/recipes/selectors";
+
 interface Prop {
   recipe: RecipeWithAuthorName;
+  isInLibrary: boolean;
 }
 export default function RecipeCard(props: Prop) {
   const { recipe } = props;

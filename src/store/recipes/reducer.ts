@@ -1,13 +1,13 @@
-import { SET_MY_RECIPES } from "./actions";
+import { SET_MY_RECIPES, SET_IMPORTABLE_RECIPES } from "./actions";
 
 interface RecipeState {
   myRecipes: Recipe[] | null;
-  allRecipes: Recipe[] | null;
+  importableRecipes: Recipe[] | null;
 }
 
 const initialState: RecipeState = {
   myRecipes: null,
-  allRecipes: null,
+  importableRecipes: null,
 };
 
 export default (state = initialState, action: Action) => {
@@ -15,6 +15,8 @@ export default (state = initialState, action: Action) => {
   switch (type) {
     case SET_MY_RECIPES:
       return { ...state, myRecipes: payload };
+    case SET_IMPORTABLE_RECIPES:
+      return { ...state, importableRecipes: payload };
 
     default:
       return state;
