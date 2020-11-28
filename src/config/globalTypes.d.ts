@@ -29,6 +29,32 @@ interface User {
   language: "En-GB" | "Fr-FR";
   gender: "male" | "female" | "other";
 }
+interface MaltAddition {
+  id: number;
+  recipeId: number;
+  name: string;
+  percentageOfExtract: number;
+  defaultExtract: number;
+  defaultMoistureInPercentage: number;
+  defaultColorInEBC: number;
+}
+interface MashStep {
+  id: number;
+  recipeId: number;
+  stepNo: number;
+  temperature: number;
+  durationInMin: number;
+}
+interface HopAddition {
+  id: number;
+  recipeId: number;
+  name: string;
+  alphaAcidContent: number;
+  percentageAlphaAcidsFromAddition?: number | null;
+  timeOfAdditionInMinBeforeEndOfBoil?: number | null;
+  isDryHop: boolean;
+  dryHopTimingInPercentageAF?: number | null;
+}
 
 interface Recipe {
   id: number;
@@ -48,4 +74,11 @@ interface Recipe {
   BoilDurationInMin: number;
   FermentationTemperature: number;
   comments: string;
+}
+
+interface FullRecipe extends Recipe {
+  maltAdditions: MaltAddition[];
+  hopAdditions: HopAddition[];
+  mashSteps: MashSteps[];
+  HopAdditions: HopAddition[];
 }

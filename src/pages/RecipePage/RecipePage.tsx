@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRecipeById } from "../../store/recipes/actions";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   Col,
@@ -13,12 +13,16 @@ import {
   Table,
 } from "react-bootstrap";
 import translation from "./translation";
-import { selectUserLanguage } from "../../store/user/selectors";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import { DEFAULT_BREWING_EFFICIENCY } from "../../config/constants";
+import { selectToken, selectUserLanguage } from "../../store/user/selectors";
+
+import { apiUrl, DEFAULT_BREWING_EFFICIENCY } from "../../config/constants";
+import SpecificationTable from "./SpecificationTable";
+import { appDoneLoading, appLoading } from "../../store/appState/actions";
+import Axios, { AxiosResponse } from "axios";
+import emptyRecipe from "./emptyRecipe";
 
 export default function RecipePage() {
-  const [recipe, setRecipe] = useState<any>(null);
+  const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
   const [brewLengthInL, setBrewLengthInL] = useState<number>(20);
   const userLanguage: Language = useSelector(selectUserLanguage);
   const dispatch = useDispatch();
@@ -35,15 +39,38 @@ export default function RecipePage() {
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
+  const token = useSelector(selectToken);
   useEffect(() => {
     const fetchRecipe = async (recipeIdLocal: string) => {
-      const recipe = await dispatch(getRecipeById(recipeIdLocal));
-      setRecipe(recipe);
+      dispatch(appLoading());
+
+      try {
+        const recipeRequest: AxiosResponse = await Axios.get(
+          `${apiUrl}/recipes/recipe/${recipeId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        dispatch(appDoneLoading());
+        const recipe: FullRecipe = recipeRequest.data;
+        setRecipe(recipe);
+      } catch (e) {
+        dispatch({
+          type: "SET_MESSAGE",
+          payload: {
+            variant: "danger",
+            dismissable: true,
+            text: "request failed",
+          },
+        });
+      }
     };
     fetchRecipe(recipeId);
   }, [recipeId, dispatch]);
 
-  if (!recipe) {
+  if (!recipe.id) {
     return <Spinner animation="grow" />;
   }
   const handleBrewLengthInput = (inputValue: string) => {
@@ -65,9 +92,7 @@ export default function RecipePage() {
   const calculateWortDensityInGramsperMl = (DensityInPlato: number): number => {
     return (1000 + DensityInPlato / 4) / 1000;
   };
-  const calculateMaltQuantity = (maltAddition: any): number => {
-    console.log("recipe.OGInPlato", recipe.OGinPlato);
-
+  const calculateMaltQuantity = (maltAddition: MaltAddition): number => {
     const quantityInGrams =
       (((recipe.OGinPlato *
         calculateWortDensityInGramsperMl(recipe.OGinPlato) *
@@ -80,6 +105,14 @@ export default function RecipePage() {
 
     return Math.ceil(quantityInGrams);
   };
+  const {
+    ABV,
+    IBU,
+    OGinPlato,
+    FGinPlato,
+    colorInEBC,
+    DesiredCarbonationInGramsPerLiter,
+  } = recipe;
   return (
     <div>
       <Jumbotron>
@@ -105,6 +138,14 @@ export default function RecipePage() {
       <div>
         <h2> {t_specifications}</h2>
       </div>
+      <SpecificationTable
+        ABV={ABV}
+        IBU={IBU}
+        OGinPlato={OGinPlato}
+        FGinPlato={FGinPlato}
+        colorInEBC={colorInEBC}
+        DesiredCarbonationInGramsPerLiter={DesiredCarbonationInGramsPerLiter}
+      />
       <div>
         <h2> {t_fermentables}</h2>
       </div>
@@ -118,7 +159,7 @@ export default function RecipePage() {
           </tr>
         </thead>
         <tbody>
-          {recipe.maltAdditions.map((maltAddition: any) => {
+          {recipe.maltAdditions.map((maltAddition: MaltAddition) => {
             return (
               <tr key={maltAddition.id}>
                 <td>{maltAddition.name}</td>

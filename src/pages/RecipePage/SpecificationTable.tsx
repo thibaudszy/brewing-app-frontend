@@ -1,33 +1,42 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-
-export default function SpecificationTable() {
+interface Specifications {
+  ABV: number;
+  IBU: number;
+  OGinPlato: number;
+  FGinPlato: number;
+  colorInEBC: number;
+  DesiredCarbonationInGramsPerLiter: number;
+}
+export default function SpecificationTable(props: Specifications) {
+  const {
+    ABV,
+    IBU,
+    OGinPlato,
+    FGinPlato,
+    colorInEBC,
+    DesiredCarbonationInGramsPerLiter,
+  } = props;
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>t_parameter</th>
-          <th>t_value</th>
+          <th>t_ABV</th>
+          <th>t_OG</th>
+          <th>t_FG</th>
+          <th>t_colour</th>
+          <th>t_Bitterness</th>
+          <th> t_carbonation</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>3</td>
-          <td>Larry the Bird</td>
-          <td>@twitter</td>
+          <td>{ABV}</td>
+          <td>{IBU}</td>
+          <td>{OGinPlato}</td>
+          <td>{FGinPlato}</td>
+          <td>{colorInEBC}</td>
+          <td> {DesiredCarbonationInGramsPerLiter}</td>
         </tr>
       </tbody>
     </Table>
