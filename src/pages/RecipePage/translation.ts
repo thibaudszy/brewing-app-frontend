@@ -12,6 +12,7 @@ const translation: TranslationObject = {
     t_FG: "Final Gravity",
     t_color: "Color",
     t_carbonation: "Carbonation",
+    t_hop_additions: "Hop additions",
   },
   "Fr-FR": {
     t_enter_your_brewlength: "Combien de biere allez vous faire?  ",
@@ -25,7 +26,8 @@ const translation: TranslationObject = {
     t_OG: "OG",
     t_FG: "FG",
     t_color: "Couleur",
-    t_carbonation: "Carbonisation ",
+    t_carbonation: "Carbonatation ",
+    t_hop_additions: "Houblons",
   },
 };
 

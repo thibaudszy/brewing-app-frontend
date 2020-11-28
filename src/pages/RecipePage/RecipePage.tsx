@@ -12,6 +12,7 @@ import { appDoneLoading, appLoading } from "../../store/appState/actions";
 import Axios, { AxiosResponse } from "axios";
 import emptyRecipe from "./emptyRecipe";
 import Fermentables from "./Fermentables";
+import Hops from "./Hops";
 
 export default function RecipePage() {
   const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
@@ -24,10 +25,8 @@ export default function RecipePage() {
   const {
     t_enter_your_brewlength,
     t_fermentables,
-    t_type,
-    t_percentageOfExtract,
-    t_quantity,
     t_specifications,
+    t_hop_additions,
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
@@ -128,6 +127,13 @@ export default function RecipePage() {
       </div>
 
       <Fermentables recipe={recipe} brewLengthInL={brewLengthInL} />
+      <div>
+        <h2> {t_hop_additions}</h2>
+      </div>
+      <Hops recipe={recipe} brewLengthInL={brewLengthInL} />
+      <div>
+        <h2> {t_hop_additions}</h2>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,57 @@
 export const DEFAULT_BREWING_EFFICIENCY = 0.85;
+
+export function hopUtilisation(
+  timeOfAdditionBeforeEndOfBoilInMin: number
+): number {
+  // temporary solution. Based on the regression of the hop utilisation in a wort of 1050 gravity
+
+  return -0.0663 + 0.0703 * Math.log(60 - timeOfAdditionBeforeEndOfBoilInMin);
+}
+
+export function IsoAlphaAcidRequiredForBrewLengthInGrams(
+  targetIBU: number,
+  brewLengthInL: number
+) {
+  console.log("iso alphas", (targetIBU / Math.pow(10, 6)) * brewLengthInL);
+  return (targetIBU / Math.pow(10, 6)) * brewLengthInL;
+}
+export function alphaAcidsRequiredForAdditionInGrams(
+  targetBitterness: number,
+  percentageBitternessFromThatAdditon: number,
+  timeOfAdditionBeforeEndOfBoilInMin: number,
+  brewLengthInL: number
+): number {
+  const answer =
+    ((IsoAlphaAcidRequiredForBrewLengthInGrams(
+      targetBitterness,
+      brewLengthInL
+    ) /
+      hopUtilisation(timeOfAdditionBeforeEndOfBoilInMin)) *
+      percentageBitternessFromThatAdditon) /
+    100;
+  console.log("answer", answer);
+  return answer;
+}
+export function hopAdditionInGrams(
+  targetBitterness: number,
+  percentageBitternessFromThatAdditon: number,
+  timeOfAdditionBeforeEndOfBoilInMin: number,
+  hopAlphaAcidContent: number,
+  brewLengthInL: number
+): number {
+  return (
+    ((alphaAcidsRequiredForAdditionInGrams(
+      targetBitterness,
+      percentageBitternessFromThatAdditon,
+      timeOfAdditionBeforeEndOfBoilInMin,
+      brewLengthInL
+    ) *
+      100) /
+      hopAlphaAcidContent) *
+    1000
+  );
+}
+
 export const calculateWortDensityInGramsperMl = (
   DensityInPlato: number
 ): number => {
