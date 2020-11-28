@@ -13,8 +13,8 @@ export function LoggedInLinks() {
   return (
     <Nav>
       <NavDropdown title={Recipes} id="basic-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">{myRecipes}</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">
+        <NavDropdown.Item href="recipes">{myRecipes}</NavDropdown.Item>
+        <NavDropdown.Item href="recipe-calculator">
           {create_a_recipe}
         </NavDropdown.Item>
       </NavDropdown>
