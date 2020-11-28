@@ -10,15 +10,21 @@ import translation from "./translation";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
-import "./MyRecipes.css";
-import { getUserRecipes } from "../../store/recipes/actions";
-import { selectMyRecipes } from "../../store/recipes/selectors";
+
+import {
+  getImportableRecipes,
+  getUserRecipes,
+} from "../../store/recipes/actions";
+import {
+  selectImportableRecipes,
+  selectMyRecipes,
+} from "../../store/recipes/selectors";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 
-export default function MyRecipes() {
+export default function ImportRecipes() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const {
-    t_ABV,
+    t_explore_recipes,
     t_my_recipes,
     t_recipe_calculator,
     t_import_recipe,
@@ -26,24 +32,24 @@ export default function MyRecipes() {
     t_author,
     t_see_recipe,
   } = translation[userLanguage];
-  const myRecipes = useSelector(selectMyRecipes) || [];
+  const importableRecipes = useSelector(selectImportableRecipes) || [];
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getAllRecipes());
+    dispatch(getImportableRecipes());
   }, [dispatch]);
-
+  console.log("importable recipes", importableRecipes);
   return (
     <div className="my-recipes">
       <div className="buttons-row">
         <Button className="MyRecipes-buttons"> {t_recipe_calculator}</Button>
-        <Button className="MyRecipes-buttons"> {t_import_recipe}</Button>
+        <Button className="MyRecipes-buttons"> {t_my_recipes}</Button>
       </div>
       <Jumbotron fluid>
-        <h2>{t_my_recipes}</h2>
+        <h2>{t_explore_recipes}</h2>
       </Jumbotron>
       <div style={{ display: "flex" }}>
-        {myRecipes.map((recipe: RecipeWithAuthorName) => {
+        {importableRecipes.map((recipe: RecipeWithAuthorName) => {
           const {
             id,
             imageURL,

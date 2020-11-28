@@ -7,6 +7,7 @@ const translation: TranslationObject = {
     t_color: "Colour",
     t_author: "Author",
     t_see_recipe: "See recipe",
+    t_explore_recipes: "Explore recipes",
   },
   "Fr-FR": {
     t_recipe_calculator: "Calculateur de recettes",
@@ -16,6 +17,7 @@ const translation: TranslationObject = {
     t_color: "Couleur",
     t_author: "Auteur",
     t_see_recipe: "Voir la recette",
+    t_explore_recipes: "Decouvrez de nouvelles recettes",
   },
 };
 

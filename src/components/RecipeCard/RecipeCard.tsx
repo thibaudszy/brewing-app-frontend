@@ -1,4 +1,4 @@
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import translation from "./translation";
 
 import { useSelector } from "react-redux";
@@ -9,13 +9,15 @@ interface Prop {
   isInLibrary: boolean;
 }
 export default function RecipeCard(props: Prop) {
-  const { recipe } = props;
+  const { recipe, isInLibrary } = props;
 
   const userLanguage: Language = useSelector(selectUserLanguage);
   const { t_ABV, t_color, t_author, t_see_recipe } = translation[userLanguage];
 
   const { id, imageURL, name, ABV, description, colorInEBC, author } = recipe;
-
+  const handleImportClick = (id: number) => {
+    //TO DO
+  };
   return (
     <Card style={{ width: "25rem", margin: "1rem" }} key={id}>
       <Card.Img variant="top" src={imageURL} />
@@ -31,8 +33,16 @@ export default function RecipeCard(props: Prop) {
         <ListGroupItem>{`${t_author}: ${author.firstName} ${author.lastName} `}</ListGroupItem>
       </ListGroup>
       <Card.Body>
-        <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>
-        {/* <Card.Link href="#">Another Link</Card.Link> */}
+        <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>{" "}
+        {!isInLibrary ? (
+          <Button
+            variant="primary"
+            // disabled={isLoading}
+            // onClick={handleImportClick(id)}
+          >
+            Import{/* {isLoading ? 'Loading…' : 'Click to load'} */}
+          </Button>
+        ) : null}
       </Card.Body>
     </Card>
   );

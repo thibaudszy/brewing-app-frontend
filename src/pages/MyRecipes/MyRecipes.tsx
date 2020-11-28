@@ -53,7 +53,7 @@ export default function MyRecipes() {
             colorInEBC,
             author,
           } = recipe;
-          return <RecipeCard recipe={recipe} isInLibrary={false} />;
+          return <RecipeCard recipe={recipe} isInLibrary={true} />;
         })}
       </div>
     </div>

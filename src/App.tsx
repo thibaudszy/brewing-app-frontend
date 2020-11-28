@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import HomePage from "./pages/HomePage/HomePage";
 import MyRecipes from "./pages/MyRecipes/MyRecipes";
 import RecipePage from "./pages/RecipePage/RecipePage";
+import ImportRecipes from "./pages/ImportRecipes/ImportRecipes";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route path="/signup" component={SignUp} />
           <Route path="/login" component={Login} />
           <Route exact path="/recipes" component={MyRecipes} />
+          <Route exact path="/explore-recipes" component={ImportRecipes} />
+
           <Route path="/recipes/:recipeId" component={RecipePage} />
           {/* <Route path="/" component={Error404} /> */}
         </Switch>
