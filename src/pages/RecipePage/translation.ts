@@ -20,6 +20,10 @@ const translation: TranslationObject = {
     t_duration: "Duration (min)",
     t_mash_into: "Mash into",
     t_boil_duration: "Boil duration",
+    t_fermentation: "Fermentation",
+    t_fermentation_temperature: "Fermentation temperature",
+    t_pitch_rate: "Pitch rate",
+    t_yeast_strain: "Yeast strain",
   },
   "Fr-FR": {
     t_enter_your_brewlength: "Combien de biere allez vous faire?  ",
@@ -42,6 +46,8 @@ const translation: TranslationObject = {
     t_duration: "Durée (min)",
     t_mash_into: "Empater dans",
     t_boil_duration: "Durée d'ébulition",
+    t_fermentation: "Fermentation",
+    t_fermentation_temperature: "Temperature de fermentation",
   },
 };
 

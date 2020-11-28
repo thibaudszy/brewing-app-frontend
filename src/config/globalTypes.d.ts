@@ -54,6 +54,7 @@ interface HopAddition {
   timeOfAdditionInMinBeforeEndOfBoil?: number | null;
   isDryHop: boolean;
   dryHopTimingInPercentageAF?: number | null;
+  dryHopRateInGramsPerLitre: number;
 }
 
 interface Recipe {

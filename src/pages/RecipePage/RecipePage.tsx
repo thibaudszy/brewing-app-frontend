@@ -23,6 +23,7 @@ import Fermentables from "./Fermentables";
 import Hops from "./Hops";
 import MashSchedule from "./MashSchedule";
 import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
+import DryHops from "./DryHops";
 
 export default function RecipePage() {
   const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
@@ -40,6 +41,10 @@ export default function RecipePage() {
     t_mash_schedule,
     t_mash_into,
     t_boil_duration,
+    t_fermentation_temperature,
+    t_fermentation,
+    t_yeast_strain,
+    t_pitch_rate,
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
@@ -102,9 +107,14 @@ export default function RecipePage() {
     colorInEBC,
     DesiredCarbonationInGramsPerLiter,
     mashSteps,
+    hopAdditions,
     BoilDurationInMin,
     LiquorToGristRatio,
     maltAdditions,
+    FermentationTemperature,
+    PitchRateInGramsperLiter,
+    yeastStrain,
+    comments,
   } = recipe;
   const mashVolumeAsString = () => {
     const volume = mashWaterVolumeInL(
@@ -113,6 +123,8 @@ export default function RecipePage() {
     );
     return volume.toFixed(volume > 50 ? 0 : 1);
   };
+  console.log(recipe);
+
   return (
     <div>
       <Jumbotron>
@@ -165,6 +177,21 @@ export default function RecipePage() {
           <Badge variant="warning">{`${t_boil_duration}: ${BoilDurationInMin} min`}</Badge>
         </h2>
         <Hops recipe={recipe} brewLengthInL={brewLengthInL} />
+      </div>
+
+      <div>
+        <h2>{t_fermentation}</h2>
+        <h2>
+          <Badge variant="warning">{`${t_fermentation_temperature}: ${FermentationTemperature}C`}</Badge>{" "}
+          <Badge variant="warning">{`${t_yeast_strain}: ${yeastStrain} `}</Badge>{" "}
+          <Badge variant="warning">{`${t_pitch_rate}: ${
+            PitchRateInGramsperLiter * brewLengthInL
+          } g`}</Badge>
+        </h2>
+        <DryHops
+          dryHops={hopAdditions.filter(({ isDryHop }) => isDryHop)}
+          brewLengthInL={brewLengthInL}
+        />
       </div>
     </div>
   );
