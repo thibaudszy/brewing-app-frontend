@@ -2,24 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Col,
-  Dropdown,
-  DropdownButton,
-  Form,
-  Jumbotron,
-  Row,
-  Spinner,
-  Table,
-} from "react-bootstrap";
+import { Col, Form, Jumbotron, Row, Spinner, Table } from "react-bootstrap";
 import translation from "./translation";
 import { selectToken, selectUserLanguage } from "../../store/user/selectors";
 
-import { apiUrl, DEFAULT_BREWING_EFFICIENCY } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import SpecificationTable from "./SpecificationTable";
 import { appDoneLoading, appLoading } from "../../store/appState/actions";
 import Axios, { AxiosResponse } from "axios";
 import emptyRecipe from "./emptyRecipe";
+import Fermentables from "./Fermentables";
 
 export default function RecipePage() {
   const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
@@ -89,22 +81,7 @@ export default function RecipePage() {
       setBrewLengthInL(0);
     }
   };
-  const calculateWortDensityInGramsperMl = (DensityInPlato: number): number => {
-    return (1000 + DensityInPlato / 4) / 1000;
-  };
-  const calculateMaltQuantity = (maltAddition: MaltAddition): number => {
-    const quantityInGrams =
-      (((recipe.OGinPlato *
-        calculateWortDensityInGramsperMl(recipe.OGinPlato) *
-        10 *
-        maltAddition.percentageOfExtract) /
-        100 /
-        (1 - maltAddition.defaultMoistureInPercentage / 100)) *
-        brewLengthInL) /
-      DEFAULT_BREWING_EFFICIENCY;
 
-    return Math.ceil(quantityInGrams);
-  };
   const {
     ABV,
     IBU,
@@ -130,7 +107,7 @@ export default function RecipePage() {
               onChange={(e) => handleBrewLengthInput(e.target.value)}
             />
           </Col>
-          <Form.Label column sm="1" style={{ textAlign: "left" }}>
+          <Form.Label column sm="2" style={{ textAlign: "left" }}>
             {"L"}
           </Form.Label>
         </Form.Group>
@@ -150,26 +127,7 @@ export default function RecipePage() {
         <h2> {t_fermentables}</h2>
       </div>
 
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>{t_type}</th>
-            <th>{t_percentageOfExtract}</th>
-            <th>{`${t_quantity} (g)`}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recipe.maltAdditions.map((maltAddition: MaltAddition) => {
-            return (
-              <tr key={maltAddition.id}>
-                <td>{maltAddition.name}</td>
-                <td>{maltAddition.percentageOfExtract}</td>
-                <td>{calculateMaltQuantity(maltAddition)}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <Fermentables recipe={recipe} brewLengthInL={brewLengthInL} />
     </div>
   );
 }
