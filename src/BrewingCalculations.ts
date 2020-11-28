@@ -75,3 +75,31 @@ export const calculateMaltQuantity = (
 
   return parseFloat(quantityInKG.toFixed(2));
 };
+
+export const gristInKg = (
+  OGinPlato: number,
+  brewLengthInL: number,
+  maltAdditions: MaltAddition[]
+): number => {
+  const maltAdditionsInKg = maltAdditions.map((maltAddition) =>
+    calculateMaltQuantity(
+      OGinPlato,
+      maltAddition.percentageOfExtract,
+      maltAddition.defaultMoistureInPercentage,
+      brewLengthInL
+    )
+  );
+
+  const reducer = (accumulator: number, item: number) => {
+    return accumulator + item;
+  };
+
+  return maltAdditionsInKg.reduce(reducer, 0);
+};
+
+export const mashWaterVolumeInL = (
+  liquorToGristRatio: number,
+  gristInKg: number
+): number => {
+  return gristInKg * liquorToGristRatio;
+};

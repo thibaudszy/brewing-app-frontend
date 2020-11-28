@@ -9,15 +9,6 @@ interface HopProps {
   brewLengthInL: number;
 }
 
-// interface BoilAddition {
-//   id: number;
-//   name: string;
-//   alphaAcidContent: number;
-//   percentageAlphaAcidsFromAddition: number | null;
-//   timeOfAdditionInMinBeforeEndOfBoil?: number | null;
-//   isDryHop: boolean;
-//   dryHopTimingInPercentageAF?: number | null;
-// }
 export default function Hops(props: HopProps) {
   const { recipe, brewLengthInL } = props;
   const { hopAdditions, IBU } = recipe;

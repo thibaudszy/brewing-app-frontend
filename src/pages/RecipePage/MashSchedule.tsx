@@ -26,7 +26,6 @@ export default function MashSchedule(props: MashProps) {
         <tbody>
           {mashSteps.map((mashStep: MashStep) => {
             const { id, durationInMin, temperature } = mashStep;
-
             return (
               <tr key={id}>
                 <td>{durationInMin}</td>

@@ -18,6 +18,8 @@ const translation: TranslationObject = {
     t_percentage_of_BUs: "Percentage of the bitterness from the addition",
     t_temperature: "Temperature",
     t_duration: "Duration (min)",
+    t_mash_into: "Mash into",
+    t_boil_duration: "Boil duration",
   },
   "Fr-FR": {
     t_enter_your_brewlength: "Combien de biere allez vous faire?  ",
@@ -38,6 +40,8 @@ const translation: TranslationObject = {
     t_percentage_of_BUs: "Pourcentage de l'amertume venant de cette addition",
     t_temperature: "Température",
     t_duration: "Durée (min)",
+    t_mash_into: "Empater dans",
+    t_boil_duration: "Durée d'ébulition",
   },
 };
 

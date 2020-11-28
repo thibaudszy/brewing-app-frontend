@@ -22,6 +22,7 @@ import emptyRecipe from "./emptyRecipe";
 import Fermentables from "./Fermentables";
 import Hops from "./Hops";
 import MashSchedule from "./MashSchedule";
+import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 
 export default function RecipePage() {
   const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
@@ -37,6 +38,8 @@ export default function RecipePage() {
     t_specifications,
     t_hop_additions,
     t_mash_schedule,
+    t_mash_into,
+    t_boil_duration,
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
@@ -100,7 +103,16 @@ export default function RecipePage() {
     DesiredCarbonationInGramsPerLiter,
     mashSteps,
     BoilDurationInMin,
+    LiquorToGristRatio,
+    maltAdditions,
   } = recipe;
+  const mashVolumeAsString = () => {
+    const volume = mashWaterVolumeInL(
+      LiquorToGristRatio,
+      gristInKg(OGinPlato, brewLengthInL, maltAdditions)
+    );
+    return volume.toFixed(volume > 50 ? 0 : 1);
+  };
   return (
     <div>
       <Jumbotron>
@@ -140,15 +152,17 @@ export default function RecipePage() {
       </div>
       <div>
         <h2> {t_mash_schedule}</h2>
+        <h2>
+          {" "}
+          <Badge variant="warning">{`${t_mash_into}: ${mashVolumeAsString()} L`}</Badge>
+        </h2>
         <MashSchedule mashSteps={mashSteps} />
       </div>
       <div>
+        <h2>{t_hop_additions}</h2>
         <h2>
-          {t_hop_additions}
-          <Badge
-            variant="warning"
-            style={{ marginLeft: "1em" }}
-          >{`Boil duration: ${BoilDurationInMin} min`}</Badge>
+          {" "}
+          <Badge variant="warning">{`${t_boil_duration}: ${BoilDurationInMin} min`}</Badge>
         </h2>
         <Hops recipe={recipe} brewLengthInL={brewLengthInL} />
       </div>
