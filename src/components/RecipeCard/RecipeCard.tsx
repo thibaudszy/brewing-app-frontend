@@ -9,18 +9,9 @@ interface Prop {
 }
 export default function RecipeCard(props: Prop) {
   const { recipe } = props;
-  const history = useHistory();
+
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const {
-    t_ABV,
-    t_my_recipes,
-    t_recipe_calculator,
-    t_import_recipe,
-    t_color,
-    t_author,
-    t_see_recipe,
-  } = translation[userLanguage];
-  const myRecipes = useSelector(selectMyRecipes) || [];
+  const { t_ABV, t_color, t_author, t_see_recipe } = translation[userLanguage];
 
   const { id, imageURL, name, ABV, description, colorInEBC, author } = recipe;
 
