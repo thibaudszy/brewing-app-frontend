@@ -7,6 +7,7 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from "../appState/actions";
+import { AppThunk } from "../types";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
@@ -36,8 +37,8 @@ export const signUp = ({
   password,
   language,
   gender,
-}: User) => {
-  return async (dispatch: any, getState: any) => {
+}: User): AppThunk => {
+  return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/signup`, {
@@ -65,8 +66,8 @@ export const signUp = ({
   };
 };
 
-export const login = (email: string, password: string) => {
-  return async (dispatch: any, getState: any) => {
+export const login = (email: string, password: string): AppThunk => {
+  return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/login`, {
@@ -91,8 +92,8 @@ export const login = (email: string, password: string) => {
   };
 };
 
-export const getUserWithStoredToken = () => {
-  return async (dispatch: any, getState: any) => {
+export const getUserWithStoredToken = (): AppThunk => {
+  return async (dispatch, getState) => {
     // get token from the state
     const token = selectToken(getState());
 

@@ -1,4 +1,5 @@
 import { DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
+import { AppThunk } from "../types";
 
 export const APP_LOADING = "APP_LOADING";
 export const APP_DONE_LOADING = "APP_DONE_LOADING";
@@ -29,8 +30,8 @@ export const showMessageWithTimeout = (
   dismissable: boolean,
   text: string,
   timeOutMilliSeconds?: number
-) => {
-  return (dispatch: any) => {
+): AppThunk => {
+  return (dispatch) => {
     dispatch(setMessage(variant, dismissable, text));
 
     const timeout = timeOutMilliSeconds || DEFAULT_MESSAGE_TIMEOUT;
