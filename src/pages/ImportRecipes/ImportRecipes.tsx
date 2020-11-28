@@ -23,6 +23,7 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 
 export default function ImportRecipes() {
   const userLanguage: Language = useSelector(selectUserLanguage);
+  const history = useHistory();
   const {
     t_explore_recipes,
     t_my_recipes,
@@ -43,7 +44,13 @@ export default function ImportRecipes() {
     <div className="my-recipes">
       <div className="buttons-row">
         <Button className="MyRecipes-buttons"> {t_recipe_calculator}</Button>
-        <Button className="MyRecipes-buttons"> {t_my_recipes}</Button>
+        <Button
+          className="MyRecipes-buttons"
+          onClick={() => history.push("/recipes")}
+        >
+          {" "}
+          {t_my_recipes}
+        </Button>
       </div>
       <Jumbotron fluid>
         <h2>{t_explore_recipes}</h2>
