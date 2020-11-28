@@ -5,14 +5,13 @@ export function hopUtilisation(
 ): number {
   // temporary solution. Based on the regression of the hop utilisation in a wort of 1050 gravity
 
-  return -0.0663 + 0.0703 * Math.log(60 - timeOfAdditionBeforeEndOfBoilInMin);
+  return -0.0663 + 0.0703 * Math.log(timeOfAdditionBeforeEndOfBoilInMin);
 }
 
 export function IsoAlphaAcidRequiredForBrewLengthInGrams(
   targetIBU: number,
   brewLengthInL: number
 ) {
-  console.log("iso alphas", (targetIBU / Math.pow(10, 6)) * brewLengthInL);
   return (targetIBU / Math.pow(10, 6)) * brewLengthInL;
 }
 export function alphaAcidsRequiredForAdditionInGrams(
@@ -29,7 +28,7 @@ export function alphaAcidsRequiredForAdditionInGrams(
       hopUtilisation(timeOfAdditionBeforeEndOfBoilInMin)) *
       percentageBitternessFromThatAdditon) /
     100;
-  console.log("answer", answer);
+
   return answer;
 }
 export function hopAdditionInGrams(

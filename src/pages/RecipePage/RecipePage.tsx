@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Form, Jumbotron, Row, Spinner, Table } from "react-bootstrap";
+import {
+  Badge,
+  Col,
+  Form,
+  Jumbotron,
+  Row,
+  Spinner,
+  Table,
+} from "react-bootstrap";
 import translation from "./translation";
 import { selectToken, selectUserLanguage } from "../../store/user/selectors";
 
@@ -13,6 +21,7 @@ import Axios, { AxiosResponse } from "axios";
 import emptyRecipe from "./emptyRecipe";
 import Fermentables from "./Fermentables";
 import Hops from "./Hops";
+import MashSchedule from "./MashSchedule";
 
 export default function RecipePage() {
   const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
@@ -27,6 +36,7 @@ export default function RecipePage() {
     t_fermentables,
     t_specifications,
     t_hop_additions,
+    t_mash_schedule,
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
@@ -88,6 +98,8 @@ export default function RecipePage() {
     FGinPlato,
     colorInEBC,
     DesiredCarbonationInGramsPerLiter,
+    mashSteps,
+    BoilDurationInMin,
   } = recipe;
   return (
     <div>
@@ -124,15 +136,21 @@ export default function RecipePage() {
       />
       <div>
         <h2> {t_fermentables}</h2>
+        <Fermentables recipe={recipe} brewLengthInL={brewLengthInL} />
       </div>
-
-      <Fermentables recipe={recipe} brewLengthInL={brewLengthInL} />
       <div>
-        <h2> {t_hop_additions}</h2>
+        <h2> {t_mash_schedule}</h2>
+        <MashSchedule mashSteps={mashSteps} />
       </div>
-      <Hops recipe={recipe} brewLengthInL={brewLengthInL} />
       <div>
-        <h2> {t_hop_additions}</h2>
+        <h2>
+          {t_hop_additions}
+          <Badge
+            variant="warning"
+            style={{ marginLeft: "1em" }}
+          >{`Boil duration: ${BoilDurationInMin} min`}</Badge>
+        </h2>
+        <Hops recipe={recipe} brewLengthInL={brewLengthInL} />
       </div>
     </div>
   );
