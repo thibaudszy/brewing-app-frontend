@@ -13,9 +13,9 @@ import { selectUserLanguage } from "../../store/user/selectors";
 import "./MyRecipes.css";
 import { getUserRecipes } from "../../store/recipes/actions";
 import { selectMyRecipes } from "../../store/recipes/selectors";
+import RecipeCard from "../../components/RecipeCard/RecipeCard";
 
 export default function MyRecipes() {
-  const history = useHistory();
   const userLanguage: Language = useSelector(selectUserLanguage);
   const {
     t_ABV,
@@ -32,7 +32,7 @@ export default function MyRecipes() {
   useEffect(() => {
     dispatch(getUserRecipes());
   }, [dispatch]);
-  console.log("myrecipes:", myRecipes);
+
   return (
     <div className="my-recipes">
       <div className="buttons-row">
@@ -43,7 +43,7 @@ export default function MyRecipes() {
         <h2>{t_my_recipes}</h2>
       </Jumbotron>
       <div style={{ display: "flex" }}>
-        {myRecipes.map((recipe: any) => {
+        {myRecipes.map((recipe: RecipeWithAuthorName) => {
           const {
             id,
             imageURL,
@@ -53,26 +53,7 @@ export default function MyRecipes() {
             colorInEBC,
             author,
           } = recipe;
-          return (
-            <Card style={{ width: "25rem", margin: "1rem" }} key={id}>
-              <Card.Img variant="top" src={imageURL} />
-              <Card.Body>
-                <Card.Title>{name}</Card.Title>
-                <Card.Text>{`${description.slice(0, 240)}${
-                  description.length > 240 ? "..." : ""
-                }`}</Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>{`${t_ABV}: ${ABV}%`}</ListGroupItem>
-                <ListGroupItem>{`${t_color}: ${colorInEBC} EBC`}</ListGroupItem>
-                <ListGroupItem>{`${t_author}: ${author.firstName} ${author.lastName} `}</ListGroupItem>
-              </ListGroup>
-              <Card.Body>
-                <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>
-                {/* <Card.Link href="#">Another Link</Card.Link> */}
-              </Card.Body>
-            </Card>
-          );
+          return <RecipeCard recipe={recipe} />;
         })}
       </div>
     </div>
