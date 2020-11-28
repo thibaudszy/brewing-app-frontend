@@ -11,9 +11,12 @@ interface HopProps {
 
 export default function DryHops(props: HopProps) {
   const { dryHops, brewLengthInL } = props;
-
   const userLanguage: Language = useSelector(selectUserLanguage);
   const { t_type, t_quantity, t_AF } = translation[userLanguage];
+
+  if (!dryHops.length) {
+    return null;
+  }
 
   return (
     <Table striped bordered hover>

@@ -45,6 +45,7 @@ export default function RecipePage() {
     t_fermentation,
     t_yeast_strain,
     t_pitch_rate,
+    t_comments,
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
@@ -192,6 +193,10 @@ export default function RecipePage() {
           dryHops={hopAdditions.filter(({ isDryHop }) => isDryHop)}
           brewLengthInL={brewLengthInL}
         />
+      </div>
+      <div>
+        <h2>{t_comments}</h2>
+        {comments}
       </div>
     </div>
   );
