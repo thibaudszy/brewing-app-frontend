@@ -77,6 +77,13 @@ interface Recipe {
   comments: string;
 }
 
+interface RecipeWithAuthorName extends Recipe {
+  author: {
+    firstName: String;
+    lastName: String;
+  };
+}
+
 interface FullRecipe extends Recipe {
   maltAdditions: MaltAddition[];
   hopAdditions: HopAddition[];
