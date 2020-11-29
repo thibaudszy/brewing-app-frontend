@@ -8,6 +8,8 @@ const translation: TranslationObject = {
     Start_a_brew: "Strart a brew",
     myRecipes: "My recipes",
     create_a_recipe: "Create a recipe",
+    t_import_recipes: "Import new recipes",
+    t_new_recipes: "New Recipes",
   },
   "Fr-FR": {
     Home: "Acceuil",
@@ -18,6 +20,8 @@ const translation: TranslationObject = {
     Start_a_brew: "Commencer un brassin",
     myRecipes: "Mes recettes",
     create_a_recipe: "Créer une recette",
+    t_import_recipes: "Importer des recettes",
+    t_new_recipes: "Nouvelles recettes",
   },
 };
 

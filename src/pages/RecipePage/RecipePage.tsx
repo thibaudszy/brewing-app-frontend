@@ -46,6 +46,7 @@ export default function RecipePage() {
     t_yeast_strain,
     t_pitch_rate,
     t_comments,
+    t_description,
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
@@ -101,6 +102,7 @@ export default function RecipePage() {
   };
 
   const {
+    description,
     ABV,
     IBU,
     OGinPlato,
@@ -149,6 +151,10 @@ export default function RecipePage() {
         </Form.Group>
       </Form>
       <div>
+        <h2> {t_description}</h2>
+        {description}
+      </div>
+      <div>
         <h2> {t_specifications}</h2>
       </div>
       <SpecificationTable
@@ -179,7 +185,6 @@ export default function RecipePage() {
         </h2>
         <Hops recipe={recipe} brewLengthInL={brewLengthInL} />
       </div>
-
       <div>
         <h2>{t_fermentation}</h2>
         <h2>
