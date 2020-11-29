@@ -26,8 +26,8 @@ export default (state = initialState, action: Action) => {
       localStorage.removeItem("token");
       return { ...initialState, token: null };
 
-    // case TOKEN_STILL_VALID:
-    //   return { ...state, ...action.payload };
+    case TOKEN_STILL_VALID:
+      return { ...state, ...action.payload };
 
     default:
       return state;
