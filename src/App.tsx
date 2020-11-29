@@ -14,18 +14,21 @@ import ImportRecipes from "./pages/ImportRecipes/ImportRecipes";
 import { selectToken, selectUserId } from "./store/user/selectors";
 import { useSelector } from "react-redux";
 import MessageBox from "./components/MessageBox";
+import { selectAppLoading } from "./store/appState/selectors";
+import Loading from "./components/Loader";
 
 function App() {
   const token = useSelector(selectToken);
   const history = useHistory();
   const userId = useSelector(selectUserId);
+  const isLoading = useSelector(selectAppLoading);
   //TO DO: if no token -> homePage
   //TO DO: if no userId, send request to api/me
   return (
     <div className="App">
       <AppNavbar />
       <MessageBox />
-
+      {isLoading ? <Loading /> : null}
       <div className="Body">
         <Switch>
           {/* <Route exact path="/" component={HomePage} /> */}
