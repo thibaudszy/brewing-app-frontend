@@ -9,6 +9,7 @@ import { disconnect } from "process";
 
 export const SET_MY_RECIPES = "SET_MY_RECIPES";
 export const SET_IMPORTABLE_RECIPES = "SET_IMPORTABLE_RECIPES";
+export const IMPORT_RECIPE = "IMPORT_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -77,5 +78,34 @@ export const getImportableRecipes = (): AppThunk => {
 };
 
 export const addRecipeToLibrary = (recipeId: number): AppThunk => {
-  return async (dispatch, getState) => {};
+  console.log(1);
+  return async (dispatch, getState) => {
+    console.log(2);
+    const token = selectToken(getState());
+    const serverResponse: AxiosResponse = await Axios.post(
+      `${apiUrl}/libraries`,
+      {
+        recipeId,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (!(serverResponse.status === 200)) {
+      dispatch({
+        type: "SET_MESSAGE",
+        payload: {
+          variant: "danger",
+          dismissable: true,
+          text: "request failed",
+        },
+      });
+      return;
+    }
+    dispatch({
+      type: IMPORT_RECIPE,
+      payload: recipeId,
+    });
+  };
 };

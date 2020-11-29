@@ -34,12 +34,13 @@ export default function ImportRecipes() {
     t_see_recipe,
     t_no_more_recipes,
   } = translation[userLanguage];
-  const importableRecipes = useSelector(selectImportableRecipes) || [];
+  const importableRecipes = useSelector(selectImportableRecipes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getImportableRecipes());
   }, [dispatch]);
+  console.log("importable recipes:", importableRecipes);
 
   return (
     <div className="my-recipes">

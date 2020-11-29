@@ -33,7 +33,7 @@ export default function MyRecipes() {
   useEffect(() => {
     dispatch(getUserRecipes());
   }, [dispatch]);
-
+  console.log(myRecipes);
   return (
     <div className="my-recipes">
       <div className="buttons-row">

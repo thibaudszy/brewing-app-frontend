@@ -1,8 +1,9 @@
 import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import translation from "./translation";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
+import { addRecipeToLibrary } from "../../store/recipes/actions";
 
 interface Prop {
   recipe: RecipeWithAuthorName;
@@ -15,8 +16,9 @@ export default function RecipeCard(props: Prop) {
   const { t_ABV, t_color, t_author, t_see_recipe } = translation[userLanguage];
 
   const { id, imageURL, name, ABV, description, colorInEBC, author } = recipe;
-  const handleImportClick = (id: number) => {
-    //TO DO
+  const dispatch = useDispatch();
+  const handleImportClick = (recipeId: number) => {
+    dispatch(addRecipeToLibrary(recipeId));
   };
   return (
     <Card style={{ width: "25rem", margin: "1rem" }}>
@@ -38,7 +40,9 @@ export default function RecipeCard(props: Prop) {
           <Button
             variant="primary"
             // disabled={isLoading}
-            // onClick={handleImportClick(id)}
+            onClick={() => {
+              handleImportClick(id);
+            }}
           >
             Import{/* {isLoading ? 'Loading…' : 'Click to load'} */}
           </Button>
