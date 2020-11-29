@@ -25,6 +25,7 @@ const translation: TranslationObject = {
     t_pitch_rate: "Pitch rate",
     t_yeast_strain: "Yeast strain",
     t_comments: "Comments",
+    t_description: "Description",
   },
   "Fr-FR": {
     t_enter_your_brewlength: "Combien de biere allez vous faire?  ",
@@ -50,6 +51,7 @@ const translation: TranslationObject = {
     t_fermentation: "Fermentation",
     t_fermentation_temperature: "Temperature de fermentation",
     t_comments: "Commentaires",
+    t_description: "Description",
   },
 };
 

@@ -1,22 +1,30 @@
-import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Button, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import translation from "./translation";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
-import { selectMyRecipes } from "../../store/recipes/selectors";
+import {
+  addRecipeToLibrary,
+  removeRecipeFromLibrary,
+} from "../../store/recipes/actions";
+
 interface Prop {
   recipe: RecipeWithAuthorName;
+  isInLibrary: boolean;
 }
 export default function RecipeCard(props: Prop) {
-  const { recipe } = props;
+  const { recipe, isInLibrary } = props;
 
   const userLanguage: Language = useSelector(selectUserLanguage);
   const { t_ABV, t_color, t_author, t_see_recipe } = translation[userLanguage];
 
   const { id, imageURL, name, ABV, description, colorInEBC, author } = recipe;
-
+  const dispatch = useDispatch();
+  const handleImportClick = (recipeId: number) => {
+    dispatch(addRecipeToLibrary(recipeId));
+  };
   return (
-    <Card style={{ width: "25rem", margin: "1rem" }} key={id}>
+    <Card style={{ width: "25rem", margin: "1rem" }}>
       <Card.Img variant="top" src={imageURL} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
@@ -30,8 +38,26 @@ export default function RecipeCard(props: Prop) {
         <ListGroupItem>{`${t_author}: ${author.firstName} ${author.lastName} `}</ListGroupItem>
       </ListGroup>
       <Card.Body>
-        <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>
-        {/* <Card.Link href="#">Another Link</Card.Link> */}
+        <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>{" "}
+        {!isInLibrary ? (
+          <Button
+            variant="primary"
+            // disabled={isLoading}
+            onClick={() => {
+              handleImportClick(id);
+            }}
+          >
+            Import{/* {isLoading ? 'Loading…' : 'Click to load'} */}
+          </Button>
+        ) : (
+          <Button
+            variant="outline-danger"
+            // disabled={isLoading}
+            onClick={() => dispatch(removeRecipeFromLibrary(id))}
+          >
+            Remove{/* {isLoading ? 'Loading…' : 'Click to load'} */}
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );

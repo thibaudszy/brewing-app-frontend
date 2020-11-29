@@ -1,8 +1,9 @@
-export const selectToken = (state: any) => {
+import { RootState } from "../types";
+export const selectToken = (state: RootState) => {
   return state.user.token;
 };
 
-export const selectUser = (state: any) => state.user;
+export const selectUser = (state: RootState) => state.user;
 
-export const selectUserLanguage = (state: any) => state.user.language;
-export const selectUserId = (state: any): number => state.user.id;
+export const selectUserLanguage = (state: RootState) => state.user.language;
+export const selectUserId = (state: RootState): number => state.user.id;

@@ -1,3 +1,8 @@
 //import { createSelector } from "reselect";
 
-export const selectMyRecipes = (state: any) => state.recipes.myRecipes;
+import { RootState } from "../types";
+
+export const selectMyRecipes = (state: RootState) => state.recipes.myRecipes;
+
+export const selectImportableRecipes = (state: RootState) =>
+  state.recipes.importableRecipes;

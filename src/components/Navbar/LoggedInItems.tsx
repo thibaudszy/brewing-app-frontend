@@ -4,21 +4,30 @@ import { logOut } from "../../store/user/actions";
 import { useDispatch, useSelector } from "react-redux";
 import translation from "./translation";
 import { selectUserLanguage } from "../../store/user/selectors";
+import { useHistory } from "react-router-dom";
 
 export function LoggedInLinks() {
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const { Recipes, myRecipes, create_a_recipe, start_a_brew } = translation[
-    userLanguage
-  ];
+  const {
+    Recipes,
+    myRecipes,
+    create_a_recipe,
+    start_a_brew,
+    t_import_recipes,
+    t_new_recipes,
+  } = translation[userLanguage];
+  const history = useHistory();
   return (
     <Nav>
-      <NavDropdown title={Recipes} id="basic-nav-dropdown">
-        <NavDropdown.Item href="recipes">{myRecipes}</NavDropdown.Item>
-        <NavDropdown.Item href="recipe-calculator">
+      <Nav.Link onClick={() => history.push("/recipes")}>{myRecipes}</Nav.Link>
+      <NavDropdown title={t_new_recipes} id="basic-nav-dropdown">
+        <NavDropdown.Item onClick={() => history.push("/explore-recipes")}>
+          {t_import_recipes}
+        </NavDropdown.Item>
+        <NavDropdown.Item onClick={() => history.push("/recipe-calculator")}>
           {create_a_recipe}
         </NavDropdown.Item>
       </NavDropdown>
-      <Nav.Link href="#home">{start_a_brew}</Nav.Link>
     </Nav>
   );
 }
