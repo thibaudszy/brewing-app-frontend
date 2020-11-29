@@ -3,7 +3,10 @@ import translation from "./translation";
 
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
-import { addRecipeToLibrary } from "../../store/recipes/actions";
+import {
+  addRecipeToLibrary,
+  removeRecipeFromLibrary,
+} from "../../store/recipes/actions";
 
 interface Prop {
   recipe: RecipeWithAuthorName;
@@ -50,7 +53,7 @@ export default function RecipeCard(props: Prop) {
           <Button
             variant="outline-danger"
             // disabled={isLoading}
-            // onClick={handleImportClick(id)}
+            onClick={() => dispatch(removeRecipeFromLibrary(id))}
           >
             Remove{/* {isLoading ? 'Loading…' : 'Click to load'} */}
           </Button>

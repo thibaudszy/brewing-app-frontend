@@ -2,6 +2,7 @@ import {
   SET_MY_RECIPES,
   SET_IMPORTABLE_RECIPES,
   IMPORT_RECIPE,
+  REMOVE_RECIPE,
 } from "./actions";
 
 interface RecipeState {
@@ -30,6 +31,18 @@ export default (state = initialState, action: Action) => {
         (recipe) => recipe.id !== payload
       );
       const updatedMyRecipes = [...myRecipes, recipeToImport];
+      return {
+        myRecipes: updatedMyRecipes,
+        importableRecipes: updatedImportableRecipes,
+      };
+    }
+    case REMOVE_RECIPE: {
+      const { importableRecipes, myRecipes } = state;
+      const recipeToRemove = myRecipes.find((recipe) => recipe.id === payload);
+      const updatedMyRecipes = myRecipes.filter(
+        (recipe) => recipe.id !== payload
+      );
+      const updatedImportableRecipes = [...importableRecipes, recipeToRemove];
       return {
         myRecipes: updatedMyRecipes,
         importableRecipes: updatedImportableRecipes,

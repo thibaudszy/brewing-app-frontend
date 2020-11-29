@@ -14,6 +14,7 @@ export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 const loginSuccess = (userWithToken: any) => {
+  console.log("login success:", userWithToken);
   return {
     type: LOGIN_SUCCESS,
     payload: userWithToken,
@@ -70,11 +71,12 @@ export const login = (email: string, password: string): AppThunk => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
+      console.log("logging in");
       const response = await axios.post(`${apiUrl}/login`, {
         email,
         password,
       });
-      // console.log("response:", response);
+      console.log("response:", response);
 
       dispatch(loginSuccess(response.data));
       dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));

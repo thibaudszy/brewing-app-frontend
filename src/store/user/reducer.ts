@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
+  id: null,
   firstName: null,
   lastName: null,
   email: null,
@@ -16,8 +17,9 @@ const initialState = {
 export default (state = initialState, action: Action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
+      const { id, firstName, lastName, email, language } = action.payload;
       localStorage.setItem("token", action.payload.token);
-      return { ...state, ...action.payload };
+      return { ...state, id, firstName, lastName, email, language };
     case CHANGE_LANGUAGE:
       return { ...state, language: action.payload };
 
