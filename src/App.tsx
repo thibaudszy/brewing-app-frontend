@@ -13,6 +13,7 @@ import RecipePage from "./pages/RecipePage/RecipePage";
 import ImportRecipes from "./pages/ImportRecipes/ImportRecipes";
 import { selectToken, selectUserId } from "./store/user/selectors";
 import { useSelector } from "react-redux";
+import MessageBox from "./components/MessageBox";
 
 function App() {
   const token = useSelector(selectToken);
@@ -23,6 +24,8 @@ function App() {
   return (
     <div className="App">
       <AppNavbar />
+      <MessageBox />
+
       <div className="Body">
         <Switch>
           {/* <Route exact path="/" component={HomePage} /> */}
