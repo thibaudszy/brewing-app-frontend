@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Switch from "react-bootstrap/esm/Switch";
 import { Route, useHistory } from "react-router-dom";
 import "./App.css";
@@ -12,18 +12,25 @@ import MyRecipes from "./pages/MyRecipes/MyRecipes";
 import RecipePage from "./pages/RecipePage/RecipePage";
 import ImportRecipes from "./pages/ImportRecipes/ImportRecipes";
 import { selectToken, selectUserId } from "./store/user/selectors";
-import { useSelector } from "react-redux";
+import { getUserWithStoredToken } from "./store/user/actions";
+import { useSelector, useDispatch } from "react-redux";
 import MessageBox from "./components/MessageBox";
 import { selectAppLoading } from "./store/appState/selectors";
 import Loading from "./components/Loader";
 
 function App() {
   const token = useSelector(selectToken);
-  const history = useHistory();
+  const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const isLoading = useSelector(selectAppLoading);
-  //TO DO: if no token -> homePage
-  //TO DO: if no userId, send request to api/me
+
+  useEffect(() => {
+    // if the user reloads the app, we fetch his data from the server.
+    if (!userId && token) {
+      dispatch(getUserWithStoredToken());
+    }
+  }, []);
+
   return (
     <div className="App">
       <AppNavbar />

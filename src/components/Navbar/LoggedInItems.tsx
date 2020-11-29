@@ -33,8 +33,10 @@ export function LoggedInLinks() {
 }
 export function LogOutButton() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const logOutClickHandler = () => {
     dispatch(logOut());
+    history.push("/");
   };
   const userLanguage: Language = useSelector(selectUserLanguage);
   return (
