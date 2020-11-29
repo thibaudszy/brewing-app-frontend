@@ -1,3 +1,4 @@
+import emptyRecipe from "../../pages/RecipePage/emptyRecipe";
 import {
   SET_MY_RECIPES,
   SET_IMPORTABLE_RECIPES,
@@ -8,11 +9,13 @@ import {
 interface RecipeState {
   myRecipes: Recipe[];
   importableRecipes: Recipe[];
+  newRecipe: FullRecipe;
 }
 
 const initialState: RecipeState = {
   myRecipes: [],
   importableRecipes: [],
+  newRecipe: { ...emptyRecipe },
 };
 
 export default (state = initialState, action: Action) => {
@@ -48,7 +51,8 @@ export default (state = initialState, action: Action) => {
         importableRecipes: updatedImportableRecipes,
       };
     }
-
+    case "UPDATE_NEW_RECIPE":
+      return { ...state, ...payload };
     default:
       return state;
   }

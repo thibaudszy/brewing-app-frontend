@@ -37,7 +37,13 @@ export default function MyRecipes() {
   return (
     <div className="my-recipes">
       <div className="buttons-row">
-        <Button className="MyRecipes-buttons"> {t_recipe_calculator}</Button>
+        <Button
+          className="MyRecipes-buttons"
+          onClick={() => history.push("/recipe-calculator")}
+        >
+          {" "}
+          {t_recipe_calculator}
+        </Button>
         <Button
           className="MyRecipes-buttons"
           onClick={() => history.push("/explore-recipes")}
