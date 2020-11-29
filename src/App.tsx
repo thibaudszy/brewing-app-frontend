@@ -45,6 +45,7 @@ function App() {
           <Route exact path="/recipes" component={MyRecipes} />
           <Route exact path="/explore-recipes" component={ImportRecipes} />
           <Route path="/recipes/:recipeId" component={RecipePage} />
+          <Route path="/recipe-calculator" component={RecipePage} />
           {/* <Route path="/" component={Error404} /> */}
         </Switch>
       </div>
