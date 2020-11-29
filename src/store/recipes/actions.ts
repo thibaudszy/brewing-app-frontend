@@ -5,6 +5,7 @@ import { ThunkAction } from "redux-thunk";
 import { AppThunk } from "../types";
 
 import { appDoneLoading, appLoading } from "../appState/actions";
+import { disconnect } from "process";
 
 export const SET_MY_RECIPES = "SET_MY_RECIPES";
 export const SET_IMPORTABLE_RECIPES = "SET_IMPORTABLE_RECIPES";
@@ -73,4 +74,8 @@ export const getImportableRecipes = (): AppThunk => {
       });
     }
   };
+};
+
+export const addRecipeToLibrary = (recipeId: number): AppThunk => {
+  return async (dispatch, getState) => {};
 };

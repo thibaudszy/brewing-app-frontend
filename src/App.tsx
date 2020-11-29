@@ -24,7 +24,6 @@ function App() {
           <Route path="/login" component={Login} />
           <Route exact path="/recipes" component={MyRecipes} />
           <Route exact path="/explore-recipes" component={ImportRecipes} />
-
           <Route path="/recipes/:recipeId" component={RecipePage} />
           {/* <Route path="/" component={Error404} /> */}
         </Switch>

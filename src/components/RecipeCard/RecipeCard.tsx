@@ -19,7 +19,7 @@ export default function RecipeCard(props: Prop) {
     //TO DO
   };
   return (
-    <Card style={{ width: "25rem", margin: "1rem" }} key={id}>
+    <Card style={{ width: "25rem", margin: "1rem" }}>
       <Card.Img variant="top" src={imageURL} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
@@ -42,7 +42,15 @@ export default function RecipeCard(props: Prop) {
           >
             Import{/* {isLoading ? 'Loading…' : 'Click to load'} */}
           </Button>
-        ) : null}
+        ) : (
+          <Button
+            variant="outline-danger"
+            // disabled={isLoading}
+            // onClick={handleImportClick(id)}
+          >
+            Remove{/* {isLoading ? 'Loading…' : 'Click to load'} */}
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );

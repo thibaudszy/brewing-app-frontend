@@ -32,6 +32,7 @@ export default function ImportRecipes() {
     t_color,
     t_author,
     t_see_recipe,
+    t_no_more_recipes,
   } = translation[userLanguage];
   const importableRecipes = useSelector(selectImportableRecipes) || [];
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function ImportRecipes() {
   useEffect(() => {
     dispatch(getImportableRecipes());
   }, [dispatch]);
-  console.log("importable recipes", importableRecipes);
+
   return (
     <div className="my-recipes">
       <div className="buttons-row">
@@ -48,27 +49,30 @@ export default function ImportRecipes() {
           className="MyRecipes-buttons"
           onClick={() => history.push("/recipes")}
         >
-          {" "}
           {t_my_recipes}
         </Button>
       </div>
       <Jumbotron fluid>
         <h2>{t_explore_recipes}</h2>
       </Jumbotron>
-      <div style={{ display: "flex" }}>
-        {importableRecipes.map((recipe: RecipeWithAuthorName) => {
-          const {
-            id,
-            imageURL,
-            name,
-            ABV,
-            description,
-            colorInEBC,
-            author,
-          } = recipe;
-          return <RecipeCard recipe={recipe} isInLibrary={false} />;
-        })}
-      </div>
+      {!importableRecipes.length ? (
+        <h1>{t_no_more_recipes}</h1>
+      ) : (
+        <div style={{ display: "flex" }}>
+          {importableRecipes.map((recipe: RecipeWithAuthorName) => {
+            const {
+              id,
+              imageURL,
+              name,
+              ABV,
+              description,
+              colorInEBC,
+              author,
+            } = recipe;
+            return <RecipeCard recipe={recipe} isInLibrary={false} key={id} />;
+          })}
+        </div>
+      )}
     </div>
   );
 }
