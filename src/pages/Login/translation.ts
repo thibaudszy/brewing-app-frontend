@@ -1,5 +1,3 @@
-import Login from "./Login";
-
 const translation: TranslationObject = {
   "En-GB": {
     LogInPageTitle: "Login",
