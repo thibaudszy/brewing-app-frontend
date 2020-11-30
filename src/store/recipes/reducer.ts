@@ -11,6 +11,7 @@ import {
   REMOVE_NEW_MALT_NEW_RECIPE,
   ADD_NEW_HOP_NEW_RECIPE,
   REMOVE_NEW_HOP_NEW_RECIPE,
+  UPDATE_NEW_RECIPE_HOPADDITIONS,
 } from "./actions";
 
 interface RecipeState {
@@ -71,10 +72,9 @@ export default (state = initialState, action: Action) => {
     case UPDATE_NEW_RECIPE_MALTADDITIONS: {
       const { newRecipe } = state;
       const { array, index: targetIndex, key, value } = payload;
-      console.log("reducer ");
+
       const updatedArray = newRecipe.maltAdditions.map(
         (arrayElement, index) => {
-          console.log("target index", targetIndex);
           if (targetIndex === index) {
             return { ...arrayElement, [key]: value };
           }
@@ -139,7 +139,22 @@ export default (state = initialState, action: Action) => {
       }
       return state;
     }
+    case UPDATE_NEW_RECIPE_HOPADDITIONS: {
+      const { newRecipe } = state;
+      const { index: targetIndex, key, value } = payload;
 
+      const updatedArray = newRecipe.hopAdditions.map((arrayElement, index) => {
+        if (targetIndex === index) {
+          return { ...arrayElement, [key]: value };
+        }
+        return arrayElement;
+      });
+
+      return {
+        ...state,
+        newRecipe: { ...state.newRecipe, hopAdditions: updatedArray },
+      };
+    }
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import { MaltAdditionsInput } from "./Types";
+import { AdditionsInput } from "./Types";
 import { Range } from "./Types";
 
 interface Specifications {
@@ -45,7 +45,7 @@ export const specifications: Specifications[] = [
     placeholder: "enter a value",
   },
 ];
-export const maltAdditionInputFields: MaltAdditionsInput[] = [
+export const maltAdditionInputFields: AdditionsInput[] = [
   {
     param: "name",
     label: "t_malt_name",
@@ -69,10 +69,41 @@ export const maltAdditionInputFields: MaltAdditionsInput[] = [
   },
 
   {
-    param: " defaultColorInEBC",
+    param: "defaultColorInEBC",
     label: "t_color",
     type: "number",
     range: { min: 1, warningMin: 2, warningMax: 1500, max: 2000 },
+    placeholder: "enter a value",
+  },
+];
+export const hopAdditionInputFields: AdditionsInput[] = [
+  {
+    param: "name",
+    label: "t_hop_name",
+    type: "string",
+    range: { min: 2, warningMin: 4, warningMax: 20, max: 30 },
+    placeholder: "enter a name",
+  },
+  {
+    param: "alphaAcidContent",
+    label: "t_alpha_acid_content",
+    type: "number",
+    range: { min: 0, warningMin: 2, warningMax: 20, max: 100 },
+    placeholder: "enter a value",
+  },
+  {
+    param: "percentageAlphaAcidsFromAddition",
+    label: "t_percentage_from_addition",
+    type: "number",
+    range: { min: 0, warningMin: 0, warningMax: 100, max: 100 },
+    placeholder: "enter a value",
+  },
+
+  {
+    param: "timeOfAdditionInMinBeforeEndOfBoil",
+    label: "t_time_of_addition",
+    type: "number",
+    range: { min: 0, warningMin: 0, warningMax: 100, max: 200 },
     placeholder: "enter a value",
   },
 ];

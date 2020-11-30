@@ -20,7 +20,11 @@ import {
 
 import MaltAdditionsRow from "./MaltAdditionsRow";
 
-import { maltAdditionInputFields, specifications } from "./Fields";
+import {
+  hopAdditionInputFields,
+  maltAdditionInputFields,
+  specifications,
+} from "./Fields";
 import HopAdditionsRow from "./HopAdditionRow";
 
 export default function RecipeCalculator() {
@@ -67,7 +71,7 @@ export default function RecipeCalculator() {
     for (let i = 0; i < numberOfHopAdditions; i++) {
       toDisplay.push(
         <HopAdditionsRow
-          maltAdditionInputFields={maltAdditionInputFields}
+          hopAdditionInputFields={hopAdditionInputFields}
           index={i}
           key={i}
         />

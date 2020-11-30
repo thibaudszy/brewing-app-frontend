@@ -2,32 +2,38 @@ import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateNewBeerArrays } from "../../store/recipes/actions";
-import { selectNewRecipeMaltAdditions } from "../../store/recipes/selectors";
-import { MaltAdditionsInput, Range } from "./Types";
+import {
+  updateNewBeerArrays,
+  updateNewBeerHopAdditions,
+} from "../../store/recipes/actions";
+import {
+  selectNewRecipeHopAdditions,
+  selectNewRecipeMaltAdditions,
+} from "../../store/recipes/selectors";
+import { hopAdditionInputFields } from "./Fields";
+import { AdditionsInput, Range } from "./Types";
 
 interface Props {
-  maltAdditionInputFields: MaltAdditionsInput[];
+  hopAdditionInputFields: AdditionsInput[];
   index: number;
 }
 
 export default function HopAdditionsRow(props: Props) {
   const dispatch = useDispatch();
 
-  const { maltAdditionInputFields, index } = props;
-  const maltAddition = useSelector(selectNewRecipeMaltAdditions)[index];
+  const { hopAdditionInputFields, index } = props;
+  const hopAddition = useSelector(selectNewRecipeHopAdditions)[index];
 
-  const handleMaltAdditionInput = (
+  const handleHopAdditionInput = (
+    index: number,
     key: any,
-    value: any,
-    type: string,
-    range: Range
+    value: any
   ): void => {
-    dispatch(updateNewBeerArrays("maltAdditions", index, key, value));
+    dispatch(updateNewBeerHopAdditions(index, key, value));
   };
   return (
     <Form.Row className="align-items-center">
-      {maltAdditionInputFields.map(
+      {hopAdditionInputFields.map(
         ({ param, label, type, range, placeholder }) => {
           return (
             <Col xs="auto" key={param}>
@@ -36,9 +42,9 @@ export default function HopAdditionsRow(props: Props) {
                 className="mb-2"
                 id="inlineFormInput"
                 placeholder={placeholder}
-                defaultValue={maltAddition[param]}
+                defaultValue={hopAddition[param]}
                 onChange={(e) =>
-                  handleMaltAdditionInput(param, e.target.value, type, range)
+                  handleHopAdditionInput(index, param, e.target.value)
                 }
               />
             </Col>

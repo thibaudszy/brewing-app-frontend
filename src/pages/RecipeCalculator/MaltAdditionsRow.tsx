@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updateNewBeerArrays } from "../../store/recipes/actions";
 import { selectNewRecipeMaltAdditions } from "../../store/recipes/selectors";
-import { MaltAdditionsInput, Range } from "./Types";
+import { AdditionsInput, Range } from "./Types";
 
 interface Props {
-  maltAdditionInputFields: MaltAdditionsInput[];
+  maltAdditionInputFields: AdditionsInput[];
   index: number;
 }
 
