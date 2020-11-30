@@ -111,12 +111,12 @@ export default function RecipeCalculator() {
   };
   const decrementNumberOfHopAdditions = () => {
     if (numberOfHopAdditions > 1) {
-      dispatch(removeNewHopFromNewRecipe());
+      dispatch(removeNewHopFromNewRecipe(false));
     }
   };
   const incrementNumberOfHopAdditions = () => {
     if (numberOfHopAdditions < 15) {
-      dispatch(AddNewHopToNewRecipe());
+      dispatch(AddNewHopToNewRecipe(false));
     }
   };
   const decrementNumberOfMashSteps = () => {
@@ -134,7 +134,7 @@ export default function RecipeCalculator() {
       dispatch(AddNewMaltToNewRecipe());
     }
     if (!numberOfHopAdditions) {
-      dispatch(AddNewHopToNewRecipe());
+      dispatch(AddNewHopToNewRecipe(false));
     }
     if (!numberOfMashSteps) {
       dispatch(AddNewMashStepToNewRecipe());

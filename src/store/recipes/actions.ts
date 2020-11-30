@@ -191,14 +191,16 @@ export const removeNewMaltToNewRecipe = () => {
     type: REMOVE_NEW_MALT_NEW_RECIPE,
   };
 };
-export const removeNewHopFromNewRecipe = () => {
+export const removeNewHopFromNewRecipe = (isDryHop: boolean) => {
   return {
     type: REMOVE_NEW_HOP_NEW_RECIPE,
+    payload: isDryHop,
   };
 };
-export const AddNewHopToNewRecipe = () => {
+export const AddNewHopToNewRecipe = (isDryHop: boolean) => {
   return {
     type: ADD_NEW_HOP_NEW_RECIPE,
+    payload: isDryHop,
   };
 };
 export const removeMashStepFromNewRecipe = () => {

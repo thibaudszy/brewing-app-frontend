@@ -122,21 +122,30 @@ export default (state = initialState, action: Action) => {
         ...state,
         newRecipe: {
           ...state.newRecipe,
-          hopAdditions: [...state.newRecipe.hopAdditions, {}],
+          hopAdditions: [...state.newRecipe.hopAdditions, { isDryop: payload }],
         },
       };
     }
     case REMOVE_NEW_HOP_NEW_RECIPE: {
       const hopAdditionsNewRecipe = state.newRecipe.hopAdditions;
+      const filteredHopAdditions = hopAdditionsNewRecipe.filter(
+        (hopAddition) => hopAddition.isDryHop === payload
+      );
+
+      const otherHopAdditions = hopAdditionsNewRecipe.filter(
+        (hopAddition) => hopAddition.isDryHop !== payload
+      );
+      // console.log("filtered hop additions:", filteredHopAdditions);
+      // console.log("other hop additions", otherHopAdditions);
       if (hopAdditionsNewRecipe.length > 1) {
         return {
           ...state,
           newRecipe: {
             ...state.newRecipe,
-            hopAdditions: hopAdditionsNewRecipe.slice(
-              0,
-              hopAdditionsNewRecipe.length - 1
-            ),
+            hopAdditions: [
+              ...filteredHopAdditions,
+              ...otherHopAdditions.slice(0, hopAdditionsNewRecipe.length - 1),
+            ],
           },
         };
       }

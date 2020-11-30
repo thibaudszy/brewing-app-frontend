@@ -3,6 +3,8 @@ import { Button, Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+  AddNewHopToNewRecipe,
+  removeNewHopFromNewRecipe,
   updateNewBeerArrays,
   updateNewBeerData,
   updateNewBeerHopAdditions,
@@ -36,6 +38,16 @@ export default function FermentationFormGroup() {
     range: Range
   ): void => {
     dispatch(updateNewBeerData(param, data));
+  };
+  const decrementNumberOfDryHops = () => {
+    if (numberOfDryHops > 1) {
+      dispatch(removeNewHopFromNewRecipe(true));
+    }
+  };
+  const incrementNumberOfDryHops = () => {
+    if (numberOfDryHops < 15) {
+      dispatch(AddNewHopToNewRecipe(true));
+    }
   };
 
   return (
