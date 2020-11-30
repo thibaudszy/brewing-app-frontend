@@ -94,6 +94,16 @@ type Params =
   | "PitchRateInGramsperLiter"
   | "BoilDurationInMin"
   | "FermentationTemperature"
+  | "dryHopTimingInPercentageAF"
+  | "duration"
+  | "dryHopRateInGramsPerLitre"
+  | "percentageAlphaAcidsFromAddition"
+  | "defaultColorInEBC"
+  | "defaultMoistureInPercentage"
+  | "temperature"
+  | "alphaAcidContent"
+  | "timeOfAdditionInMinBeforeEndOfBoil"
+  | "percentageOfExtract"
   | "comments";
 
 interface RecipeWithAuthorName extends Recipe {

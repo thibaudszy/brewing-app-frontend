@@ -8,7 +8,7 @@ import {
   updateNewBeerMashSteps,
 } from "../../store/recipes/actions";
 import {
-  selectNewRecipeHopAdditions,
+  selectNewRecipeBoilHopAdditions,
   selectNewRecipeMaltAdditions,
   selectNewRecipeMashSteps,
 } from "../../store/recipes/selectors";
@@ -39,7 +39,7 @@ export default function MashStepsRow(props: Props) {
               className="mb-2"
               id="inlineFormInput"
               placeholder={placeholder}
-              // defaultValue={hopAddition[param]}
+              defaultValue={mashStep[param]}
               onChange={(e) =>
                 handleMashStepInput(index, param, e.target.value)
               }

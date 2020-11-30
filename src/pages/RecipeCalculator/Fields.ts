@@ -124,3 +124,51 @@ export const mashInputFields: AdditionsInput[] = [
     placeholder: "enter a value",
   },
 ];
+export const dryHopsInputFields: AdditionsInput[] = [
+  {
+    param: "name",
+    label: "t_hop_name",
+    type: "string",
+    range: { min: 2, warningMin: 4, warningMax: 20, max: 30 },
+    placeholder: "enter a name",
+  },
+
+  {
+    param: "dryHopTimingInPercentageAF",
+    label: "t_dry_hop_timing",
+    type: "number",
+    range: { min: 0, warningMin: 10, warningMax: 100, max: 100 },
+    placeholder: "enter a value",
+  },
+  {
+    param: "dryHopRateInGramsPerLitre",
+    label: "t_dry_hop_rate",
+    type: "number",
+    range: { min: 0, warningMin: 0.2, warningMax: 30, max: 100 },
+    placeholder: "enter a value",
+  },
+];
+export const fermentationDataInputFields: AdditionsInput[] = [
+  {
+    param: "yeastStrain",
+    label: "t_yeast_strain",
+    type: "string",
+    range: { min: 2, warningMin: 4, warningMax: 20, max: 30 },
+    placeholder: "enter a name",
+  },
+
+  {
+    param: "PitchRateInGramsperLiter",
+    label: "t_pitch_rate",
+    type: "number",
+    range: { min: 0, warningMin: 10, warningMax: 100, max: 100 },
+    placeholder: "enter a value",
+  },
+  {
+    param: "FermentationTemperature",
+    label: "t_fermentation_temperature",
+    type: "number",
+    range: { min: 0, warningMin: 5, warningMax: 35, max: 60 },
+    placeholder: "enter a value",
+  },
+];

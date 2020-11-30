@@ -1,5 +1,5 @@
 export interface AdditionsInput {
-  param: string;
+  param: Params;
   label: string;
   type: string;
   range: Range;

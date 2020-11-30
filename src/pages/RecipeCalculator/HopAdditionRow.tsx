@@ -7,7 +7,7 @@ import {
   updateNewBeerHopAdditions,
 } from "../../store/recipes/actions";
 import {
-  selectNewRecipeHopAdditions,
+  selectNewRecipeBoilHopAdditions,
   selectNewRecipeMaltAdditions,
 } from "../../store/recipes/selectors";
 import { hopAdditionInputFields } from "./Fields";
@@ -22,7 +22,7 @@ export default function HopAdditionsRow(props: Props) {
   const dispatch = useDispatch();
 
   const { hopAdditionInputFields, index } = props;
-  const hopAddition = useSelector(selectNewRecipeHopAdditions)[index];
+  const hopAddition = useSelector(selectNewRecipeBoilHopAdditions)[index];
 
   const handleHopAdditionInput = (
     index: number,

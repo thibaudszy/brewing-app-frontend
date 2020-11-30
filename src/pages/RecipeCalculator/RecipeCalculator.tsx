@@ -17,7 +17,7 @@ import {
 import {
   selectMyRecipes,
   selectNewRecipeMaltAdditions,
-  selectNewRecipeHopAdditions,
+  selectNewRecipeBoilHopAdditions,
   selectNewRecipeMashSteps,
 } from "../../store/recipes/selectors";
 
@@ -31,11 +31,12 @@ import {
 } from "./Fields";
 import HopAdditionsRow from "./HopAdditionRow";
 import MashStepsRow from "./MashStepsRow";
+import FermentationFormGroup from "./FermentationFormGroup";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const maltAdditions = useSelector(selectNewRecipeMaltAdditions);
-  const hopAdditions = useSelector(selectNewRecipeHopAdditions);
+  const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
 
   const history = useHistory();
@@ -135,6 +136,9 @@ export default function RecipeCalculator() {
     if (!numberOfHopAdditions) {
       dispatch(AddNewHopToNewRecipe());
     }
+    if (!numberOfMashSteps) {
+      dispatch(AddNewMashStepToNewRecipe());
+    }
   }, []);
 
   return (
@@ -231,6 +235,8 @@ export default function RecipeCalculator() {
             </h2>
             {mashStepsInput(numberOfMashSteps)}
           </Form.Group>
+
+          <FermentationFormGroup />
         </Form>
       </div>
     </div>
