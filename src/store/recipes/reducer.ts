@@ -122,7 +122,10 @@ export default (state = initialState, action: Action) => {
         ...state,
         newRecipe: {
           ...state.newRecipe,
-          hopAdditions: [...state.newRecipe.hopAdditions, { isDryop: payload }],
+          hopAdditions: [
+            ...state.newRecipe.hopAdditions,
+            { isDryHop: payload },
+          ],
         },
       };
     }
@@ -135,21 +138,21 @@ export default (state = initialState, action: Action) => {
       const otherHopAdditions = hopAdditionsNewRecipe.filter(
         (hopAddition) => hopAddition.isDryHop !== payload
       );
-      // console.log("filtered hop additions:", filteredHopAdditions);
-      // console.log("other hop additions", otherHopAdditions);
-      if (hopAdditionsNewRecipe.length > 1) {
-        return {
-          ...state,
-          newRecipe: {
-            ...state.newRecipe,
-            hopAdditions: [
-              ...filteredHopAdditions,
-              ...otherHopAdditions.slice(0, hopAdditionsNewRecipe.length - 1),
-            ],
-          },
-        };
-      }
-      return state;
+      const filteredHopAdditionMinusLastElement = filteredHopAdditions.slice(
+        0,
+        filteredHopAdditions.length - 1
+      );
+
+      return {
+        ...state,
+        newRecipe: {
+          ...state.newRecipe,
+          hopAdditions: [
+            ...filteredHopAdditionMinusLastElement,
+            ...otherHopAdditions,
+          ],
+        },
+      };
     }
     case UPDATE_NEW_RECIPE_HOPADDITIONS: {
       const { newRecipe } = state;

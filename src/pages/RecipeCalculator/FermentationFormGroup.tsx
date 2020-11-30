@@ -14,7 +14,11 @@ import {
   selectNewRecipefermentatioData,
   selectNewRecipeBoilHopAdditions,
 } from "../../store/recipes/selectors";
-import { fermentationDataInputFields, hopAdditionInputFields } from "./Fields";
+import {
+  dryHopsInputFields,
+  fermentationDataInputFields,
+  hopAdditionInputFields,
+} from "./Fields";
 import { AdditionsInput, Range } from "./Types";
 
 export default function FermentationFormGroup() {
@@ -28,8 +32,12 @@ export default function FermentationFormGroup() {
   } = useSelector(selectNewRecipefermentatioData);
   const numberOfDryHops = dryHops.length;
   console.log(dryHops);
-  const handleMashStepInput = (index: number, key: any, value: any): void => {
-    dispatch(updateNewBeerMashSteps(index, key, value));
+  const handleHopAdditionInput = (
+    index: number,
+    key: any,
+    value: any
+  ): void => {
+    dispatch(updateNewBeerHopAdditions(index, key, value));
   };
   const handleFieldChange = (
     param: Params,
@@ -40,7 +48,7 @@ export default function FermentationFormGroup() {
     dispatch(updateNewBeerData(param, data));
   };
   const decrementNumberOfDryHops = () => {
-    if (numberOfDryHops > 1) {
+    if (numberOfDryHops) {
       dispatch(removeNewHopFromNewRecipe(true));
     }
   };
@@ -48,6 +56,36 @@ export default function FermentationFormGroup() {
     if (numberOfDryHops < 15) {
       dispatch(AddNewHopToNewRecipe(true));
     }
+  };
+  const DryHopsInput = (numberOfDryHops: number) => {
+    let toDisplay = [];
+
+    for (let i = 0; i < numberOfDryHops; i++) {
+      //const { param, label, placeholder, type, range } = dryHopsInputFields[i];
+      toDisplay.push(
+        <Form.Row className="align-items-center" key={i}>
+          {dryHopsInputFields.map(
+            ({ param, label, type, range, placeholder }) => {
+              return (
+                <Col xs="auto" key={param}>
+                  <Form.Label htmlFor="inlineFormInput">{label}</Form.Label>
+                  <Form.Control
+                    className="mb-2"
+                    id="inlineFormInput"
+                    placeholder={placeholder}
+                    // defaultValue={hopAddition[param]}
+                    onChange={(e) =>
+                      handleHopAdditionInput(i, param, e.target.value)
+                    }
+                  />
+                </Col>
+              );
+            }
+          )}
+        </Form.Row>
+      );
+    }
+    return toDisplay;
   };
 
   return (
@@ -77,25 +115,32 @@ export default function FermentationFormGroup() {
           }
         )}
       </Form.Row>
-      {!numberOfDryHops ? <Button> t_add_dry_hop_additions</Button> : " "}
-      {/* <h2>
-    <Button
-      onClick={() => {
-        decrementNumberOfMashSteps();
-      }}
-    >
-      -
-    </Button>{" "}
-    t_mash_steps{" "}
-    <Button
-      onClick={() => {
-        incrementNumberOfMashSteps();
-      }}
-    >
-      +
-    </Button>
-  </h2>
-  {mashStepsInput(numberOfMashSteps)} */}
+      {!numberOfDryHops ? (
+        <Button onClick={() => incrementNumberOfDryHops()}>
+          {" "}
+          t_add_dry_hop_additions
+        </Button>
+      ) : (
+        " "
+      )}
+      <h2>
+        <Button
+          onClick={() => {
+            decrementNumberOfDryHops();
+          }}
+        >
+          -
+        </Button>{" "}
+        t_dry_hops{" "}
+        <Button
+          onClick={() => {
+            incrementNumberOfDryHops();
+          }}
+        >
+          +
+        </Button>
+      </h2>
+      {DryHopsInput(numberOfDryHops)}
     </Form.Group>
   );
 }
