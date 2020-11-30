@@ -14,6 +14,7 @@ import {
   removeMashStepFromNewRecipe,
   AddNewMashStepToNewRecipe,
   updateComment,
+  submitNewRecipe,
 } from "../../store/recipes/actions";
 import {
   selectMyRecipes,
@@ -41,28 +42,18 @@ export default function RecipeCalculator() {
   const maltAdditions = useSelector(selectNewRecipeMaltAdditions);
   const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
-  const {
-    name,
-    imageURL,
-    description,
-    IBU,
-    FGinPlato,
-    ABV,
-    DesiredCarbonationInGramsPerLiter,
-    colorInEBC,
-    LiquorToGristRatio,
-  } = useSelector(selectNewRecipe);
-  const defaultValues = {
-    name,
-    ABV,
-    imageURL,
-    description,
-    IBU,
-    FGinPlato,
-    DesiredCarbonationInGramsPerLiter,
-    colorInEBC,
-    LiquorToGristRatio,
-  };
+  const newRecipe = useSelector(selectNewRecipe);
+  // const defaultValues = {
+  //   name,
+  //   ABV,
+  //   imageURL,
+  //   description,
+  //   IBU,
+  //   FGinPlato,
+  //   DesiredCarbonationInGramsPerLiter,
+  //   colorInEBC,
+  //   LiquorToGristRatio,
+  // } ;
   const history = useHistory();
   const {
     t_ABV,
@@ -169,7 +160,7 @@ export default function RecipeCalculator() {
   }, []);
   async function handleSubmit(event: any) {
     event.preventDefault();
-    //dispatch(submitNewRecipe(newRecipe));
+    dispatch(submitNewRecipe(newRecipe));
   }
   return (
     <div>
@@ -191,7 +182,7 @@ export default function RecipeCalculator() {
                         id="inlineFormInput"
                         placeholder={placeholder}
                         // @ts-ignore
-                        defaultValue={defaultValues[param]}
+                        defaultValue={newRecipe[param]}
                         onChange={(e) =>
                           handleFieldChange(
                             param,
@@ -220,7 +211,7 @@ export default function RecipeCalculator() {
                         id="inlineFormInput"
                         placeholder={placeholder}
                         // @ts-ignore
-                        defaultValue={defaultValues[param]}
+                        defaultValue={newRecipe[param]}
                         onChange={(e) =>
                           handleFieldChange(
                             param,

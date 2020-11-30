@@ -232,3 +232,4 @@ export const updateComment = (comment: string) => {
     payload: comment,
   };
 };
+export const submitNewRecipe = (newRecipe: FullRecipe) => {};
