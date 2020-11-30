@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateNewBeerArrays } from "../../store/recipes/actions";
+import { selectNewRecipeMaltAdditions } from "../../store/recipes/selectors";
 import { MaltAdditionsInput, Range } from "./Types";
 
 interface Props {
@@ -14,6 +15,8 @@ export default function MaltAdditionsRow(props: Props) {
   const dispatch = useDispatch();
 
   const { maltAdditionInputFields, index } = props;
+  const maltAddition = useSelector(selectNewRecipeMaltAdditions)[index];
+
   const handleMaltAdditionInput = (
     key: any,
     value: any,
@@ -33,6 +36,7 @@ export default function MaltAdditionsRow(props: Props) {
                 className="mb-2"
                 id="inlineFormInput"
                 placeholder={placeholder}
+                defaultValue={maltAddition[param]}
                 onChange={(e) =>
                   handleMaltAdditionInput(param, e.target.value, type, range)
                 }

@@ -59,8 +59,7 @@ export default function RecipeCalculator() {
     }
     return toDisplay;
   };
-  const numberOfMaltAdditions = useSelector(selectNewRecipeMaltAdditions)
-    .length;
+  const numberOfMaltAdditions = maltAdditions.length;
   const decrementNumberOfMaltAdditions = () => {
     if (numberOfMaltAdditions > 1) {
       dispatch(removeNewMaltToNewRecipe());
@@ -71,6 +70,12 @@ export default function RecipeCalculator() {
       dispatch(AddNewMaltToNewRecipe());
     }
   };
+  useEffect(() => {
+    if (!numberOfMaltAdditions) {
+      dispatch(AddNewMaltToNewRecipe());
+    }
+  }, []);
+
   return (
     <div>
       <Jumbotron fluid>

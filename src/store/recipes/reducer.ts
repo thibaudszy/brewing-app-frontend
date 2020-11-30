@@ -86,7 +86,7 @@ export default (state = initialState, action: Action) => {
       };
     }
 
-    case ADD_NEW_MALT_NEW_RECIPE:
+    case ADD_NEW_MALT_NEW_RECIPE: {
       return {
         ...state,
         newRecipe: {
@@ -94,18 +94,23 @@ export default (state = initialState, action: Action) => {
           maltAdditions: [...state.newRecipe.maltAdditions, {}],
         },
       };
-    case REMOVE_NEW_MALT_NEW_RECIPE:
+    }
+    case REMOVE_NEW_MALT_NEW_RECIPE: {
       const maltAdditionsNewRecipe = state.newRecipe.maltAdditions;
-      return {
-        ...state,
-        newRecipe: {
-          ...state.newRecipe,
-          maltAdditions: maltAdditionsNewRecipe.slice(
-            0,
-            maltAdditionsNewRecipe.length - 1
-          ),
-        },
-      };
+      if (maltAdditionsNewRecipe.length > 1) {
+        return {
+          ...state,
+          newRecipe: {
+            ...state.newRecipe,
+            maltAdditions: maltAdditionsNewRecipe.slice(
+              0,
+              maltAdditionsNewRecipe.length - 1
+            ),
+          },
+        };
+      }
+      return state;
+    }
 
     default:
       return state;
