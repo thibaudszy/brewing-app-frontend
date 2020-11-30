@@ -15,6 +15,7 @@ import {
   REMOVE_MASH_STEP_NEW_RECIPE,
   ADD_MASH_STEP_NEW_RECIPE,
   UPDATE_NEW_RECIPE_MASH_STEPS,
+  UPDATE_COMMENT_NEW_RECIPE,
 } from "./actions";
 
 interface RecipeState {
@@ -217,6 +218,12 @@ export default (state = initialState, action: Action) => {
       };
     }
 
+    case UPDATE_COMMENT_NEW_RECIPE: {
+      return {
+        ...state,
+        newRecipe: { ...state.newRecipe, comments: payload },
+      };
+    }
     default:
       return state;
   }

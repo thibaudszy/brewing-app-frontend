@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Jumbotron } from "react-bootstrap";
+import { Button, Col, Form, FormControl, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,12 +13,14 @@ import {
   updateNewBeerData,
   removeMashStepFromNewRecipe,
   AddNewMashStepToNewRecipe,
+  updateComment,
 } from "../../store/recipes/actions";
 import {
   selectMyRecipes,
   selectNewRecipeMaltAdditions,
   selectNewRecipeBoilHopAdditions,
   selectNewRecipeMashSteps,
+  selectNewRecipe,
 } from "../../store/recipes/selectors";
 
 import MaltAdditionsRow from "./MaltAdditionsRow";
@@ -28,6 +30,7 @@ import {
   maltAdditionInputFields,
   specifications,
   mashInputFields,
+  aboutData,
 } from "./Fields";
 import HopAdditionsRow from "./HopAdditionRow";
 import MashStepsRow from "./MashStepsRow";
@@ -38,7 +41,28 @@ export default function RecipeCalculator() {
   const maltAdditions = useSelector(selectNewRecipeMaltAdditions);
   const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
-
+  const {
+    name,
+    imageURL,
+    description,
+    IBU,
+    FGinPlato,
+    ABV,
+    DesiredCarbonationInGramsPerLiter,
+    colorInEBC,
+    LiquorToGristRatio,
+  } = useSelector(selectNewRecipe);
+  const defaultValues = {
+    name,
+    ABV,
+    imageURL,
+    description,
+    IBU,
+    FGinPlato,
+    DesiredCarbonationInGramsPerLiter,
+    colorInEBC,
+    LiquorToGristRatio,
+  };
   const history = useHistory();
   const {
     t_ABV,
@@ -129,6 +153,9 @@ export default function RecipeCalculator() {
       dispatch(AddNewMashStepToNewRecipe());
     }
   };
+  const handleCommentsInput = (comment: string) => {
+    dispatch(updateComment(comment));
+  };
   useEffect(() => {
     if (!numberOfMaltAdditions) {
       dispatch(AddNewMaltToNewRecipe());
@@ -149,6 +176,35 @@ export default function RecipeCalculator() {
       <div>
         <Form>
           <Form.Group>
+            <h2>t_about_your_beer</h2>
+            <Form.Row className="align-items-center">
+              {aboutData.map(
+                ({ param, label, type, range, placeholder }, index) => {
+                  return (
+                    <Col xs={index + 2} key={param}>
+                      <Form.Label htmlFor="inlineFormInput">{label}</Form.Label>
+                      <Form.Control
+                        className="mb-2"
+                        id="inlineFormInput"
+                        placeholder={placeholder}
+                        // @ts-ignore
+                        defaultValue={defaultValues[param]}
+                        onChange={(e) =>
+                          handleFieldChange(
+                            param,
+                            { index: null, values: e.target.value },
+                            type,
+                            range
+                          )
+                        }
+                      />
+                    </Col>
+                  );
+                }
+              )}
+            </Form.Row>
+          </Form.Group>
+          <Form.Group>
             <h2>t_specifications</h2>
             <Form.Row className="align-items-center">
               {specifications.map(
@@ -160,6 +216,8 @@ export default function RecipeCalculator() {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder={placeholder}
+                        // @ts-ignore
+                        defaultValue={defaultValues[param]}
                         onChange={(e) =>
                           handleFieldChange(
                             param,
@@ -237,6 +295,17 @@ export default function RecipeCalculator() {
           </Form.Group>
 
           <FermentationFormGroup />
+          <Form.Group>
+            <h2>Comments</h2>
+            <FormControl
+              as="textarea"
+              aria-label="With textarea"
+              onChange={(e) => handleCommentsInput(e.target.value)}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
         </Form>
       </div>
     </div>

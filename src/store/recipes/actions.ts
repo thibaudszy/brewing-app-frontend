@@ -21,6 +21,7 @@ export const UPDATE_NEW_RECIPE_HOPADDITIONS = "UPDATE_NEW_RECIPE_HOPADDITIONS";
 export const REMOVE_MASH_STEP_NEW_RECIPE = "REMOVE_MASH_STEP_NEW_RECIPE";
 export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
+export const UPDATE_COMMENT_NEW_RECIPE = "UPDATE_COMMENT_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -223,5 +224,11 @@ export const updateNewBeerMashSteps = (
   return {
     type: UPDATE_NEW_RECIPE_MASH_STEPS,
     payload: { index, key, value },
+  };
+};
+export const updateComment = (comment: string) => {
+  return {
+    type: UPDATE_COMMENT_NEW_RECIPE,
+    payload: comment,
   };
 };

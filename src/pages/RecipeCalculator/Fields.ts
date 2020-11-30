@@ -8,6 +8,29 @@ interface Specifications {
   range: Range;
   placeholder: string;
 }
+export const aboutData: Specifications[] = [
+  {
+    param: "name",
+    label: "t_name",
+    type: "string",
+    range: { min: 3, warningMin: 4, warningMax: 20, max: 50 },
+    placeholder: "enter a value",
+  },
+  {
+    param: "imageURL",
+    label: "t_imageURL",
+    type: "string",
+    range: { min: 5, warningMin: 8, warningMax: 200, max: 250 },
+    placeholder: "enter a url",
+  },
+  {
+    param: "description",
+    label: "t_description",
+    type: "string",
+    range: { min: 10, warningMin: 20, warningMax: 240, max: 500 },
+    placeholder: "enter a value",
+  },
+];
 export const specifications: Specifications[] = [
   {
     param: "ABV",
@@ -42,6 +65,13 @@ export const specifications: Specifications[] = [
     label: "t_color",
     type: "number",
     range: { min: 0, warningMin: 3, warningMax: 100, max: 500 },
+    placeholder: "enter a value",
+  },
+  {
+    param: "LiquorToGristRatio",
+    label: "t_ltg",
+    type: "number",
+    range: { min: 0, warningMin: 1.5, warningMax: 4, max: 10 },
     placeholder: "enter a value",
   },
 ];

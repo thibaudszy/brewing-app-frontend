@@ -126,26 +126,27 @@ export default function FermentationFormGroup() {
           t_add_dry_hop_additions
         </Button>
       ) : (
-        " "
+        <div>
+          <h2>
+            <Button
+              onClick={() => {
+                decrementNumberOfDryHops();
+              }}
+            >
+              -
+            </Button>{" "}
+            t_dry_hops{" "}
+            <Button
+              onClick={() => {
+                incrementNumberOfDryHops();
+              }}
+            >
+              +
+            </Button>
+          </h2>
+          {DryHopsInput(numberOfDryHops)}
+        </div>
       )}
-      <h2>
-        <Button
-          onClick={() => {
-            decrementNumberOfDryHops();
-          }}
-        >
-          -
-        </Button>{" "}
-        t_dry_hops{" "}
-        <Button
-          onClick={() => {
-            incrementNumberOfDryHops();
-          }}
-        >
-          +
-        </Button>
-      </h2>
-      {DryHopsInput(numberOfDryHops)}
     </Form.Group>
   );
 }
