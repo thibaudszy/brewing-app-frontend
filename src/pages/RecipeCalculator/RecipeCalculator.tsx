@@ -11,11 +11,14 @@ import {
   AddNewHopToNewRecipe,
   removeNewMaltToNewRecipe,
   updateNewBeerData,
+  removeMashStepFromNewRecipe,
+  AddNewMashStepToNewRecipe,
 } from "../../store/recipes/actions";
 import {
   selectMyRecipes,
   selectNewRecipeMaltAdditions,
   selectNewRecipeHopAdditions,
+  selectNewRecipeMashSteps,
 } from "../../store/recipes/selectors";
 
 import MaltAdditionsRow from "./MaltAdditionsRow";
@@ -31,6 +34,7 @@ export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const maltAdditions = useSelector(selectNewRecipeMaltAdditions);
   const hopAdditions = useSelector(selectNewRecipeHopAdditions);
+  const mashSteps = useSelector(selectNewRecipeMashSteps);
 
   const history = useHistory();
   const {
@@ -81,6 +85,7 @@ export default function RecipeCalculator() {
   };
   const numberOfMaltAdditions = maltAdditions.length;
   const numberOfHopAdditions = hopAdditions.length;
+  const numberOfMashSteps = mashSteps.length;
   const decrementNumberOfMaltAdditions = () => {
     if (numberOfMaltAdditions > 1) {
       dispatch(removeNewMaltToNewRecipe());
@@ -99,6 +104,16 @@ export default function RecipeCalculator() {
   const incrementNumberOfHopAdditions = () => {
     if (numberOfHopAdditions < 15) {
       dispatch(AddNewHopToNewRecipe());
+    }
+  };
+  const decrementNumberOfMashSteps = () => {
+    if (numberOfMashSteps > 1) {
+      dispatch(removeMashStepFromNewRecipe());
+    }
+  };
+  const incrementNumberOfMashSteps = () => {
+    if (numberOfMashSteps < 15) {
+      dispatch(AddNewMashStepToNewRecipe());
     }
   };
   useEffect(() => {
@@ -177,6 +192,26 @@ export default function RecipeCalculator() {
               <Button
                 onClick={() => {
                   incrementNumberOfHopAdditions();
+                }}
+              >
+                +
+              </Button>
+            </h2>
+            {hopAdditionInput(numberOfHopAdditions)}
+          </Form.Group>
+          <Form.Group>
+            <h2>
+              <Button
+                onClick={() => {
+                  decrementNumberOfMashSteps();
+                }}
+              >
+                -
+              </Button>{" "}
+              t_mash_steps{" "}
+              <Button
+                onClick={() => {
+                  incrementNumberOfMashSteps();
                 }}
               >
                 +

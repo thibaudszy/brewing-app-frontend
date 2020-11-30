@@ -18,7 +18,8 @@ export const REMOVE_NEW_MALT_NEW_RECIPE = "REMOVE_NEW_MALT_NEW_RECIPE";
 export const REMOVE_NEW_HOP_NEW_RECIPE = "REMOVE_NEW_HOP_NEW_RECIPE";
 export const ADD_NEW_HOP_NEW_RECIPE = "ADD_NEW_HOP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_HOPADDITIONS = "UPDATE_NEW_RECIPE_HOPADDITIONS";
-
+export const REMOVE_MASH_STEP_NEW_RECIPE = "REMOVE_MASH_STEP_NEW_RECIPE";
+export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
@@ -196,5 +197,15 @@ export const removeNewHopFromNewRecipe = () => {
 export const AddNewHopToNewRecipe = () => {
   return {
     type: ADD_NEW_HOP_NEW_RECIPE,
+  };
+};
+export const removeMashStepFromNewRecipe = () => {
+  return {
+    type: REMOVE_MASH_STEP_NEW_RECIPE,
+  };
+};
+export const AddNewMashStepToNewRecipe = () => {
+  return {
+    type: ADD_MASH_STEP_NEW_RECIPE,
   };
 };

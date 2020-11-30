@@ -7,3 +7,5 @@ export const selectNewRecipeMaltAdditions = (state: any) =>
   state.recipes.newRecipe.maltAdditions;
 export const selectNewRecipeHopAdditions = (state: any) =>
   state.recipes.newRecipe.hopAdditions;
+export const selectNewRecipeMashSteps = (state: any) =>
+  state.recipes.newRecipe.mashSteps;
