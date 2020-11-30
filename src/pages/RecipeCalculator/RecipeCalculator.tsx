@@ -167,7 +167,10 @@ export default function RecipeCalculator() {
       dispatch(AddNewMashStepToNewRecipe());
     }
   }, []);
-
+  async function handleSubmit(event: any) {
+    event.preventDefault();
+    //dispatch(submitNewRecipe(newRecipe));
+  }
   return (
     <div>
       <Jumbotron fluid>

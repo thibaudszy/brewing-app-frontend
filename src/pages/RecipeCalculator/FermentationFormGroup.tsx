@@ -5,21 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   AddNewHopToNewRecipe,
   removeNewHopFromNewRecipe,
-  updateNewBeerArrays,
   updateNewBeerData,
   updateNewBeerHopAdditions,
-  updateNewBeerMashSteps,
 } from "../../store/recipes/actions";
-import {
-  selectNewRecipefermentatioData,
-  selectNewRecipeBoilHopAdditions,
-} from "../../store/recipes/selectors";
-import {
-  dryHopsInputFields,
-  fermentationDataInputFields,
-  hopAdditionInputFields,
-} from "./Fields";
-import { AdditionsInput, Range } from "./Types";
+import { selectNewRecipefermentatioData } from "../../store/recipes/selectors";
+import { dryHopsInputFields, fermentationDataInputFields } from "./Fields";
+import { Range } from "./Types";
 
 export default function FermentationFormGroup() {
   const dispatch = useDispatch();
