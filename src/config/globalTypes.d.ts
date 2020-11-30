@@ -38,6 +38,7 @@ interface MaltAddition {
   defaultMoistureInPercentage: number;
   defaultColorInEBC: number;
 }
+
 interface MashStep {
   id: number;
   recipeId: number;
@@ -76,6 +77,34 @@ interface Recipe {
   FermentationTemperature: number;
   comments: string;
 }
+type Params =
+  | "id"
+  | "name"
+  | "authorId"
+  | "imageURL"
+  | "description"
+  | "ABV"
+  | "IBU"
+  | "OGinPlato"
+  | "FGinPlato"
+  | "DesiredCarbonationInGramsPerLiter"
+  | "colorInEBC"
+  | "LiquorToGristRatio"
+  | "yeastStrain"
+  | "PitchRateInGramsperLiter"
+  | "BoilDurationInMin"
+  | "FermentationTemperature"
+  | "dryHopTimingInPercentageAF"
+  | "duration"
+  | "dryHopRateInGramsPerLitre"
+  | "percentageAlphaAcidsFromAddition"
+  | "defaultColorInEBC"
+  | "defaultMoistureInPercentage"
+  | "temperature"
+  | "alphaAcidContent"
+  | "timeOfAdditionInMinBeforeEndOfBoil"
+  | "percentageOfExtract"
+  | "comments";
 
 interface RecipeWithAuthorName extends Recipe {
   author: {
@@ -88,5 +117,6 @@ interface FullRecipe extends Recipe {
   maltAdditions: MaltAddition[];
   hopAdditions: HopAddition[];
   mashSteps: MashSteps[];
-  HopAdditions: HopAddition[];
 }
+type KeyArray = "maltAdditions" | "hopAdditions" | "mashSteps";
+type RecipeArray = MaltAddition[] | HopAddition[] | MashStep[];

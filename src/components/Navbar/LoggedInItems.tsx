@@ -3,7 +3,7 @@ import { Button, Nav, NavDropdown } from "react-bootstrap";
 import { logOut } from "../../store/user/actions";
 import { useDispatch, useSelector } from "react-redux";
 import translation from "./translation";
-import { selectUserLanguage } from "../../store/user/selectors";
+import { selectUser, selectUserLanguage } from "../../store/user/selectors";
 import { useHistory } from "react-router-dom";
 
 export function LoggedInLinks() {
@@ -33,6 +33,7 @@ export function LoggedInLinks() {
 }
 export function LogOutButton() {
   const dispatch = useDispatch();
+  const userEmail = useSelector(selectUser).email;
   const history = useHistory();
   const logOutClickHandler = () => {
     dispatch(logOut());
@@ -40,12 +41,15 @@ export function LogOutButton() {
   };
   const userLanguage: Language = useSelector(selectUserLanguage);
   return (
-    <Button
-      onClick={() => {
-        logOutClickHandler();
-      }}
-    >
-      {translation[userLanguage]["LogOut"]}
-    </Button>
+    <Nav>
+      <p style={{ marginRight: "1em" }}> {userEmail}</p>
+      <Button
+        onClick={() => {
+          logOutClickHandler();
+        }}
+      >
+        {translation[userLanguage]["LogOut"]}
+      </Button>
+    </Nav>
   );
 }

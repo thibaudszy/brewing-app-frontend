@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MessageBox from "./components/MessageBox";
 import { selectAppLoading } from "./store/appState/selectors";
 import Loading from "./components/Loader";
+import RecipeCalculator from "./pages/RecipeCalculator/RecipeCalculator";
 
 function App() {
   const token = useSelector(selectToken);
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/recipes" component={MyRecipes} />
           <Route exact path="/explore-recipes" component={ImportRecipes} />
           <Route path="/recipes/:recipeId" component={RecipePage} />
+          <Route path="/recipe-calculator" component={RecipeCalculator} />
           {/* <Route path="/" component={Error404} /> */}
         </Switch>
       </div>

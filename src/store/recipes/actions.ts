@@ -11,6 +11,17 @@ export const SET_MY_RECIPES = "SET_MY_RECIPES";
 export const SET_IMPORTABLE_RECIPES = "SET_IMPORTABLE_RECIPES";
 export const IMPORT_RECIPE = "IMPORT_RECIPE";
 export const REMOVE_RECIPE = " REMOVE_RECIPE";
+export const UPDATE_NEW_RECIPE = "UPDATE_NEW_RECIPE";
+export const UPDATE_NEW_RECIPE_ARRAYS = "UPDATE_NEW_RECIPE_ARRAYS";
+export const ADD_NEW_MALT_NEW_RECIPE = "ADD_NEW_MALT_NEW_RECIPE";
+export const REMOVE_NEW_MALT_NEW_RECIPE = "REMOVE_NEW_MALT_NEW_RECIPE";
+export const REMOVE_NEW_HOP_NEW_RECIPE = "REMOVE_NEW_HOP_NEW_RECIPE";
+export const ADD_NEW_HOP_NEW_RECIPE = "ADD_NEW_HOP_NEW_RECIPE";
+export const UPDATE_NEW_RECIPE_HOPADDITIONS = "UPDATE_NEW_RECIPE_HOPADDITIONS";
+export const REMOVE_MASH_STEP_NEW_RECIPE = "REMOVE_MASH_STEP_NEW_RECIPE";
+export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
+export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
+export const UPDATE_COMMENT_NEW_RECIPE = "UPDATE_COMMENT_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -138,3 +149,87 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
     });
   };
 };
+
+export const updateNewBeerData = (param: string, data: any): Action => {
+  console.log("param:", param, "value", data);
+
+  return {
+    type: UPDATE_NEW_RECIPE,
+    payload: { param, value: data.values },
+  };
+};
+
+export const updateNewBeerArrays = (
+  array: KeyArray,
+  index: number,
+  key: string,
+  value: string | number
+): Action => {
+  console.log("payload:", { array, index, key, value });
+  return {
+    type: UPDATE_NEW_RECIPE_ARRAYS,
+    payload: { array, index, key, value },
+  };
+};
+export const updateNewBeerHopAdditions = (
+  index: number,
+  key: string,
+  value: number | string,
+  isDryHop: boolean
+): Action => {
+  return {
+    type: UPDATE_NEW_RECIPE_HOPADDITIONS,
+    payload: { index, key, value, isDryHop },
+  };
+};
+export const AddNewMaltToNewRecipe = () => {
+  return {
+    type: ADD_NEW_MALT_NEW_RECIPE,
+  };
+};
+
+export const removeNewMaltToNewRecipe = () => {
+  return {
+    type: REMOVE_NEW_MALT_NEW_RECIPE,
+  };
+};
+export const removeNewHopFromNewRecipe = (isDryHop: boolean) => {
+  return {
+    type: REMOVE_NEW_HOP_NEW_RECIPE,
+    payload: isDryHop,
+  };
+};
+export const AddNewHopToNewRecipe = (isDryHop: boolean) => {
+  return {
+    type: ADD_NEW_HOP_NEW_RECIPE,
+    payload: isDryHop,
+  };
+};
+export const removeMashStepFromNewRecipe = () => {
+  return {
+    type: REMOVE_MASH_STEP_NEW_RECIPE,
+  };
+};
+export const AddNewMashStepToNewRecipe = () => {
+  return {
+    type: ADD_MASH_STEP_NEW_RECIPE,
+  };
+};
+
+export const updateNewBeerMashSteps = (
+  index: number,
+  key: string,
+  value: number | string
+): Action => {
+  return {
+    type: UPDATE_NEW_RECIPE_MASH_STEPS,
+    payload: { index, key, value },
+  };
+};
+export const updateComment = (comment: string) => {
+  return {
+    type: UPDATE_COMMENT_NEW_RECIPE,
+    payload: comment,
+  };
+};
+export const submitNewRecipe = (newRecipe: FullRecipe) => {};

@@ -17,9 +17,8 @@ const emptyRecipe: FullRecipe = {
   FermentationTemperature: 0,
   comments: "",
   maltAdditions: [],
-  hopAdditions: [],
   mashSteps: [],
-  HopAdditions: [],
+  hopAdditions: [],
 };
 
 export default emptyRecipe;
