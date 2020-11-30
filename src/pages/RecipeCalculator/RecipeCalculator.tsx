@@ -7,24 +7,27 @@ import { selectUserLanguage } from "../../store/user/selectors";
 import { Range } from "./Types";
 import {
   AddNewMaltToNewRecipe,
-  getUserRecipes,
+  removeNewHopFromNewRecipe,
+  AddNewHopToNewRecipe,
   removeNewMaltToNewRecipe,
   updateNewBeerData,
 } from "../../store/recipes/actions";
 import {
   selectMyRecipes,
   selectNewRecipeMaltAdditions,
+  selectNewRecipeHopAdditions,
 } from "../../store/recipes/selectors";
 
 import MaltAdditionsRow from "./MaltAdditionsRow";
 
 import { maltAdditionInputFields, specifications } from "./Fields";
+import HopAdditionsRow from "./HopAdditionRow";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
-
-  const [numberOfHopAdditions, setNumberOfHopAdditions] = useState(1);
   const maltAdditions = useSelector(selectNewRecipeMaltAdditions);
+  const hopAdditions = useSelector(selectNewRecipeHopAdditions);
+
   const history = useHistory();
   const {
     t_ABV,
@@ -59,7 +62,21 @@ export default function RecipeCalculator() {
     }
     return toDisplay;
   };
+  const hopAdditionInput = (numberOfHopAdditions: number) => {
+    let toDisplay = [];
+    for (let i = 0; i < numberOfHopAdditions; i++) {
+      toDisplay.push(
+        <HopAdditionsRow
+          maltAdditionInputFields={maltAdditionInputFields}
+          index={i}
+          key={i}
+        />
+      );
+    }
+    return toDisplay;
+  };
   const numberOfMaltAdditions = maltAdditions.length;
+  const numberOfHopAdditions = hopAdditions.length;
   const decrementNumberOfMaltAdditions = () => {
     if (numberOfMaltAdditions > 1) {
       dispatch(removeNewMaltToNewRecipe());
@@ -70,9 +87,22 @@ export default function RecipeCalculator() {
       dispatch(AddNewMaltToNewRecipe());
     }
   };
+  const decrementNumberOfHopAdditions = () => {
+    if (numberOfHopAdditions > 1) {
+      dispatch(removeNewHopFromNewRecipe());
+    }
+  };
+  const incrementNumberOfHopAdditions = () => {
+    if (numberOfHopAdditions < 15) {
+      dispatch(AddNewHopToNewRecipe());
+    }
+  };
   useEffect(() => {
     if (!numberOfMaltAdditions) {
       dispatch(AddNewMaltToNewRecipe());
+    }
+    if (!numberOfHopAdditions) {
+      dispatch(AddNewHopToNewRecipe());
     }
   }, []);
 
@@ -129,6 +159,26 @@ export default function RecipeCalculator() {
               </Button>
             </h2>
             {maltAdditionInput(numberOfMaltAdditions)}
+          </Form.Group>
+          <Form.Group>
+            <h2>
+              <Button
+                onClick={() => {
+                  decrementNumberOfHopAdditions();
+                }}
+              >
+                -
+              </Button>{" "}
+              t_hop_additions{" "}
+              <Button
+                onClick={() => {
+                  incrementNumberOfHopAdditions();
+                }}
+              >
+                +
+              </Button>
+            </h2>
+            {hopAdditionInput(numberOfHopAdditions)}
           </Form.Group>
         </Form>
       </div>

@@ -15,6 +15,8 @@ export const UPDATE_NEW_RECIPE = "UPDATE_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_ARRAYS = "UPDATE_NEW_RECIPE_ARRAYS";
 export const ADD_NEW_MALT_NEW_RECIPE = "ADD_NEW_MALT_NEW_RECIPE";
 export const REMOVE_NEW_MALT_NEW_RECIPE = "REMOVE_NEW_MALT_NEW_RECIPE";
+export const REMOVE_NEW_HOP_NEW_RECIPE = "REMOVE_NEW_HOP_NEW_RECIPE";
+export const ADD_NEW_HOP_NEW_RECIPE = "ADD_NEW_HOP_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -174,5 +176,15 @@ export const AddNewMaltToNewRecipe = () => {
 export const removeNewMaltToNewRecipe = () => {
   return {
     type: REMOVE_NEW_MALT_NEW_RECIPE,
+  };
+};
+export const removeNewHopFromNewRecipe = () => {
+  return {
+    type: REMOVE_NEW_HOP_NEW_RECIPE,
+  };
+};
+export const AddNewHopToNewRecipe = () => {
+  return {
+    type: ADD_NEW_HOP_NEW_RECIPE,
   };
 };

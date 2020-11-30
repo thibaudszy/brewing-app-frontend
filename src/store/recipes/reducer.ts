@@ -9,6 +9,8 @@ import {
   UPDATE_NEW_RECIPE_ARRAYS as UPDATE_NEW_RECIPE_MALTADDITIONS,
   ADD_NEW_MALT_NEW_RECIPE,
   REMOVE_NEW_MALT_NEW_RECIPE,
+  ADD_NEW_HOP_NEW_RECIPE,
+  REMOVE_NEW_HOP_NEW_RECIPE,
 } from "./actions";
 
 interface RecipeState {
@@ -105,6 +107,32 @@ export default (state = initialState, action: Action) => {
             maltAdditions: maltAdditionsNewRecipe.slice(
               0,
               maltAdditionsNewRecipe.length - 1
+            ),
+          },
+        };
+      }
+      return state;
+    }
+
+    case ADD_NEW_HOP_NEW_RECIPE: {
+      return {
+        ...state,
+        newRecipe: {
+          ...state.newRecipe,
+          hopAdditions: [...state.newRecipe.hopAdditions, {}],
+        },
+      };
+    }
+    case REMOVE_NEW_HOP_NEW_RECIPE: {
+      const hopAdditionsNewRecipe = state.newRecipe.hopAdditions;
+      if (hopAdditionsNewRecipe.length > 1) {
+        return {
+          ...state,
+          newRecipe: {
+            ...state.newRecipe,
+            hopAdditions: hopAdditionsNewRecipe.slice(
+              0,
+              hopAdditionsNewRecipe.length - 1
             ),
           },
         };
