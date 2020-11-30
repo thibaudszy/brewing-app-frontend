@@ -27,8 +27,10 @@ import {
   hopAdditionInputFields,
   maltAdditionInputFields,
   specifications,
+  mashInputFields,
 } from "./Fields";
 import HopAdditionsRow from "./HopAdditionRow";
+import MashStepsRow from "./MashStepsRow";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -79,6 +81,16 @@ export default function RecipeCalculator() {
           index={i}
           key={i}
         />
+      );
+    }
+    return toDisplay;
+  };
+
+  const mashStepsInput = (numberOfmashSteps: number) => {
+    let toDisplay = [];
+    for (let i = 0; i < numberOfMashSteps; i++) {
+      toDisplay.push(
+        <MashStepsRow mashInputFields={mashInputFields} index={i} key={i} />
       );
     }
     return toDisplay;
@@ -217,7 +229,7 @@ export default function RecipeCalculator() {
                 +
               </Button>
             </h2>
-            {hopAdditionInput(numberOfHopAdditions)}
+            {mashStepsInput(numberOfMashSteps)}
           </Form.Group>
         </Form>
       </div>

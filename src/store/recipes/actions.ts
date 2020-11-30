@@ -20,6 +20,8 @@ export const ADD_NEW_HOP_NEW_RECIPE = "ADD_NEW_HOP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_HOPADDITIONS = "UPDATE_NEW_RECIPE_HOPADDITIONS";
 export const REMOVE_MASH_STEP_NEW_RECIPE = "REMOVE_MASH_STEP_NEW_RECIPE";
 export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
+export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
+
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
@@ -207,5 +209,16 @@ export const removeMashStepFromNewRecipe = () => {
 export const AddNewMashStepToNewRecipe = () => {
   return {
     type: ADD_MASH_STEP_NEW_RECIPE,
+  };
+};
+
+export const updateNewBeerMashSteps = (
+  index: number,
+  key: string,
+  value: number | string
+): Action => {
+  return {
+    type: UPDATE_NEW_RECIPE_MASH_STEPS,
+    payload: { index, key, value },
   };
 };

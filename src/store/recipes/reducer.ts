@@ -14,6 +14,7 @@ import {
   UPDATE_NEW_RECIPE_HOPADDITIONS,
   REMOVE_MASH_STEP_NEW_RECIPE,
   ADD_MASH_STEP_NEW_RECIPE,
+  UPDATE_NEW_RECIPE_MASH_STEPS,
 } from "./actions";
 
 interface RecipeState {
@@ -176,9 +177,24 @@ export default (state = initialState, action: Action) => {
           mashSteps: mashStepsNewRecipe.slice(0, mashStepsNewRecipe.length - 1),
         },
       };
-
-      return state;
     }
+    case UPDATE_NEW_RECIPE_MASH_STEPS: {
+      const { newRecipe } = state;
+      const { index: targetIndex, key, value } = payload;
+
+      const updatedArray = newRecipe.mashSteps.map((arrayElement, index) => {
+        if (targetIndex === index) {
+          return { ...arrayElement, [key]: value };
+        }
+        return arrayElement;
+      });
+
+      return {
+        ...state,
+        newRecipe: { ...state.newRecipe, mashSteps: updatedArray },
+      };
+    }
+
     default:
       return state;
   }

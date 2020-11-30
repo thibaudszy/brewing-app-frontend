@@ -107,3 +107,20 @@ export const hopAdditionInputFields: AdditionsInput[] = [
     placeholder: "enter a value",
   },
 ];
+export const mashInputFields: AdditionsInput[] = [
+  {
+    param: "temperature",
+    label: "t_temperature",
+    type: "number",
+    range: { min: 30, warningMin: 35, warningMax: 85, max: 100 },
+    placeholder: "enter a value",
+  },
+
+  {
+    param: "duration",
+    label: "t_duration",
+    type: "number",
+    range: { min: 0, warningMin: 1, warningMax: 70, max: 200 },
+    placeholder: "enter a value",
+  },
+];
