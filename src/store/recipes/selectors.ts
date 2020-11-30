@@ -6,3 +6,5 @@ export const selectMyRecipes = (state: RootState) => state.recipes.myRecipes;
 
 export const selectImportableRecipes = (state: RootState) =>
   state.recipes.importableRecipes;
+export const selectNewRecipeMaltAdditions = (state: RootState) =>
+  state.recipes.newRecipe.maltAdditions;

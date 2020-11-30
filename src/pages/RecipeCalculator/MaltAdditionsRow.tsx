@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { updateNewBeerArrays } from "../../store/recipes/actions";
 import { MaltAdditionsInput, Range } from "./Types";

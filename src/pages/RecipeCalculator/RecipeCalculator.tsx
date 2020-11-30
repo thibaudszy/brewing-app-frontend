@@ -5,18 +5,26 @@ import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
 import { Range } from "./Types";
-import { getUserRecipes, updateNewBeerData } from "../../store/recipes/actions";
-import { selectMyRecipes } from "../../store/recipes/selectors";
-import RecipeCard from "../../components/RecipeCard/RecipeCard";
-import emptyRecipe from "../RecipePage/emptyRecipe";
+import {
+  AddNewMaltToNewRecipe,
+  getUserRecipes,
+  removeNewMaltToNewRecipe,
+  updateNewBeerData,
+} from "../../store/recipes/actions";
+import {
+  selectMyRecipes,
+  selectNewRecipeMaltAdditions,
+} from "../../store/recipes/selectors";
+
 import MaltAdditionsRow from "./MaltAdditionsRow";
 
 import { maltAdditionInputFields, specifications } from "./Fields";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const [numberOfMaltAdditions, setNumberOfMaltAdditions] = useState(1);
+
   const [numberOfHopAdditions, setNumberOfHopAdditions] = useState(1);
+  const maltAdditions = useSelector(selectNewRecipeMaltAdditions);
   const history = useHistory();
   const {
     t_ABV,
@@ -51,14 +59,16 @@ export default function RecipeCalculator() {
     }
     return toDisplay;
   };
+  const numberOfMaltAdditions = useSelector(selectNewRecipeMaltAdditions)
+    .length;
   const decrementNumberOfMaltAdditions = () => {
     if (numberOfMaltAdditions > 1) {
-      setNumberOfMaltAdditions(numberOfMaltAdditions - 1);
+      dispatch(removeNewMaltToNewRecipe());
     }
   };
   const incrementNumberOfMaltAdditions = () => {
     if (numberOfMaltAdditions < 15) {
-      setNumberOfMaltAdditions(numberOfMaltAdditions + 1);
+      dispatch(AddNewMaltToNewRecipe());
     }
   };
   return (

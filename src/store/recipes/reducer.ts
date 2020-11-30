@@ -1,3 +1,4 @@
+import MaltAdditionsRow from "../../pages/RecipeCalculator/MaltAdditionsRow";
 import emptyRecipe from "../../pages/RecipePage/emptyRecipe";
 import {
   SET_MY_RECIPES,
@@ -6,6 +7,8 @@ import {
   REMOVE_RECIPE,
   UPDATE_NEW_RECIPE,
   UPDATE_NEW_RECIPE_ARRAYS,
+  ADD_NEW_MALT_NEW_RECIPE,
+  REMOVE_NEW_MALT_NEW_RECIPE,
 } from "./actions";
 
 interface RecipeState {
@@ -62,25 +65,46 @@ export default (state = initialState, action: Action) => {
       };
       //return state;
     }
-    case UPDATE_NEW_RECIPE_ARRAYS: {
-      const { newRecipe } = state;
-      const { array, index: targetIndex, key, value } = payload;
+    // case UPDATE_NEW_RECIPE_ARRAYS: {
+    //   const { newRecipe } = state;
+    //   const { array, index: targetIndex, key, value } = payload;
 
-      const updatedArray = newRecipe.maltAdditions.map(
-        (arrayElement, index) => {
-          console.log(targetIndex);
-          if (targetIndex === index) {
-            return { ...arrayElement, [key]: value };
-          }
-          return arrayElement;
-        }
-      );
+    //   const updatedArray = newRecipe.maltAdditions.map(
+    //     (arrayElement, index) => {
+    //       console.log(targetIndex);
+    //       if (targetIndex === index) {
+    //         return { ...arrayElement, [key]: value };
+    //       }
+    //       return arrayElement;
+    //     }
+    //   );
 
+    //   return {
+    //     ...state,
+    //     newRecipe: { ...state.newRecipe, maltAdditions: updatedArray },
+    //   };
+    // }
+
+    case ADD_NEW_MALT_NEW_RECIPE:
       return {
         ...state,
-        newRecipe: { ...state.newRecipe, maltAdditions: updatedArray },
+        newRecipe: {
+          ...state.newRecipe,
+          maltAdditions: [...state.newRecipe.maltAdditions, {}],
+        },
       };
-    }
+    case REMOVE_NEW_MALT_NEW_RECIPE:
+      const maltAdditionsNewRecipe = state.newRecipe.maltAdditions;
+      return {
+        ...state,
+        newRecipe: {
+          ...state.newRecipe,
+          maltAdditions: maltAdditionsNewRecipe.slice(
+            0,
+            maltAdditionsNewRecipe.length - 1
+          ),
+        },
+      };
 
     default:
       return state;
