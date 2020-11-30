@@ -6,7 +6,7 @@ import {
   IMPORT_RECIPE,
   REMOVE_RECIPE,
   UPDATE_NEW_RECIPE,
-  UPDATE_NEW_RECIPE_ARRAYS,
+  UPDATE_NEW_RECIPE_ARRAYS as UPDATE_NEW_RECIPE_MALTADDITIONS,
   ADD_NEW_MALT_NEW_RECIPE,
   REMOVE_NEW_MALT_NEW_RECIPE,
 } from "./actions";
@@ -25,6 +25,7 @@ const initialState: RecipeState = {
 
 export default (state = initialState, action: Action) => {
   const { type, payload } = action;
+  console.log("action type", type);
   switch (type) {
     case SET_MY_RECIPES:
       return { ...state, myRecipes: payload };
@@ -65,25 +66,25 @@ export default (state = initialState, action: Action) => {
       };
       //return state;
     }
-    // case UPDATE_NEW_RECIPE_ARRAYS: {
-    //   const { newRecipe } = state;
-    //   const { array, index: targetIndex, key, value } = payload;
+    case UPDATE_NEW_RECIPE_MALTADDITIONS: {
+      const { newRecipe } = state;
+      const { array, index: targetIndex, key, value } = payload;
+      console.log("reducer ");
+      const updatedArray = newRecipe.maltAdditions.map(
+        (arrayElement, index) => {
+          console.log("target index", targetIndex);
+          if (targetIndex === index) {
+            return { ...arrayElement, [key]: value };
+          }
+          return arrayElement;
+        }
+      );
 
-    //   const updatedArray = newRecipe.maltAdditions.map(
-    //     (arrayElement, index) => {
-    //       console.log(targetIndex);
-    //       if (targetIndex === index) {
-    //         return { ...arrayElement, [key]: value };
-    //       }
-    //       return arrayElement;
-    //     }
-    //   );
-
-    //   return {
-    //     ...state,
-    //     newRecipe: { ...state.newRecipe, maltAdditions: updatedArray },
-    //   };
-    // }
+      return {
+        ...state,
+        newRecipe: { ...state.newRecipe, maltAdditions: updatedArray },
+      };
+    }
 
     case ADD_NEW_MALT_NEW_RECIPE:
       return {
