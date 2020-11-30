@@ -37,7 +37,7 @@ export default function FermentationFormGroup() {
     key: any,
     value: any
   ): void => {
-    dispatch(updateNewBeerHopAdditions(index, key, value));
+    dispatch(updateNewBeerHopAdditions(index, key, value, true));
   };
   const handleFieldChange = (
     param: Params,
@@ -61,7 +61,7 @@ export default function FermentationFormGroup() {
     let toDisplay = [];
 
     for (let i = 0; i < numberOfDryHops; i++) {
-      //const { param, label, placeholder, type, range } = dryHopsInputFields[i];
+      const dryHopAddition = dryHops[i];
       toDisplay.push(
         <Form.Row className="align-items-center" key={i}>
           {dryHopsInputFields.map(
@@ -73,7 +73,7 @@ export default function FermentationFormGroup() {
                     className="mb-2"
                     id="inlineFormInput"
                     placeholder={placeholder}
-                    // defaultValue={hopAddition[param]}
+                    defaultValue={dryHopAddition[param]}
                     onChange={(e) =>
                       handleHopAdditionInput(i, param, e.target.value)
                     }
@@ -87,13 +87,17 @@ export default function FermentationFormGroup() {
     }
     return toDisplay;
   };
-
+  const defaultValues = [
+    yeastStrain,
+    PitchRateInGramsperLiter,
+    FermentationTemperature,
+  ];
   return (
     <Form.Group>
       <h2> {"t_fermentation"} </h2>
       <Form.Row className="align-items-center">
         {fermentationDataInputFields.map(
-          ({ param, label, type, range, placeholder }) => {
+          ({ param, label, type, range, placeholder }, index) => {
             return (
               <Col xs="auto" key={param}>
                 <Form.Label htmlFor="inlineFormInput">{label}</Form.Label>
@@ -101,6 +105,7 @@ export default function FermentationFormGroup() {
                   className="mb-2"
                   id="inlineFormInput"
                   placeholder={placeholder}
+                  defaultValue={defaultValues[index]}
                   onChange={(e) =>
                     handleFieldChange(
                       param,

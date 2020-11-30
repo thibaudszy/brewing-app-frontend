@@ -29,7 +29,7 @@ export default function HopAdditionsRow(props: Props) {
     key: any,
     value: any
   ): void => {
-    dispatch(updateNewBeerHopAdditions(index, key, value));
+    dispatch(updateNewBeerHopAdditions(index, key, value, false));
   };
   return (
     <Form.Row className="align-items-center">

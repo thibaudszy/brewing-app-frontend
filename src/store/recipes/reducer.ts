@@ -156,18 +156,28 @@ export default (state = initialState, action: Action) => {
     }
     case UPDATE_NEW_RECIPE_HOPADDITIONS: {
       const { newRecipe } = state;
-      const { index: targetIndex, key, value } = payload;
+      const hopAdditionsNewRecipe = state.newRecipe.hopAdditions;
+      const { index: targetIndex, key, value, isDryHop } = payload;
+      const filteredHopAdditions = hopAdditionsNewRecipe.filter(
+        (hopAddition) => hopAddition.isDryHop === isDryHop
+      );
 
-      const updatedArray = newRecipe.hopAdditions.map((arrayElement, index) => {
+      const otherHopAdditions = hopAdditionsNewRecipe.filter(
+        (hopAddition) => hopAddition.isDryHop !== isDryHop
+      );
+      const updatedArray = filteredHopAdditions.map((arrayElement, index) => {
         if (targetIndex === index) {
           return { ...arrayElement, [key]: value };
         }
         return arrayElement;
       });
-
+      console.log("updated array", updatedArray);
       return {
         ...state,
-        newRecipe: { ...state.newRecipe, hopAdditions: updatedArray },
+        newRecipe: {
+          ...state.newRecipe,
+          hopAdditions: [...updatedArray, ...otherHopAdditions],
+        },
       };
     }
     case ADD_MASH_STEP_NEW_RECIPE: {

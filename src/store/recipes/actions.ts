@@ -173,11 +173,12 @@ export const updateNewBeerArrays = (
 export const updateNewBeerHopAdditions = (
   index: number,
   key: string,
-  value: number | string
+  value: number | string,
+  isDryHop: boolean
 ): Action => {
   return {
     type: UPDATE_NEW_RECIPE_HOPADDITIONS,
-    payload: { index, key, value },
+    payload: { index, key, value, isDryHop },
   };
 };
 export const AddNewMaltToNewRecipe = () => {
