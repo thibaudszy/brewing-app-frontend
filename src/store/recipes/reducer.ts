@@ -4,6 +4,7 @@ import {
   SET_IMPORTABLE_RECIPES,
   IMPORT_RECIPE,
   REMOVE_RECIPE,
+  UPDATE_NEW_RECIPE,
 } from "./actions";
 
 interface RecipeState {
@@ -35,6 +36,7 @@ export default (state = initialState, action: Action) => {
       );
       const updatedMyRecipes = [...myRecipes, recipeToImport];
       return {
+        ...state,
         myRecipes: updatedMyRecipes,
         importableRecipes: updatedImportableRecipes,
       };
@@ -47,12 +49,19 @@ export default (state = initialState, action: Action) => {
       );
       const updatedImportableRecipes = [...importableRecipes, recipeToRemove];
       return {
+        ...state,
         myRecipes: updatedMyRecipes,
         importableRecipes: updatedImportableRecipes,
       };
     }
-    case "UPDATE_NEW_RECIPE":
-      return { ...state, ...payload };
+    case UPDATE_NEW_RECIPE: {
+      return {
+        ...state,
+        newRecipe: { ...state.newRecipe, [payload.param]: payload.value },
+      };
+      //return state;
+    }
+
     default:
       return state;
   }

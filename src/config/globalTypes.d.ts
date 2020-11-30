@@ -76,6 +76,24 @@ interface Recipe {
   FermentationTemperature: number;
   comments: string;
 }
+type Params =
+  | "id"
+  | "name"
+  | "authorId"
+  | "imageURL"
+  | "description"
+  | "ABV"
+  | "IBU"
+  | "OGinPlato"
+  | "FGinPlato"
+  | "DesiredCarbonationInGramsPerLiter"
+  | "colorInEBC"
+  | "LiquorToGristRatio"
+  | "yeastStrain"
+  | "PitchRateInGramsperLiter"
+  | "BoilDurationInMin"
+  | "FermentationTemperature"
+  | "comments";
 
 interface RecipeWithAuthorName extends Recipe {
   author: {

@@ -11,6 +11,7 @@ export const SET_MY_RECIPES = "SET_MY_RECIPES";
 export const SET_IMPORTABLE_RECIPES = "SET_IMPORTABLE_RECIPES";
 export const IMPORT_RECIPE = "IMPORT_RECIPE";
 export const REMOVE_RECIPE = " REMOVE_RECIPE";
+export const UPDATE_NEW_RECIPE = "UPDATE_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -136,5 +137,13 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
       type: REMOVE_RECIPE,
       payload: recipeId,
     });
+  };
+};
+
+export const updateNewBeerData = (param: string, value: any): Action => {
+  console.log("param:", param, "value", value);
+  return {
+    type: UPDATE_NEW_RECIPE,
+    payload: { param, value },
   };
 };

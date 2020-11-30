@@ -13,10 +13,24 @@ import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
 
-import { getUserRecipes } from "../../store/recipes/actions";
+import { getUserRecipes, updateNewBeerData } from "../../store/recipes/actions";
 import { selectMyRecipes } from "../../store/recipes/selectors";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import emptyRecipe from "../RecipePage/emptyRecipe";
+
+interface Range {
+  min: number;
+  warningMin: number;
+  warningMax: number;
+  max: number;
+}
+interface Specifications {
+  param: Params;
+  label: string;
+  type: string;
+  range: Range;
+  placeholder: string;
+}
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -33,7 +47,7 @@ export default function RecipeCalculator() {
   const myRecipes = useSelector(selectMyRecipes) || [];
   const dispatch = useDispatch();
 
-  const specifications = [
+  const specifications: Specifications[] = [
     {
       param: "ABV",
       label: "t_ABV",
@@ -70,6 +84,15 @@ export default function RecipeCalculator() {
       placeholder: "enter a value",
     },
   ];
+  const handleFieldChange = (
+    param: Params,
+    value: any,
+    type: string,
+    range: Range
+  ): void => {
+    dispatch(updateNewBeerData(param, value));
+  };
+
   return (
     <div>
       <Jumbotron fluid>
@@ -89,6 +112,9 @@ export default function RecipeCalculator() {
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder={placeholder}
+                        onChange={(e) =>
+                          handleFieldChange(param, e.target.value, type, range)
+                        }
                       />
                     </Col>
                   );
