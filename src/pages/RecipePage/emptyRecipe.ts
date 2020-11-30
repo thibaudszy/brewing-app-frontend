@@ -19,7 +19,6 @@ const emptyRecipe: FullRecipe = {
   maltAdditions: [],
   hopAdditions: [],
   mashSteps: [],
-  HopAdditions: [],
 };
 
 export default emptyRecipe;

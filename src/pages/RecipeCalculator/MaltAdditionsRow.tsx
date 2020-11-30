@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+
 import { updateNewBeerArrays } from "../../store/recipes/actions";
-import { MaltAdditions, Range } from "./Types";
+import { MaltAdditionsInput, Range } from "./Types";
 
 interface Props {
-  maltAdditionInputFields: MaltAdditions[];
+  maltAdditionInputFields: MaltAdditionsInput[];
   index: number;
 }
 
 export default function MaltAdditionsRow(props: Props) {
   const dispatch = useDispatch();
+
   const { maltAdditionInputFields, index } = props;
   const handleMaltAdditionInput = (
     key: any,

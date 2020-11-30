@@ -151,7 +151,7 @@ export const updateNewBeerData = (param: string, data: any): Action => {
 };
 
 export const updateNewBeerArrays = (
-  array: "maltAdditions" | "hopAdditions" | "mashSteps",
+  array: KeyArray,
   index: number,
   key: string,
   value: string | number

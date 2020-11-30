@@ -1,32 +1,17 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Jumbotron,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
+import { Button, Col, Form, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
-
+import { Range } from "./Types";
 import { getUserRecipes, updateNewBeerData } from "../../store/recipes/actions";
 import { selectMyRecipes } from "../../store/recipes/selectors";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 import emptyRecipe from "../RecipePage/emptyRecipe";
 import MaltAdditionsRow from "./MaltAdditionsRow";
-import { MaltAdditions, Range } from "./Types";
 
-interface Specifications {
-  param: Params;
-  label: string;
-  type: string;
-  range: Range;
-  placeholder: string;
-}
+import { maltAdditionInputFields, specifications } from "./Fields";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -44,75 +29,6 @@ export default function RecipeCalculator() {
   } = translation[userLanguage];
   const myRecipes = useSelector(selectMyRecipes) || [];
   const dispatch = useDispatch();
-
-  const specifications: Specifications[] = [
-    {
-      param: "ABV",
-      label: "t_ABV",
-      type: "number",
-      range: { min: 0, warningMin: 2, warningMax: 16, max: 30 },
-      placeholder: "enter a value",
-    },
-    {
-      param: "IBU",
-      label: "t_IBU",
-      type: "number",
-      range: { min: 0, warningMin: 10, warningMax: 16, max: 30 },
-      placeholder: "enter a value",
-    },
-    {
-      param: "FGinPlato",
-      label: "t_fg",
-      type: "number",
-      range: { min: 0, warningMin: 1, warningMax: 7, max: 25 },
-      placeholder: "enter a value",
-    },
-    {
-      param: "DesiredCarbonationInGramsPerLiter",
-      label: "t_carbonation",
-      type: "number",
-      range: { min: 0, warningMin: 3, warningMax: 7, max: 10 },
-      placeholder: "enter a value",
-    },
-    {
-      param: "colorInEBC",
-      label: "t_color",
-      type: "number",
-      range: { min: 0, warningMin: 3, warningMax: 100, max: 500 },
-      placeholder: "enter a value",
-    },
-  ];
-  const maltAdditionInputFields: MaltAdditions[] = [
-    {
-      param: "name",
-      label: "t_malt_name",
-      type: "string",
-      range: { min: 2, warningMin: 4, warningMax: 20, max: 30 },
-      placeholder: "enter a name",
-    },
-    {
-      param: "percentageOfExtract",
-      label: "t_percentage_extract",
-      type: "number",
-      range: { min: 0, warningMin: 0, warningMax: 100, max: 100 },
-      placeholder: "enter a value",
-    },
-    {
-      param: "defaultMoistureInPercentage",
-      label: "t_moisture",
-      type: "number",
-      range: { min: 1, warningMin: 2, warningMax: 7, max: 10 },
-      placeholder: "enter a value",
-    },
-
-    {
-      param: " defaultColorInEBC",
-      label: "t_color",
-      type: "number",
-      range: { min: 1, warningMin: 2, warningMax: 1500, max: 2000 },
-      placeholder: "enter a value",
-    },
-  ];
 
   const handleFieldChange = (
     param: Params,

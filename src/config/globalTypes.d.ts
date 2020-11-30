@@ -38,6 +38,7 @@ interface MaltAddition {
   defaultMoistureInPercentage: number;
   defaultColorInEBC: number;
 }
+
 interface MashStep {
   id: number;
   recipeId: number;
@@ -106,5 +107,6 @@ interface FullRecipe extends Recipe {
   maltAdditions: MaltAddition[];
   hopAdditions: HopAddition[];
   mashSteps: MashSteps[];
-  HopAdditions: HopAddition[];
 }
+type KeyArray = "maltAdditions" | "hopAdditions" | "mashSteps";
+type RecipeArray = MaltAddition[] | HopAddition[] | MashStep[];

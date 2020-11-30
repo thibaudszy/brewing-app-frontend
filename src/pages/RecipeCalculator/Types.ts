@@ -1,4 +1,4 @@
-export interface MaltAdditions {
+export interface MaltAdditionsInput {
   param: string;
   label: string;
   type: string;
