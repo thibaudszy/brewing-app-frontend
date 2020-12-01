@@ -103,3 +103,14 @@ export const mashWaterVolumeInL = (
 ): number => {
   return gristInKg * liquorToGristRatio;
 };
+
+export const platoToPG = (densityInPlato: number): number => {
+  return densityInPlato * 4;
+};
+export const PGtoPlato = (densityInPG: number): number => {
+  return densityInPG / 4;
+};
+export const calculateOG = (targetABV: number, FGinPlato: number): number => {
+  const OGinPG = targetABV / 0.129 + platoToPG(FGinPlato);
+  return parseFloat(PGtoPlato(OGinPG).toFixed(1));
+};

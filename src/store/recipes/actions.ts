@@ -10,6 +10,7 @@ import {
   showMessageWithTimeout,
 } from "../appState/actions";
 import { disconnect } from "process";
+import { calculateOG } from "../../BrewingCalculations";
 
 export const SET_MY_RECIPES = "SET_MY_RECIPES";
 export const SET_IMPORTABLE_RECIPES = "SET_IMPORTABLE_RECIPES";
@@ -239,9 +240,12 @@ export const updateComment = (comment: string) => {
 export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {
   return async (dispatch, getState) => {
     try {
-      const recipeToPost = { ...newRecipe, OGinPlato: 12 };
+      const recipeToPost = {
+        ...newRecipe,
+        OGinPlato: calculateOG(newRecipe.ABV, newRecipe.FGinPlato),
+      };
       const token = selectToken(getState());
-      dispatch(appLoading);
+      dispatch(appLoading());
       const serverResponse = await Axios.post(
         `${apiUrl}/recipes`,
         {
@@ -252,6 +256,7 @@ export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {
         }
       );
       console.log("server response", serverResponse);
+      dispatch(appDoneLoading());
       dispatch(showMessageWithTimeout("sucess", true, "recipe created"));
     } catch (e) {
       dispatch(showMessageWithTimeout("danger", true, "request failed"));
