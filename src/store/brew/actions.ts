@@ -10,7 +10,7 @@ import { selectToken } from "../user/selectors";
 import { selectBrew } from "./selectors";
 
 export const SET_NEW_BREW = "SET_NEW_BREW";
-export const SET_TIME_START_MASH = "SET_TIME_START_MASH";
+export const UPDATE_BREW_DATA = "UPDATE_BREW_DATA";
 
 export const createNewBrew = (
   recipeId: number,
@@ -61,8 +61,12 @@ export const startMash = (): AppThunk => {
       console.log("serverResponse", serverResponse);
       if (serverResponse.status === 200) {
         dispatch({
-          type: SET_TIME_START_MASH,
-          payload: now,
+          type: UPDATE_BREW_DATA,
+          payload: {
+            newStage: "mash",
+            key: "timeStartMash",
+            updatedValue: now,
+          },
         });
       } else {
         throw "error";

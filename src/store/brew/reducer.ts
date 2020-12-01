@@ -1,7 +1,8 @@
 import { Reducer } from "react";
-import { SET_NEW_BREW, SET_TIME_START_MASH } from "./actions";
+import { SET_NEW_BREW, UPDATE_BREW_DATA } from "./actions";
 
 const initialState = {
+  stage: "ingredients",
   brew: {},
 };
 
@@ -10,10 +11,16 @@ export default (state = initialState, action: Action) => {
   console.log("payload brew", payload);
   switch (type) {
     case SET_NEW_BREW:
-      return payload;
-    case SET_TIME_START_MASH: {
-      return payload;
+      return { ...state, brew: payload };
+    case UPDATE_BREW_DATA: {
+      const { newStage, key, updatedValue } = payload;
+      return {
+        ...state,
+        stage: newStage,
+        brew: { ...state.brew, [key]: updatedValue },
+      };
     }
+
     default:
       return state;
   }

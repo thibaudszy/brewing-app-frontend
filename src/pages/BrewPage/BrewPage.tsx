@@ -11,12 +11,24 @@ import emptyRecipe from "../RecipePage/emptyRecipe";
 import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import IngredientsChecklist from "./IngredientsChecklist";
+import { selectBrewStage } from "../../store/brew/selectors";
 
 export default function BrewPage() {
   const recipe = useSelector(selectFullRecipe);
+  const stage = useSelector(selectBrewStage);
+  const [key, setKey] = useState<string | null>("ingredients");
   const userLanguage: Language = useSelector(selectUserLanguage);
   //const dispatch = useDispatch();
 
+  useEffect(() => {
+    setKey(stage);
+  }, [stage]);
+  //   useEffect(() => {
+  //       effect
+  //       return () => {
+  //           cleanup
+  //       }
+  //   }, [])
   const { t_ingredients } = translation[userLanguage];
 
   const {
@@ -40,7 +52,11 @@ export default function BrewPage() {
 
   return (
     <div>
-      <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+      <Tabs
+        id="controlled-tab-example"
+        activeKey={key}
+        onSelect={(k) => setKey(k)}
+      >
         <Tab eventKey="ingredients" title={t_ingredients}>
           <IngredientsChecklist />
         </Tab>
