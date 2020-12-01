@@ -76,3 +76,16 @@ export const startMash = (): AppThunk => {
     }
   };
 };
+
+export const fetchLastbrew = (): AppThunk => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  dispatch(appLoading());
+  const lastBrew = await Axios.get(`${apiUrl}/brews/lastbrew`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  dispatch({
+    type: SET_NEW_BREW,
+    payload: lastBrew.data,
+  });
+  dispatch(appDoneLoading());
+};

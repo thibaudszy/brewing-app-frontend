@@ -11,24 +11,32 @@ import emptyRecipe from "../RecipePage/emptyRecipe";
 import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import IngredientsChecklist from "./IngredientsChecklist";
-import { selectBrewStage } from "../../store/brew/selectors";
+import { selectBrew, selectBrewStage } from "../../store/brew/selectors";
+import { fetchLastbrew } from "../../store/brew/actions";
+import { fetchFullRecipe } from "../../store/recipes/actions";
 
 export default function BrewPage() {
   const recipe = useSelector(selectFullRecipe);
+  const brew = useSelector(selectBrew);
   const stage = useSelector(selectBrewStage);
   const [key, setKey] = useState<string | null>("ingredients");
   const userLanguage: Language = useSelector(selectUserLanguage);
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setKey(stage);
-  }, [stage]);
-  //   useEffect(() => {
-  //       effect
-  //       return () => {
-  //           cleanup
-  //       }
-  //   }, [])
+
+    if (!brew.id) {
+      dispatch(fetchLastbrew());
+    }
+    if (brew.id && !recipe) {
+      dispatch(fetchFullRecipe(brew.recipeId));
+    }
+  }, [stage, brew, recipe]);
+  if (!brew || !recipe) {
+    return <div> loading</div>;
+  }
+
   const { t_ingredients } = translation[userLanguage];
 
   const {
@@ -61,7 +69,9 @@ export default function BrewPage() {
           <IngredientsChecklist />
         </Tab>
 
-        <Tab eventKey="mash" title="Mash"></Tab>
+        <Tab eventKey="mash" title="Mash">
+          {/* <MashTimers /> */}
+        </Tab>
         <Tab eventKey="boil" title="Boil" disabled></Tab>
       </Tabs>
     </div>
