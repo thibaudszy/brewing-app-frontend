@@ -14,6 +14,7 @@ import IngredientsChecklist from "./IngredientsChecklist";
 import { selectBrew, selectBrewStage } from "../../store/brew/selectors";
 import { fetchLastbrew } from "../../store/brew/actions";
 import { fetchFullRecipe } from "../../store/recipes/actions";
+import MashTimers from "./MashTimers";
 
 export default function BrewPage() {
   const recipe = useSelector(selectFullRecipe);
@@ -57,7 +58,7 @@ export default function BrewPage() {
     yeastStrain,
     comments,
   } = recipe;
-
+  const finishMashHandler = () => {};
   return (
     <div>
       <Tabs
@@ -70,7 +71,8 @@ export default function BrewPage() {
         </Tab>
 
         <Tab eventKey="mash" title="Mash">
-          {/* <MashTimers /> */}
+          <MashTimers />
+          <Button onClick={() => finishMashHandler()}> Mash Finished </Button>
         </Tab>
         <Tab eventKey="boil" title="Boil" disabled></Tab>
       </Tabs>
