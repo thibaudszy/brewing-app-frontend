@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
+  Button,
   Col,
   Form,
   Jumbotron,
@@ -24,11 +25,14 @@ import Hops from "./Hops";
 import MashSchedule from "./MashSchedule";
 import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 import DryHops from "./DryHops";
+import { fetchFullRecipe } from "../../store/recipes/actions";
+import { selectFullRecipe } from "../../store/recipes/selectors";
 
 export default function RecipePage() {
-  const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
+  const recipe: FullRecipe = useSelector(selectFullRecipe);
   const [brewLengthInL, setBrewLengthInL] = useState<number>(20);
   const userLanguage: Language = useSelector(selectUserLanguage);
+  const history = useHistory();
   const dispatch = useDispatch();
   interface paramsRecipePage {
     recipeId: string;
@@ -50,38 +54,12 @@ export default function RecipePage() {
   } = translation[userLanguage];
 
   const { recipeId } = useParams<paramsRecipePage>();
-  const token = useSelector(selectToken);
-  useEffect(() => {
-    const fetchRecipe = async (recipeIdLocal: string) => {
-      dispatch(appLoading());
 
-      try {
-        const recipeRequest: AxiosResponse = await Axios.get(
-          `${apiUrl}/recipes/recipe/${recipeId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        dispatch(appDoneLoading());
-        const recipe: FullRecipe = recipeRequest.data;
-        setRecipe(recipe);
-      } catch (e) {
-        dispatch({
-          type: "SET_MESSAGE",
-          payload: {
-            variant: "danger",
-            dismissable: true,
-            text: "request failed",
-          },
-        });
-      }
-    };
-    fetchRecipe(recipeId);
+  useEffect(() => {
+    dispatch(fetchFullRecipe(parseInt(recipeId)));
   }, [recipeId, dispatch]);
 
-  if (!recipe.id) {
+  if (!recipe) {
     return <Spinner animation="grow" />;
   }
   const handleBrewLengthInput = (inputValue: string) => {
@@ -132,6 +110,7 @@ export default function RecipePage() {
     <div>
       <Jumbotron>
         <h1>{recipe.name}</h1>
+        <Button onClick={() => history.push("/brew")}> t_start_a_brew</Button>
       </Jumbotron>
       <Form>
         <Form.File.Input isValid />

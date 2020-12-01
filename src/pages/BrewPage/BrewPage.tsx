@@ -22,7 +22,7 @@ import emptyRecipe from "../RecipePage/emptyRecipe";
 
 import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 
-export default function RecipePage() {
+export default function BrewPage() {
   const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
   const [brewLengthInL, setBrewLengthInL] = useState<number>(20);
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -48,18 +48,8 @@ export default function RecipePage() {
 
   const { recipeId } = useParams<paramsRecipePage>();
   const token = useSelector(selectToken);
-  useEffect(() => {
-    const fetchRecipe = async (recipeIdLocal: string) => {
-      dispatch(appLoading());
+  useEffect(() => {}, [recipeId, dispatch]);
 
-      dispatch(appDoneLoading());
-    };
-    fetchRecipe(recipeId);
-  }, [recipeId, dispatch]);
-
-  if (!recipe.id) {
-    return <Spinner animation="grow" />;
-  }
   const handleBrewLengthInput = (inputValue: string) => {
     if (inputValue) {
       if (!/^\d+$/.test(inputValue)) {
@@ -107,7 +97,7 @@ export default function RecipePage() {
   return (
     <div>
       <Jumbotron>
-        <h1>{recipe.name}</h1>
+        <h1>{BrewPage}</h1>
       </Jumbotron>
     </div>
   );

@@ -252,10 +252,11 @@ export const fetchFullRecipe = (recipeId: number): AppThunk => {
         }
       );
       const fullRecipe: FullRecipe = recipeRequest.data;
-      return {
+      console.log("full recipe action ", fullRecipe);
+      dispatch({
         type: SET_FULL_RECIPE,
         payload: fullRecipe,
-      };
+      });
     } catch (e) {
       dispatch({
         type: "SET_MESSAGE",

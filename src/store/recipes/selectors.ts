@@ -30,3 +30,6 @@ export const selectNewRecipefermentatioData = (state: any) => {
     dryHops,
   };
 };
+export const selectFullRecipe = (state: any) => {
+  return state.recipes.fullRecipe;
+};
