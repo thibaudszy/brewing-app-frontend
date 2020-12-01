@@ -6,7 +6,7 @@ import {
   IMPORT_RECIPE,
   REMOVE_RECIPE,
   UPDATE_NEW_RECIPE,
-  UPDATE_NEW_RECIPE_ARRAYS as UPDATE_NEW_RECIPE_MALTADDITIONS,
+  UPDATE_NEW_RECIPE_MALTADDITIONS,
   ADD_NEW_MALT_NEW_RECIPE,
   REMOVE_NEW_MALT_NEW_RECIPE,
   ADD_NEW_HOP_NEW_RECIPE,
@@ -16,18 +16,21 @@ import {
   ADD_MASH_STEP_NEW_RECIPE,
   UPDATE_NEW_RECIPE_MASH_STEPS,
   UPDATE_COMMENT_NEW_RECIPE,
+  SET_FULL_RECIPE,
 } from "./actions";
 
 interface RecipeState {
   myRecipes: Recipe[];
   importableRecipes: Recipe[];
   newRecipe: FullRecipe;
+  fullRecipe: FullRecipe | null;
 }
 
 const initialState: RecipeState = {
   myRecipes: [],
   importableRecipes: [],
   newRecipe: { ...emptyRecipe },
+  fullRecipe: null,
 };
 
 export default (state = initialState, action: Action) => {
@@ -224,6 +227,8 @@ export default (state = initialState, action: Action) => {
         newRecipe: { ...state.newRecipe, comments: payload },
       };
     }
+    case SET_FULL_RECIPE:
+      return { ...state, fullRecipe: payload };
     default:
       return state;
   }
