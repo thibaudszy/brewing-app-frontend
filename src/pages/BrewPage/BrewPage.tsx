@@ -97,7 +97,7 @@ export default function BrewPage() {
   return (
     <div>
       <Jumbotron>
-        <h1>{BrewPage}</h1>
+        <h1>{"Brew Page"}</h1>
       </Jumbotron>
     </div>
   );
