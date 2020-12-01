@@ -11,7 +11,7 @@ interface HopProps {
 
 export default function Hops(props: HopProps) {
   const { recipe, brewLengthInL } = props;
-  const { mashSteps: hopAdditions, IBU } = recipe;
+  const { hopAdditions, IBU } = recipe;
 
   const userLanguage: Language = useSelector(selectUserLanguage);
   const { t_type, t_timing, t_quantity, t_percentage_of_BUs } = translation[

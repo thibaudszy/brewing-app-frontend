@@ -43,17 +43,7 @@ export default function RecipeCalculator() {
   const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
   const newRecipe = useSelector(selectNewRecipe);
-  // const defaultValues = {
-  //   name,
-  //   ABV,
-  //   imageURL,
-  //   description,
-  //   IBU,
-  //   FGinPlato,
-  //   DesiredCarbonationInGramsPerLiter,
-  //   colorInEBC,
-  //   LiquorToGristRatio,
-  // } ;
+
   const history = useHistory();
   const {
     t_ABV,
@@ -158,7 +148,7 @@ export default function RecipeCalculator() {
       dispatch(AddNewMashStepToNewRecipe());
     }
   }, []);
-  async function handleSubmit(event: any) {
+  function handleSubmit(event: any) {
     event.preventDefault();
     dispatch(submitNewRecipe(newRecipe));
   }
@@ -297,7 +287,7 @@ export default function RecipeCalculator() {
               onChange={(e) => handleCommentsInput(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </Form>

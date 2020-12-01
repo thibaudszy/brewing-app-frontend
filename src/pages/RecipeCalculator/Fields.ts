@@ -74,6 +74,13 @@ export const specifications: Specifications[] = [
     range: { min: 0, warningMin: 1.5, warningMax: 4, max: 10 },
     placeholder: "enter a value",
   },
+  {
+    param: "BoilDurationInMin",
+    label: "t_boil_duration",
+    type: "number",
+    range: { min: 0, warningMin: 30, warningMax: 120, max: 3000 },
+    placeholder: "enter a value",
+  },
 ];
 export const maltAdditionInputFields: AdditionsInput[] = [
   {
@@ -82,6 +89,14 @@ export const maltAdditionInputFields: AdditionsInput[] = [
     type: "string",
     range: { min: 2, warningMin: 4, warningMax: 20, max: 30 },
     placeholder: "enter a name",
+  },
+
+  {
+    param: "defaultExtract",
+    label: "t_default_extract",
+    type: "number",
+    range: { min: 0, warningMin: 10, warningMax: 100, max: 100 },
+    placeholder: "enter a value",
   },
   {
     param: "percentageOfExtract",
@@ -147,7 +162,7 @@ export const mashInputFields: AdditionsInput[] = [
   },
 
   {
-    param: "duration",
+    param: "durationInMin",
     label: "t_duration",
     type: "number",
     range: { min: 0, warningMin: 1, warningMax: 70, max: 200 },

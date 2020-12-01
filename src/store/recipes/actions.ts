@@ -4,7 +4,11 @@ import { selectToken, selectUserId } from "../user/selectors";
 import { ThunkAction } from "redux-thunk";
 import { AppThunk } from "../types";
 
-import { appDoneLoading, appLoading } from "../appState/actions";
+import {
+  appDoneLoading,
+  appLoading,
+  showMessageWithTimeout,
+} from "../appState/actions";
 import { disconnect } from "process";
 
 export const SET_MY_RECIPES = "SET_MY_RECIPES";
@@ -232,4 +236,25 @@ export const updateComment = (comment: string) => {
     payload: comment,
   };
 };
-export const submitNewRecipe = (newRecipe: FullRecipe) => {};
+export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {
+  return async (dispatch, getState) => {
+    try {
+      const recipeToPost = { ...newRecipe, OGinPlato: 12 };
+      const token = selectToken(getState());
+      dispatch(appLoading);
+      const serverResponse = await Axios.post(
+        `${apiUrl}/recipes`,
+        {
+          recipeToPost,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("server response", serverResponse);
+      dispatch(showMessageWithTimeout("sucess", true, "recipe created"));
+    } catch (e) {
+      dispatch(showMessageWithTimeout("danger", true, "request failed"));
+    }
+  };
+};
