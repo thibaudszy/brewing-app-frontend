@@ -1,3 +1,3 @@
 import { RootState } from "../types";
 
-export const selectorName = (state: RootState) => state.brew;
+export const selectBrew = (state: RootState) => state.brew;

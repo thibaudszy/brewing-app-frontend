@@ -27,6 +27,7 @@ import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 import DryHops from "./DryHops";
 import { fetchFullRecipe } from "../../store/recipes/actions";
 import { selectFullRecipe } from "../../store/recipes/selectors";
+import { createNewBrew } from "../../store/brew/actions";
 
 export default function RecipePage() {
   const recipe: FullRecipe = useSelector(selectFullRecipe);
@@ -34,6 +35,7 @@ export default function RecipePage() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const history = useHistory();
   const dispatch = useDispatch();
+
   interface paramsRecipePage {
     recipeId: string;
   }
@@ -53,10 +55,11 @@ export default function RecipePage() {
     t_description,
   } = translation[userLanguage];
 
-  const { recipeId } = useParams<paramsRecipePage>();
+  const params = useParams<paramsRecipePage>();
+  const recipeId = parseInt(params.recipeId);
 
   useEffect(() => {
-    dispatch(fetchFullRecipe(parseInt(recipeId)));
+    dispatch(fetchFullRecipe(recipeId));
   }, [recipeId, dispatch]);
 
   if (!recipe) {
@@ -106,11 +109,18 @@ export default function RecipePage() {
   };
   console.log(recipe);
 
+  const handleStartABrewClick = async (clickRecipeId: number) => {
+    dispatch(createNewBrew(clickRecipeId, brewLengthInL));
+    history.push("/brew");
+  };
   return (
     <div>
       <Jumbotron>
         <h1>{recipe.name}</h1>
-        <Button onClick={() => history.push("/brew")}> t_start_a_brew</Button>
+        <Button onClick={() => handleStartABrewClick(recipeId)}>
+          {" "}
+          t_start_a_brew
+        </Button>
       </Jumbotron>
       <Form>
         <Form.File.Input isValid />

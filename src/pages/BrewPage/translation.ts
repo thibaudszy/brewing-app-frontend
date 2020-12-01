@@ -26,6 +26,10 @@ const translation: TranslationObject = {
     t_yeast_strain: "Yeast strain",
     t_comments: "Comments",
     t_description: "Description",
+    t_dry_hops: "Dry hops",
+    t_yeast: "Yeast",
+    t_ingredients: "Ingredients",
+    t_start_mash: "Start mash",
   },
   "Fr-FR": {
     t_enter_your_brewlength: "Combien de biere allez vous faire?  ",
@@ -52,6 +56,10 @@ const translation: TranslationObject = {
     t_fermentation_temperature: "Temperature de fermentation",
     t_comments: "Commentaires",
     t_description: "Description",
+    t_dry_hops: "Houblons pour houblonage a cru",
+    t_yeast: "Levure",
+    t_ingredients: "Ingredients",
+    t_start_mash: "Commencer l'empatage",
   },
 };
 
