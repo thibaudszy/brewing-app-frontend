@@ -28,8 +28,13 @@ export default function FermentationTab() {
     yeastStrain,
     PitchRateInGramsperLiter,
     FermentationTemperature,
-    hopAdditons,
+    hopAdditions,
+    OGinPlato,
+    FGinPlato,
   } = useSelector(selectFullRecipe);
+  const dryHops: HopAddition[] = hopAdditions.filter(
+    (hopAddition: HopAddition) => hopAddition.isDryHop
+  );
   const [inputPitchingTemperature, setInputPitchingTemperature] = useState(
     FermentationTemperature
   );
@@ -49,6 +54,7 @@ export default function FermentationTab() {
       )
     );
   }
+  console.log("dryhops", dryHops);
   return (
     <div
       style={{
@@ -79,6 +85,47 @@ export default function FermentationTab() {
             Submit{" "}
           </Button>
         </InputGroup>
+      ) : (
+        ""
+      )}
+      {dryHops.length ? (
+        <div>
+          {" "}
+          <h2>Dry Hop Schedule</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Variety</th>
+                <th>Amount</th>
+                <th>When beer density reaches</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dryHops.map(
+                ({
+                  id,
+                  name,
+                  dryHopRateInGramsPerLitre,
+                  dryHopTimingInPercentageAF,
+                }) => (
+                  <tr key={id}>
+                    <td>{name}</td>
+                    <td>{`${
+                      dryHopRateInGramsPerLitre * volumeEndOfBoilingL
+                    } g`}</td>
+                    <td>
+                      {Math.round(
+                        //@ts-ignore
+                        ((OGinPlato - FGinPlato) * dryHopTimingInPercentageAF) /
+                          100
+                      )}
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </Table>
+        </div>
       ) : (
         ""
       )}
