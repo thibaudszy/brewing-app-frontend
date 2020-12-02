@@ -12,9 +12,10 @@ import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import IngredientsChecklist from "./IngredientsChecklist";
 import { selectBrew, selectBrewStage } from "../../store/brew/selectors";
-import { fetchLastbrew } from "../../store/brew/actions";
+import { fetchLastbrew, updateBrew } from "../../store/brew/actions";
 import { fetchFullRecipe } from "../../store/recipes/actions";
 import MashTimers from "./MashTimers";
+import Boil from "./Boil";
 
 export default function BrewPage() {
   const recipe = useSelector(selectFullRecipe);
@@ -58,7 +59,9 @@ export default function BrewPage() {
     yeastStrain,
     comments,
   } = recipe;
-  const finishMashHandler = () => {};
+  const finishMashHandler = () => {
+    dispatch(updateBrew("boil", "timeStartFiltration", new Date()));
+  };
   return (
     <div>
       <Tabs
@@ -74,7 +77,13 @@ export default function BrewPage() {
           <MashTimers />
           <Button onClick={() => finishMashHandler()}> Mash Finished </Button>
         </Tab>
-        <Tab eventKey="boil" title="Boil" disabled></Tab>
+        <Tab eventKey="boil" title="Boil">
+          <Boil
+            IBU={IBU}
+            brewLengthInL={brew.targetVolumeInLiters}
+            BoilDurationInMin={BoilDurationInMin}
+          />
+        </Tab>
       </Tabs>
     </div>
   );

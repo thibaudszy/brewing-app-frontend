@@ -16,7 +16,7 @@ import {
 } from "../../BrewingCalculations";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import { selectBrew } from "../../store/brew/selectors";
-import { startMash } from "../../store/brew/actions";
+import { updateBrew } from "../../store/brew/actions";
 
 export default function IngredientsChecklist() {
   const recipe = useSelector(selectFullRecipe);
@@ -70,7 +70,8 @@ export default function IngredientsChecklist() {
   );
   const dispatch = useDispatch();
   const handleMashClick = () => {
-    dispatch(startMash());
+    const now = new Date();
+    dispatch(updateBrew("mash", "timeStartMash", now));
   };
   return (
     <div>

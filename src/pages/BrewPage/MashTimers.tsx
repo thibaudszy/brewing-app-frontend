@@ -76,13 +76,21 @@ export default function MashTimers() {
             <Card.Body>
               <Card.Title>
                 {" "}
-                {`Ends in ${Math.ceil(countdownInS / 60)} min`}{" "}
+                {`Ends in ${Math.floor(countdownInS / 60)}:${
+                  countdownInS % 60
+                } min`}{" "}
               </Card.Title>
               <Card.Text>{`Temperature: ${temperature}C`}</Card.Text>
               {active ? (
-                <h2>
-                  <Badge variant="warning">Counting down</Badge>
-                </h2>
+                countdownInS ? (
+                  <h2>
+                    <Badge variant="warning">Counting down</Badge>
+                  </h2>
+                ) : (
+                  <h2>
+                    <Badge variant="success">Step completed</Badge>
+                  </h2>
+                )
               ) : (
                 <Button onClick={() => startCountdown(stepNo)}> Start </Button>
               )}

@@ -42,17 +42,20 @@ export const createNewBrew = (
   };
 };
 
-export const startMash = (): AppThunk => {
+export const updateBrew = (
+  newStage: string,
+  key: string,
+  updatedValue: string | number | Date
+): AppThunk => {
   return async (dispatch, getState) => {
     try {
-      const now = new Date();
       const brewId = selectBrew(getState()).id;
       const token = selectToken(getState());
       const serverResponse = await Axios.put(
         `${apiUrl}/brews/${brewId}`,
         {
-          key: "timeStartMash",
-          updatedValue: now,
+          key: key,
+          updatedValue,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -63,9 +66,9 @@ export const startMash = (): AppThunk => {
         dispatch({
           type: UPDATE_BREW_DATA,
           payload: {
-            newStage: "mash",
-            key: "timeStartMash",
-            updatedValue: now,
+            newStage: newStage,
+            key,
+            updatedValue,
           },
         });
       } else {
