@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Button, InputGroup, Tab, Table, Tabs } from "react-bootstrap";
+import { Button, InputGroup, Table } from "react-bootstrap";
 import translation from "./translation";
-import { selectToken, selectUserLanguage } from "../../store/user/selectors";
-
-import emptyRecipe from "../RecipePage/emptyRecipe";
+import { selectUserLanguage } from "../../store/user/selectors";
 
 import {
   calculateMaltQuantity,
-  gristInKg,
   hopAdditionInGrams,
-  mashWaterVolumeInL,
 } from "../../BrewingCalculations";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import { selectBrew } from "../../store/brew/selectors";
@@ -24,19 +19,10 @@ export default function IngredientsChecklist() {
   //const dispatch = useDispatch();
   const brewLengthInL = useSelector(selectBrew).targetVolumeInLiters;
   const {
-    t_enter_your_brewlength,
     t_fermentables,
-    t_specifications,
+
     t_hop_additions,
-    t_mash_schedule,
-    t_mash_into,
-    t_boil_duration,
-    t_fermentation_temperature,
-    t_fermentation,
-    t_yeast_strain,
-    t_pitch_rate,
-    t_comments,
-    t_description,
+
     t_dry_hops,
     t_yeast,
     t_ingredients,
@@ -45,22 +31,15 @@ export default function IngredientsChecklist() {
   } = translation[userLanguage];
 
   const {
-    description,
-    ABV,
     IBU,
     OGinPlato,
-    FGinPlato,
-    colorInEBC,
-    DesiredCarbonationInGramsPerLiter,
-    mashSteps,
+
     hopAdditions,
-    BoilDurationInMin,
-    LiquorToGristRatio,
+
     maltAdditions,
-    FermentationTemperature,
+
     PitchRateInGramsperLiter,
     yeastStrain,
-    comments,
   } = recipe;
   const boilAdditions = hopAdditions.filter(
     (hopAddition: HopAddition) => !hopAddition.isDryHop

@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Tab, Table, Tabs } from "react-bootstrap";
+import { Button, Tab, Tabs } from "react-bootstrap";
 import translation from "./translation";
-import { selectToken, selectUserLanguage } from "../../store/user/selectors";
-
-import emptyRecipe from "../RecipePage/emptyRecipe";
-
-import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
+import { selectUserLanguage } from "../../store/user/selectors";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import IngredientsChecklist from "./IngredientsChecklist";
 import { selectBrew, selectBrewStage } from "../../store/brew/selectors";
@@ -35,7 +29,7 @@ export default function BrewPage() {
     if (brew.id && !recipe) {
       dispatch(fetchFullRecipe(brew.recipeId));
     }
-  }, [stage, brew, recipe]);
+  }, [stage, brew, recipe, dispatch]);
   if (!brew || !recipe) {
     return <div> loading</div>;
   }
@@ -43,22 +37,9 @@ export default function BrewPage() {
   const { t_ingredients } = translation[userLanguage];
 
   const {
-    description,
-    ABV,
     IBU,
-    OGinPlato,
-    FGinPlato,
-    colorInEBC,
-    DesiredCarbonationInGramsPerLiter,
-    mashSteps,
-    hopAdditions,
+
     BoilDurationInMin,
-    LiquorToGristRatio,
-    maltAdditions,
-    FermentationTemperature,
-    PitchRateInGramsperLiter,
-    yeastStrain,
-    comments,
   } = recipe;
   const finishMashHandler = () => {
     dispatch(updateBrew("boil", "timeStartFiltration", new Date()));

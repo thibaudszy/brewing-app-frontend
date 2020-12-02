@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Badge,
-  Button,
-  Card,
-  FormControl,
-  InputGroup,
-  Tab,
-  Table,
-  Tabs,
-} from "react-bootstrap";
+import { Button, FormControl, InputGroup, Table } from "react-bootstrap";
 import { selectFullRecipe } from "../../store/recipes/selectors";
 import { selectBrew } from "../../store/brew/selectors";
-import moment from "moment";
+
 import { updateBrew } from "../../store/brew/actions";
 
 export default function FermentationTab() {
@@ -21,8 +12,6 @@ export default function FermentationTab() {
     volumeEndOfBoilingL,
     timeStartFermentation,
     pitchingTemperature,
-    volumeEndOfFermentationInL,
-    comments,
   } = useSelector(selectBrew);
   const {
     yeastStrain,

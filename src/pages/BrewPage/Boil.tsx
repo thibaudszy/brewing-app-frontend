@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Badge,
-  Button,
-  Card,
-  FormControl,
-  InputGroup,
-  Tab,
-  Table,
-  Tabs,
-} from "react-bootstrap";
+import { Badge, Button, Card, FormControl, InputGroup } from "react-bootstrap";
 import { selectFullRecipe } from "../../store/recipes/selectors";
-import { selectBrew } from "../../store/brew/selectors";
-import moment from "moment";
+
 import { hopAdditionInGrams } from "../../BrewingCalculations";
 import CheckIcon from "@material-ui/icons/Check";
-import { Input } from "@material-ui/icons";
+
 import { updateBrew } from "../../store/brew/actions";
 interface PropType {
   IBU: number;

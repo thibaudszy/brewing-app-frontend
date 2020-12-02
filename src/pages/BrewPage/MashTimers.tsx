@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Badge,
-  Button,
-  Card,
-  InputGroup,
-  Tab,
-  Table,
-  Tabs,
-} from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Badge, Button, Card } from "react-bootstrap";
 import { selectFullRecipe } from "../../store/recipes/selectors";
-import { selectBrew } from "../../store/brew/selectors";
-import moment from "moment";
 
 export default function MashTimers() {
   const mashSteps: MashStep[] = useSelector(selectFullRecipe).mashSteps;
@@ -25,8 +15,6 @@ export default function MashTimers() {
       };
     })
   );
-  const brewLengthInL = useSelector(selectBrew).targetVolumeInLiters;
-  const brew = useSelector(selectBrew);
 
   useEffect(() => {
     let interval: any = null;

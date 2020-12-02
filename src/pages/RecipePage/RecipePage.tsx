@@ -10,16 +10,11 @@ import {
   Jumbotron,
   Row,
   Spinner,
-  Table,
 } from "react-bootstrap";
 import translation from "./translation";
-import { selectToken, selectUserLanguage } from "../../store/user/selectors";
+import { selectUserLanguage } from "../../store/user/selectors";
 
-import { apiUrl } from "../../config/constants";
 import SpecificationTable from "./SpecificationTable";
-import { appDoneLoading, appLoading } from "../../store/appState/actions";
-import Axios, { AxiosResponse } from "axios";
-import emptyRecipe from "./emptyRecipe";
 import Fermentables from "./Fermentables";
 import Hops from "./Hops";
 import MashSchedule from "./MashSchedule";
