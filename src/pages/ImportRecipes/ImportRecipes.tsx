@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Jumbotron } from "react-bootstrap";
+import { Button, CardGroup, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,12 +41,12 @@ export default function ImportRecipes() {
       {!importableRecipes.length ? (
         <h1>{t_no_more_recipes}</h1>
       ) : (
-        <div style={{ display: "flex" }}>
+        <CardGroup>
           {importableRecipes.map((recipe: RecipeWithAuthorName) => {
             const { id } = recipe;
             return <RecipeCard recipe={recipe} isInLibrary={false} key={id} />;
           })}
-        </div>
+        </CardGroup>
       )}
     </div>
   );
