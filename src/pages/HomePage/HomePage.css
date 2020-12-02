@@ -1,0 +1,21 @@
+.background {
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../images/hops.jpg");
+  justify-content: center;
+}
+.message {
+  /* color: rgb(248, 120, 0); */
+  color: white;
+  background-color: rgba(202, 210, 110, 0.8);
+  font-weight: bold;
+  font-size: 10vw;
+  align-self: center;
+  /* max-width: 30em; */
+  width: 100%;
+}
+.log-in-message {
+  color: white;
+  background-color: rgba(202, 210, 110, 0.8);
+}

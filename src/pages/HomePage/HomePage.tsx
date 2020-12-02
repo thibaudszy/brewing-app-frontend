@@ -1,8 +1,12 @@
 import React from "react";
 import { selectToken, selectUserLanguage } from "../../store/user/selectors";
 import { useSelector } from "react-redux";
-
+import "./HomePage.css";
 import translation from "./translation";
+import MyRecipesButton from "../../components/MyRecipesButton";
+
+import RecipeCalculatorButton from "../../components/RecipeCalculatorButton";
+import ExploreRecipesButton from "../../components/ExploreRecipesButton";
 
 export default function HomePage() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -12,10 +16,23 @@ export default function HomePage() {
   const token = useSelector(selectToken);
   if (!token) {
     return (
-      <div>
-        <h1> {t_not_logged_in_message}</h1>
+      <div className="background">
+        <h1 className="message">{t_logged_in_message}</h1>
+
+        <h1 className="log-in-message"> {t_not_logged_in_message}</h1>
       </div>
     );
   }
-  return <h1> {t_logged_in_message} </h1>;
+  return (
+    <div className="background">
+      <h1 className="message">
+        {" "}
+        {t_logged_in_message}
+        <div>
+          <MyRecipesButton />
+          {"  "} <RecipeCalculatorButton /> {"  "} <ExploreRecipesButton />
+        </div>
+      </h1>
+    </div>
+  );
 }
