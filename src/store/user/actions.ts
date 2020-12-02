@@ -71,7 +71,7 @@ export const login = (email: string, password: string): AppThunk => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      console.log("logging in");
+      console.log("API URL", apiUrl);
       const response = await axios.post(`${apiUrl}/login`, {
         email,
         password,
