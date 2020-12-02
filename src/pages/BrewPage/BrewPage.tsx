@@ -16,6 +16,7 @@ import { fetchLastbrew, updateBrew } from "../../store/brew/actions";
 import { fetchFullRecipe } from "../../store/recipes/actions";
 import MashTimers from "./MashTimers";
 import Boil from "./Boil";
+import FermentationTab from "./FermentationTab";
 
 export default function BrewPage() {
   const recipe = useSelector(selectFullRecipe);
@@ -83,6 +84,9 @@ export default function BrewPage() {
             brewLengthInL={brew.targetVolumeInLiters}
             BoilDurationInMin={BoilDurationInMin}
           />
+        </Tab>
+        <Tab eventKey="fermentation" title="Fermentation">
+          <FermentationTab />
         </Tab>
       </Tabs>
     </div>

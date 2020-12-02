@@ -4,6 +4,7 @@ import {
   Badge,
   Button,
   Card,
+  FormControl,
   InputGroup,
   Tab,
   Table,
@@ -14,6 +15,8 @@ import { selectBrew } from "../../store/brew/selectors";
 import moment from "moment";
 import { hopAdditionInGrams } from "../../BrewingCalculations";
 import CheckIcon from "@material-ui/icons/Check";
+import { Input } from "@material-ui/icons";
+import { updateBrew } from "../../store/brew/actions";
 interface PropType {
   IBU: number;
   brewLengthInL: number;
@@ -27,6 +30,7 @@ export default function Boil(props: PropType) {
   const boilAdditions: HopAddition[] = hopAdditions.filter(
     ({ isDryHop }) => !isDryHop
   );
+  const [endOfBoilVolume, setEndofBoilVolume] = useState(brewLengthInL);
   const [boilCountdown, setBoilCountdown] = useState({
     countdownInS: BoilDurationInMin * 60,
     active: false,
@@ -85,62 +89,99 @@ export default function Boil(props: PropType) {
       })
     );
   };
+  const dispatch = useDispatch();
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    dispatch(
+      updateBrew("fermentation", "volumeEndOfBoilingL", endOfBoilVolume)
+    );
+  }
   return (
-    <Card
-      bg={"dark"}
-      text={"white"}
-      style={{ width: "25rem" }}
-      className="mb-2"
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
     >
-      <Card.Header>Boil Timer</Card.Header>
-      <Card.Body>
-        <Card.Title>
-          {`Ends in ${Math.floor(countdownInS / 60)}:${countdownInS % 60} min`}
-        </Card.Title>
+      <Card
+        bg={"dark"}
+        text={"white"}
+        style={{ width: "25rem" }}
+        className="mb-2"
+      >
+        <Card.Header>Boil Timer</Card.Header>
+        <Card.Body>
+          <Card.Title>
+            {`Ends in ${Math.floor(countdownInS / 60)}:${
+              countdownInS % 60
+            } min`}
+          </Card.Title>
 
-        {active ? (
-          countdownInS ? (
-            <h2>
-              <Badge variant="warning">Counting down</Badge>
-            </h2>
+          {active ? (
+            countdownInS ? (
+              <h2>
+                <Badge variant="warning">Counting down</Badge>
+              </h2>
+            ) : (
+              <h2>
+                <Badge variant="success">Time to cool the wort</Badge>
+              </h2>
+            )
           ) : (
-            <h2>
-              <Badge variant="success">Time to cool the wort</Badge>
-            </h2>
-          )
-        ) : (
-          <Button onClick={() => startCountdown()}> Start </Button>
-        )}
-        <div>
-          {boilAdditionsWithQuantities.map(
-            (
-              { name, quantity, added, timeOfAdditionInMinBeforeEndOfBoil },
-              index
-            ) => {
-              const disabled = added ? true : false;
-
-              const variant =
-                //@ts-ignore
-                timeOfAdditionInMinBeforeEndOfBoil >= countdownInS / 60
-                  ? added
-                    ? "outline-success"
-                    : "warning"
-                  : "secondary";
-              return (
-                <Button
-                  variant={variant}
-                  key={`${name}${quantity}`}
-                  disabled={disabled}
-                  onClick={() => addButtonHandler(index)}
-                >
-                  {`Add ${quantity}g of ${name} at T-${timeOfAdditionInMinBeforeEndOfBoil}`}{" "}
-                  {added ? <CheckIcon style={{ color: "#008000" }} /> : ""}
-                </Button>
-              );
-            }
+            <Button onClick={() => startCountdown()}> Start </Button>
           )}
-        </div>
-      </Card.Body>
-    </Card>
+          <div>
+            {boilAdditionsWithQuantities.map(
+              (
+                { name, quantity, added, timeOfAdditionInMinBeforeEndOfBoil },
+                index
+              ) => {
+                const disabled = added ? true : false;
+
+                const variant =
+                  //@ts-ignore
+                  timeOfAdditionInMinBeforeEndOfBoil >= countdownInS / 60
+                    ? added
+                      ? "outline-success"
+                      : "warning"
+                    : "secondary";
+                return (
+                  <Button
+                    variant={variant}
+                    key={`${name}${quantity}`}
+                    disabled={disabled}
+                    onClick={() => addButtonHandler(index)}
+                  >
+                    {`Add ${quantity}g of ${name} at T-${timeOfAdditionInMinBeforeEndOfBoil}`}{" "}
+                    {added ? <CheckIcon style={{ color: "#008000" }} /> : ""}
+                  </Button>
+                );
+              }
+            )}
+          </div>
+        </Card.Body>
+      </Card>
+
+      <br />
+      <InputGroup size="lg">
+        <InputGroup.Prepend>
+          <InputGroup.Text id="inputGroup-sizing-lg">
+            Volume transfered to fermenter (L)
+          </InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+          onChange={(e) => setEndofBoilVolume(parseFloat(e.target.value))}
+          defaultValue={endOfBoilVolume}
+        />
+        <Button type="submit" onClick={(e) => handleSubmit(e)}>
+          {" "}
+          Submit{" "}
+        </Button>
+      </InputGroup>
+    </div>
   );
 }
