@@ -9,10 +9,9 @@ import { useHistory } from "react-router-dom";
 export function LoggedInLinks() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const {
-    Recipes,
     myRecipes,
     create_a_recipe,
-    start_a_brew,
+
     t_import_recipes,
     t_new_recipes,
   } = translation[userLanguage];
