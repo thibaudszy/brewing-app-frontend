@@ -1,0 +1,17 @@
+.align-items-center {
+  justify-content: center;
+}
+.form-group {
+  border: 2px solid black;
+  padding: 1em;
+  min-width: 90%;
+  align-self: center;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+}
+h2 {
+  padding: 0.5em;
+}

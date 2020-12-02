@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Jumbotron } from "react-bootstrap";
+import { Button, CardGroup, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,11 +43,13 @@ export default function MyRecipes() {
       <Jumbotron fluid>
         <h2>{t_my_recipes}</h2>
       </Jumbotron>
-      <div style={{ display: "flex" }}>
-        {myRecipes.map((recipe: RecipeWithAuthorName) => {
-          const { id } = recipe;
-          return <RecipeCard recipe={recipe} isInLibrary={true} key={id} />;
-        })}
+      <div>
+        <CardGroup>
+          {myRecipes.map((recipe: RecipeWithAuthorName) => {
+            const { id } = recipe;
+            return <RecipeCard recipe={recipe} isInLibrary={true} key={id} />;
+          })}
+        </CardGroup>
       </div>
     </div>
   );

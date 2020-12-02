@@ -7,6 +7,7 @@ import {
   addRecipeToLibrary,
   removeRecipeFromLibrary,
 } from "../../store/recipes/actions";
+import { useHistory } from "react-router-dom";
 
 interface Prop {
   recipe: RecipeWithAuthorName;
@@ -14,6 +15,7 @@ interface Prop {
 }
 export default function RecipeCard(props: Prop) {
   const { recipe, isInLibrary } = props;
+  const history = useHistory();
 
   const userLanguage: Language = useSelector(selectUserLanguage);
   const { t_ABV, t_color, t_author, t_see_recipe } = translation[userLanguage];
@@ -24,7 +26,7 @@ export default function RecipeCard(props: Prop) {
     dispatch(addRecipeToLibrary(recipeId));
   };
   return (
-    <Card style={{ width: "25rem", margin: "1rem" }}>
+    <Card style={{ margin: "1rem", maxWidth: "25em" }}>
       <Card.Img variant="top" src={imageURL} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
@@ -38,24 +40,27 @@ export default function RecipeCard(props: Prop) {
         <ListGroupItem>{`${t_author}: ${author.firstName} ${author.lastName} `}</ListGroupItem>
       </ListGroup>
       <Card.Body>
-        <Card.Link href={`/recipes/${id}`}>{t_see_recipe}</Card.Link>{" "}
+        <Button
+          variant="outline-primary"
+          onClick={() => history.push(`/recipes/${id}`)}
+        >
+          {t_see_recipe}
+        </Button>{" "}
         {!isInLibrary ? (
           <Button
             variant="primary"
-            // disabled={isLoading}
             onClick={() => {
               handleImportClick(id);
             }}
           >
-            Import{/* {isLoading ? 'Loading…' : 'Click to load'} */}
+            Import
           </Button>
         ) : (
           <Button
             variant="outline-danger"
-            // disabled={isLoading}
             onClick={() => dispatch(removeRecipeFromLibrary(id))}
           >
-            Remove{/* {isLoading ? 'Loading…' : 'Click to load'} */}
+            Remove
           </Button>
         )}
       </Card.Body>
