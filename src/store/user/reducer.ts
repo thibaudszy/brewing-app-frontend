@@ -13,7 +13,7 @@ const initialState = {
   email: null,
   language: "En-GB",
 };
-
+// eslint-disable-next-line
 export default (state = initialState, action: Action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:

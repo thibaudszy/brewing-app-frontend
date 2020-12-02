@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
+  Button,
   Col,
   Form,
   Jumbotron,
   Row,
   Spinner,
-  Table,
 } from "react-bootstrap";
 import translation from "./translation";
-import { selectToken, selectUserLanguage } from "../../store/user/selectors";
+import { selectUserLanguage } from "../../store/user/selectors";
 
-import { apiUrl } from "../../config/constants";
 import SpecificationTable from "./SpecificationTable";
-import { appDoneLoading, appLoading } from "../../store/appState/actions";
-import Axios, { AxiosResponse } from "axios";
-import emptyRecipe from "./emptyRecipe";
 import Fermentables from "./Fermentables";
 import Hops from "./Hops";
 import MashSchedule from "./MashSchedule";
 import { gristInKg, mashWaterVolumeInL } from "../../BrewingCalculations";
 import DryHops from "./DryHops";
+import { fetchFullRecipe } from "../../store/recipes/actions";
+import { selectFullRecipe } from "../../store/recipes/selectors";
+import { createNewBrew } from "../../store/brew/actions";
 
 export default function RecipePage() {
-  const [recipe, setRecipe] = useState<FullRecipe>(emptyRecipe);
+  const recipe: FullRecipe = useSelector(selectFullRecipe);
   const [brewLengthInL, setBrewLengthInL] = useState<number>(20);
   const userLanguage: Language = useSelector(selectUserLanguage);
+  const history = useHistory();
   const dispatch = useDispatch();
+
   interface paramsRecipePage {
     recipeId: string;
   }
@@ -49,39 +50,14 @@ export default function RecipePage() {
     t_description,
   } = translation[userLanguage];
 
-  const { recipeId } = useParams<paramsRecipePage>();
-  const token = useSelector(selectToken);
-  useEffect(() => {
-    const fetchRecipe = async (recipeIdLocal: string) => {
-      dispatch(appLoading());
+  const params = useParams<paramsRecipePage>();
+  const recipeId = parseInt(params.recipeId);
 
-      try {
-        const recipeRequest: AxiosResponse = await Axios.get(
-          `${apiUrl}/recipes/recipe/${recipeId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        dispatch(appDoneLoading());
-        const recipe: FullRecipe = recipeRequest.data;
-        setRecipe(recipe);
-      } catch (e) {
-        dispatch({
-          type: "SET_MESSAGE",
-          payload: {
-            variant: "danger",
-            dismissable: true,
-            text: "request failed",
-          },
-        });
-      }
-    };
-    fetchRecipe(recipeId);
+  useEffect(() => {
+    dispatch(fetchFullRecipe(recipeId));
   }, [recipeId, dispatch]);
 
-  if (!recipe.id) {
+  if (!recipe) {
     return <Spinner animation="grow" />;
   }
   const handleBrewLengthInput = (inputValue: string) => {
@@ -128,10 +104,18 @@ export default function RecipePage() {
   };
   console.log(recipe);
 
+  const handleStartABrewClick = async (clickRecipeId: number) => {
+    dispatch(createNewBrew(clickRecipeId, brewLengthInL));
+    history.push("/brew");
+  };
   return (
     <div>
       <Jumbotron>
         <h1>{recipe.name}</h1>
+        <Button onClick={() => handleStartABrewClick(recipeId)}>
+          {" "}
+          t_start_a_brew
+        </Button>
       </Jumbotron>
       <Form>
         <Form.File.Input isValid />

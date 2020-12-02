@@ -2,16 +2,10 @@ import React from "react";
 import { Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  updateNewBeerArrays,
-  updateNewBeerHopAdditions,
-} from "../../store/recipes/actions";
-import {
-  selectNewRecipeBoilHopAdditions,
-  selectNewRecipeMaltAdditions,
-} from "../../store/recipes/selectors";
-import { hopAdditionInputFields } from "./Fields";
-import { AdditionsInput, Range } from "./Types";
+import { updateNewBeerHopAdditions } from "../../store/recipes/actions";
+import { selectNewRecipeBoilHopAdditions } from "../../store/recipes/selectors";
+
+import { AdditionsInput } from "./Types";
 
 interface Props {
   hopAdditionInputFields: AdditionsInput[];

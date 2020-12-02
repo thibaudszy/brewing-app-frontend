@@ -1,24 +1,12 @@
 import React, { useEffect } from "react";
-import {
-  Button,
-  Card,
-  Jumbotron,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
+import { Button, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
 
-import {
-  getImportableRecipes,
-  getUserRecipes,
-} from "../../store/recipes/actions";
-import {
-  selectImportableRecipes,
-  selectMyRecipes,
-} from "../../store/recipes/selectors";
+import { getImportableRecipes } from "../../store/recipes/actions";
+import { selectImportableRecipes } from "../../store/recipes/selectors";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
 
 export default function ImportRecipes() {
@@ -28,10 +16,7 @@ export default function ImportRecipes() {
     t_explore_recipes,
     t_my_recipes,
     t_recipe_calculator,
-    t_import_recipe,
-    t_color,
-    t_author,
-    t_see_recipe,
+
     t_no_more_recipes,
   } = translation[userLanguage];
   const importableRecipes = useSelector(selectImportableRecipes);
@@ -61,15 +46,7 @@ export default function ImportRecipes() {
       ) : (
         <div style={{ display: "flex" }}>
           {importableRecipes.map((recipe: RecipeWithAuthorName) => {
-            const {
-              id,
-              imageURL,
-              name,
-              ABV,
-              description,
-              colorInEBC,
-              author,
-            } = recipe;
+            const { id } = recipe;
             return <RecipeCard recipe={recipe} isInLibrary={false} key={id} />;
           })}
         </div>

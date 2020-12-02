@@ -1,4 +1,3 @@
-import MaltAdditionsRow from "../../pages/RecipeCalculator/MaltAdditionsRow";
 import emptyRecipe from "../../pages/RecipePage/emptyRecipe";
 import {
   SET_MY_RECIPES,
@@ -6,7 +5,7 @@ import {
   IMPORT_RECIPE,
   REMOVE_RECIPE,
   UPDATE_NEW_RECIPE,
-  UPDATE_NEW_RECIPE_ARRAYS as UPDATE_NEW_RECIPE_MALTADDITIONS,
+  UPDATE_NEW_RECIPE_MALTADDITIONS,
   ADD_NEW_MALT_NEW_RECIPE,
   REMOVE_NEW_MALT_NEW_RECIPE,
   ADD_NEW_HOP_NEW_RECIPE,
@@ -16,20 +15,23 @@ import {
   ADD_MASH_STEP_NEW_RECIPE,
   UPDATE_NEW_RECIPE_MASH_STEPS,
   UPDATE_COMMENT_NEW_RECIPE,
+  SET_FULL_RECIPE,
 } from "./actions";
 
 interface RecipeState {
   myRecipes: Recipe[];
   importableRecipes: Recipe[];
   newRecipe: FullRecipe;
+  fullRecipe: FullRecipe | null;
 }
 
 const initialState: RecipeState = {
   myRecipes: [],
   importableRecipes: [],
   newRecipe: { ...emptyRecipe },
+  fullRecipe: null,
 };
-
+// eslint-disable-next-line
 export default (state = initialState, action: Action) => {
   const { type, payload } = action;
   console.log("action type", type);
@@ -75,7 +77,7 @@ export default (state = initialState, action: Action) => {
     }
     case UPDATE_NEW_RECIPE_MALTADDITIONS: {
       const { newRecipe } = state;
-      const { array, index: targetIndex, key, value } = payload;
+      const { index: targetIndex, key, value } = payload;
 
       const updatedArray = newRecipe.maltAdditions.map(
         (arrayElement, index) => {
@@ -176,7 +178,7 @@ export default (state = initialState, action: Action) => {
       return {
         ...state,
         newRecipe: {
-          ...state.newRecipe,
+          ...newRecipe,
           hopAdditions: [...updatedArray, ...otherHopAdditions],
         },
       };
@@ -224,6 +226,8 @@ export default (state = initialState, action: Action) => {
         newRecipe: { ...state.newRecipe, comments: payload },
       };
     }
+    case SET_FULL_RECIPE:
+      return { ...state, fullRecipe: payload };
     default:
       return state;
   }

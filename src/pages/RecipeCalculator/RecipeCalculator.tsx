@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Form, FormControl, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
-import { useHistory, Link } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
 import { Range } from "./Types";
@@ -17,7 +17,6 @@ import {
   submitNewRecipe,
 } from "../../store/recipes/actions";
 import {
-  selectMyRecipes,
   selectNewRecipeMaltAdditions,
   selectNewRecipeBoilHopAdditions,
   selectNewRecipeMashSteps,
@@ -43,18 +42,8 @@ export default function RecipeCalculator() {
   const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
   const newRecipe = useSelector(selectNewRecipe);
+  const { t_recipe_calculator } = translation[userLanguage];
 
-  const history = useHistory();
-  const {
-    t_ABV,
-    t_my_recipes,
-    t_recipe_calculator,
-    t_import_recipe,
-    t_color,
-    t_author,
-    t_see_recipe,
-  } = translation[userLanguage];
-  const myRecipes = useSelector(selectMyRecipes) || [];
   const dispatch = useDispatch();
 
   const handleFieldChange = (
@@ -147,7 +136,7 @@ export default function RecipeCalculator() {
     if (!numberOfMashSteps) {
       dispatch(AddNewMashStepToNewRecipe());
     }
-  }, []);
+  });
   function handleSubmit(event: any) {
     event.preventDefault();
     dispatch(submitNewRecipe(newRecipe));

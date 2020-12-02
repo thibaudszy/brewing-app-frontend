@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Switch from "react-bootstrap/esm/Switch";
-import { Route, useHistory } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./App.css";
 import AppNavbar from "./components/Navbar/AppNavbar";
 import Login from "./pages/Login/Login";
@@ -18,6 +18,7 @@ import MessageBox from "./components/MessageBox";
 import { selectAppLoading } from "./store/appState/selectors";
 import Loading from "./components/Loader";
 import RecipeCalculator from "./pages/RecipeCalculator/RecipeCalculator";
+import BrewPage from "./pages/BrewPage/BrewPage";
 
 function App() {
   const token = useSelector(selectToken);
@@ -30,7 +31,7 @@ function App() {
     if (!userId && token) {
       dispatch(getUserWithStoredToken());
     }
-  }, []);
+  });
 
   return (
     <div className="App">
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/explore-recipes" component={ImportRecipes} />
           <Route path="/recipes/:recipeId" component={RecipePage} />
           <Route path="/recipe-calculator" component={RecipeCalculator} />
+          <Route path="/brew" component={BrewPage} />
           {/* <Route path="/" component={Error404} /> */}
         </Switch>
       </div>

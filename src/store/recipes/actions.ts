@@ -1,7 +1,7 @@
 import Axios, { AxiosResponse } from "axios";
 import { apiUrl } from "../../config/constants";
 import { selectToken, selectUserId } from "../user/selectors";
-import { ThunkAction } from "redux-thunk";
+
 import { AppThunk } from "../types";
 
 import {
@@ -9,7 +9,7 @@ import {
   appLoading,
   showMessageWithTimeout,
 } from "../appState/actions";
-import { disconnect } from "process";
+
 import { calculateOG } from "../../BrewingCalculations";
 
 export const SET_MY_RECIPES = "SET_MY_RECIPES";
@@ -17,7 +17,8 @@ export const SET_IMPORTABLE_RECIPES = "SET_IMPORTABLE_RECIPES";
 export const IMPORT_RECIPE = "IMPORT_RECIPE";
 export const REMOVE_RECIPE = " REMOVE_RECIPE";
 export const UPDATE_NEW_RECIPE = "UPDATE_NEW_RECIPE";
-export const UPDATE_NEW_RECIPE_ARRAYS = "UPDATE_NEW_RECIPE_ARRAYS";
+export const UPDATE_NEW_RECIPE_MALTADDITIONS =
+  "UPDATE_NEW_RECIPE_MALTADDITIONS";
 export const ADD_NEW_MALT_NEW_RECIPE = "ADD_NEW_MALT_NEW_RECIPE";
 export const REMOVE_NEW_MALT_NEW_RECIPE = "REMOVE_NEW_MALT_NEW_RECIPE";
 export const REMOVE_NEW_HOP_NEW_RECIPE = "REMOVE_NEW_HOP_NEW_RECIPE";
@@ -27,6 +28,7 @@ export const REMOVE_MASH_STEP_NEW_RECIPE = "REMOVE_MASH_STEP_NEW_RECIPE";
 export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
 export const UPDATE_COMMENT_NEW_RECIPE = "UPDATE_COMMENT_NEW_RECIPE";
+export const SET_FULL_RECIPE = "SET_FULL_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -172,7 +174,7 @@ export const updateNewBeerArrays = (
 ): Action => {
   console.log("payload:", { array, index, key, value });
   return {
-    type: UPDATE_NEW_RECIPE_ARRAYS,
+    type: UPDATE_NEW_RECIPE_MALTADDITIONS,
     payload: { array, index, key, value },
   };
 };
@@ -235,6 +237,36 @@ export const updateComment = (comment: string) => {
   return {
     type: UPDATE_COMMENT_NEW_RECIPE,
     payload: comment,
+  };
+};
+export const fetchFullRecipe = (recipeId: number): AppThunk => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+    try {
+      const recipeRequest: AxiosResponse = await Axios.get(
+        `${apiUrl}/recipes/recipe/${recipeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const fullRecipe: FullRecipe = recipeRequest.data;
+      console.log("full recipe action ", fullRecipe);
+      dispatch({
+        type: SET_FULL_RECIPE,
+        payload: fullRecipe,
+      });
+    } catch (e) {
+      dispatch({
+        type: "SET_MESSAGE",
+        payload: {
+          variant: "danger",
+          dismissable: true,
+          text: "request failed",
+        },
+      });
+    }
   };
 };
 export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {

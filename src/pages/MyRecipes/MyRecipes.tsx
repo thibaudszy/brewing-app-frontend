@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
-import {
-  Button,
-  Card,
-  Jumbotron,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
+import { Button, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
 import "./MyRecipes.css";
@@ -18,15 +12,9 @@ import RecipeCard from "../../components/RecipeCard/RecipeCard";
 export default function MyRecipes() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const history = useHistory();
-  const {
-    t_ABV,
-    t_my_recipes,
-    t_recipe_calculator,
-    t_import_recipe,
-    t_color,
-    t_author,
-    t_see_recipe,
-  } = translation[userLanguage];
+  const { t_my_recipes, t_recipe_calculator, t_import_recipe } = translation[
+    userLanguage
+  ];
   const myRecipes = useSelector(selectMyRecipes) || [];
   const dispatch = useDispatch();
 
@@ -57,15 +45,7 @@ export default function MyRecipes() {
       </Jumbotron>
       <div style={{ display: "flex" }}>
         {myRecipes.map((recipe: RecipeWithAuthorName) => {
-          const {
-            id,
-            imageURL,
-            name,
-            ABV,
-            description,
-            colorInEBC,
-            author,
-          } = recipe;
+          const { id } = recipe;
           return <RecipeCard recipe={recipe} isInLibrary={true} key={id} />;
         })}
       </div>
