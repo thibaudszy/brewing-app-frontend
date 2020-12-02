@@ -10,7 +10,7 @@ const initialState = {
   message: null,
   today: new Date(),
 };
-
+// eslint-disable-next-line
 export default (state = initialState, action: Action) => {
   switch (action.type) {
     case APP_LOADING:
