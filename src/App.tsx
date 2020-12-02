@@ -25,7 +25,7 @@ function App() {
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const isLoading = useSelector(selectAppLoading);
-  console.log(object);
+
   useEffect(() => {
     // if the user reloads the app, we fetch his data from the server.
     if (!userId && token) {
