@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Switch from "react-bootstrap/esm/Switch";
-import { Route, useHistory } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./App.css";
 import AppNavbar from "./components/Navbar/AppNavbar";
 import Login from "./pages/Login/Login";
@@ -31,7 +31,7 @@ function App() {
     if (!userId && token) {
       dispatch(getUserWithStoredToken());
     }
-  }, []);
+  });
 
   return (
     <div className="App">

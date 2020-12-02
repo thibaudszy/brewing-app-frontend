@@ -72,7 +72,7 @@ export const updateBrew = (
           },
         });
       } else {
-        throw "error";
+        throw new Error("error");
       }
     } catch (e) {
       dispatch(showMessageWithTimeout("danger", true, "request failed"));

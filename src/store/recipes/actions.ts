@@ -1,7 +1,7 @@
 import Axios, { AxiosResponse } from "axios";
 import { apiUrl } from "../../config/constants";
 import { selectToken, selectUserId } from "../user/selectors";
-import { ThunkAction } from "redux-thunk";
+
 import { AppThunk } from "../types";
 
 import {
@@ -9,7 +9,7 @@ import {
   appLoading,
   showMessageWithTimeout,
 } from "../appState/actions";
-import { disconnect } from "process";
+
 import { calculateOG } from "../../BrewingCalculations";
 
 export const SET_MY_RECIPES = "SET_MY_RECIPES";

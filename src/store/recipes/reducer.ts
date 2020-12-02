@@ -1,4 +1,3 @@
-import MaltAdditionsRow from "../../pages/RecipeCalculator/MaltAdditionsRow";
 import emptyRecipe from "../../pages/RecipePage/emptyRecipe";
 import {
   SET_MY_RECIPES,
@@ -32,7 +31,7 @@ const initialState: RecipeState = {
   newRecipe: { ...emptyRecipe },
   fullRecipe: null,
 };
-
+// eslint-disable-next-line
 export default (state = initialState, action: Action) => {
   const { type, payload } = action;
   console.log("action type", type);
@@ -78,7 +77,7 @@ export default (state = initialState, action: Action) => {
     }
     case UPDATE_NEW_RECIPE_MALTADDITIONS: {
       const { newRecipe } = state;
-      const { array, index: targetIndex, key, value } = payload;
+      const { index: targetIndex, key, value } = payload;
 
       const updatedArray = newRecipe.maltAdditions.map(
         (arrayElement, index) => {
@@ -179,7 +178,7 @@ export default (state = initialState, action: Action) => {
       return {
         ...state,
         newRecipe: {
-          ...state.newRecipe,
+          ...newRecipe,
           hopAdditions: [...updatedArray, ...otherHopAdditions],
         },
       };
