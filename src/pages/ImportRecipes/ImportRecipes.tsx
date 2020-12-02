@@ -8,6 +8,8 @@ import { selectUserLanguage } from "../../store/user/selectors";
 import { getImportableRecipes } from "../../store/recipes/actions";
 import { selectImportableRecipes } from "../../store/recipes/selectors";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
+import MyRecipesButton from "../../components/MyRecipesButton";
+import RecipeCalculatorButton from "../../components/RecipeCalculatorButton";
 
 export default function ImportRecipes() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -30,13 +32,8 @@ export default function ImportRecipes() {
   return (
     <div className="my-recipes">
       <div className="buttons-row">
-        <Button className="MyRecipes-buttons"> {t_recipe_calculator}</Button>
-        <Button
-          className="MyRecipes-buttons"
-          onClick={() => history.push("/recipes")}
-        >
-          {t_my_recipes}
-        </Button>
+        <RecipeCalculatorButton />
+        <MyRecipesButton />
       </div>
       <Jumbotron fluid>
         <h2>{t_explore_recipes}</h2>

@@ -9,7 +9,7 @@ const randomData = {
     "https://bit.ly/3qtXgfZ",
     "https://bit.ly/3lr5x0k",
     "https://i.etsystatic.com/9077611/r/il/82a53d/557470837/il_794xN.557470837_3c8l.jpg",
-    "https://i.pinimg.com/originals/02/65/06/026506c8d094b906372c5a665b758a31.jpg",
+    "https://images.ctfassets.net/sz2xpiwl6od9/6oRth8GKbZl6ewUqbT8YaR/dfdcbf9138584e8f62e8d52118ba958d/Vienna-Lager-2006_CBB_Issue40.jpg?w=500&h=250&fm=jpg&fit=fill",
     "https://bit.ly/3qj8X90",
   ],
   ABV: [2, 4, 5, 6, 8, 10],
