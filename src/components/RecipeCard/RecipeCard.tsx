@@ -26,8 +26,8 @@ export default function RecipeCard(props: Prop) {
     dispatch(addRecipeToLibrary(recipeId));
   };
   return (
-    <Card style={{ margin: "1rem", maxWidth: "25em" }}>
-      <Card.Img variant="top" src={imageURL} />
+    <Card style={{ margin: "1rem", maxWidth: "25em", minWidth: "20em" }}>
+      <Card.Img variant="top" src={imageURL} style={{ maxHeight: "25em" }} />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>{`${description.slice(0, 240)}${

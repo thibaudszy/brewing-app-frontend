@@ -19,32 +19,35 @@ export default function DryHops(props: HopProps) {
   }
 
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>{t_type}</th>
-          <th>{t_AF}</th>
-          <th>{`${t_quantity} (g)`}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {dryHops.map((hopAddition: HopAddition) => {
-          const {
-            id,
-            name,
-            dryHopTimingInPercentageAF,
-            dryHopRateInGramsPerLitre,
-          } = hopAddition;
+    <div>
+      <h2> Dry Hop </h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>{t_type}</th>
+            <th>{t_AF}</th>
+            <th>{`${t_quantity} (g)`}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dryHops.map((hopAddition: HopAddition) => {
+            const {
+              id,
+              name,
+              dryHopTimingInPercentageAF,
+              dryHopRateInGramsPerLitre,
+            } = hopAddition;
 
-          return (
-            <tr key={id}>
-              <td>{name}</td>
-              <td>{dryHopTimingInPercentageAF}</td>
-              <td>{dryHopRateInGramsPerLitre * brewLengthInL}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+            return (
+              <tr key={id}>
+                <td>{name}</td>
+                <td>{dryHopTimingInPercentageAF}</td>
+                <td>{dryHopRateInGramsPerLitre * brewLengthInL}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
   );
 }

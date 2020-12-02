@@ -29,6 +29,7 @@ export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
 export const UPDATE_COMMENT_NEW_RECIPE = "UPDATE_COMMENT_NEW_RECIPE";
 export const SET_FULL_RECIPE = "SET_FULL_RECIPE";
+export const SET_NEW_RECIPE = "SET_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {

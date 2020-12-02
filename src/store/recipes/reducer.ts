@@ -16,6 +16,7 @@ import {
   UPDATE_NEW_RECIPE_MASH_STEPS,
   UPDATE_COMMENT_NEW_RECIPE,
   SET_FULL_RECIPE,
+  SET_NEW_RECIPE,
 } from "./actions";
 
 interface RecipeState {
@@ -66,6 +67,12 @@ export default (state = initialState, action: Action) => {
         ...state,
         myRecipes: updatedMyRecipes,
         importableRecipes: updatedImportableRecipes,
+      };
+    }
+    case SET_NEW_RECIPE: {
+      return {
+        ...state,
+        newRecipe: payload,
       };
     }
     case UPDATE_NEW_RECIPE: {

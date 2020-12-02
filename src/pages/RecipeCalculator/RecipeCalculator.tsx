@@ -15,6 +15,7 @@ import {
   AddNewMashStepToNewRecipe,
   updateComment,
   submitNewRecipe,
+  SET_NEW_RECIPE,
 } from "../../store/recipes/actions";
 import {
   selectNewRecipeMaltAdditions,
@@ -35,6 +36,7 @@ import {
 import HopAdditionsRow from "./HopAdditionRow";
 import MashStepsRow from "./MashStepsRow";
 import FermentationFormGroup from "./FermentationFormGroup";
+import { beeratron5000 } from "./beeratron5000";
 import "./RecipeCalculator.css";
 
 export default function RecipeCalculator() {
@@ -150,10 +152,18 @@ export default function RecipeCalculator() {
     event.preventDefault();
     dispatch(submitNewRecipe(newRecipe));
   }
+
+  const callTheBeeratron = () => {
+    dispatch({ type: SET_NEW_RECIPE, payload: beeratron5000() });
+  };
   return (
     <div>
       <Jumbotron fluid>
         <h2>{t_recipe_calculator}</h2>
+        <Button variant="danger" onClick={() => callTheBeeratron()}>
+          {" "}
+          Activate the beeratron5000
+        </Button>
       </Jumbotron>
       <div>
         <Form className="calculator">
@@ -203,7 +213,7 @@ export default function RecipeCalculator() {
                         id="inlineFormInput"
                         placeholder={placeholder}
                         // @ts-ignore
-                        defaultValue={newRecipe[param]}
+                        defaultValue={newRecipe[param] || ""}
                         onChange={(e) =>
                           handleFieldChange(
                             param,
@@ -294,6 +304,7 @@ export default function RecipeCalculator() {
             type="submit"
             onClick={handleSubmit}
             style={{ width: "5em", alignSelf: "center", margin: "1em" }}
+            defaultValue={newRecipe["comments"]}
           >
             Submit
           </Button>
