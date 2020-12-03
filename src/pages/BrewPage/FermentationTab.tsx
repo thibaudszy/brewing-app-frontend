@@ -48,6 +48,7 @@ export default function FermentationTab() {
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "space-evenly",
         marginTop: "1em",
       }}
@@ -58,7 +59,14 @@ export default function FermentationTab() {
           {`Add ${yeastPitchInGrams} of ${yeastStrain} to the beer at ${FermentationTemperature}C`}{" "}
         </Button>
       ) : !pitchingTemperature ? (
-        <InputGroup size="lg">
+        <InputGroup
+          size="lg"
+          style={{
+            maxWidth: "35rem",
+            alignSelf: "center",
+            justifyContent: "center",
+          }}
+        >
           <InputGroup.Prepend>
             <InputGroup.Text id="inputGroup-sizing-lg">
               Volume transfered to fermenter (L)

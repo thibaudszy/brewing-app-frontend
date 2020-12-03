@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Jumbotron } from "react-bootstrap";
+import { Button, CardGroup, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,8 @@ import "./MyRecipes.css";
 import { getUserRecipes } from "../../store/recipes/actions";
 import { selectMyRecipes } from "../../store/recipes/selectors";
 import RecipeCard from "../../components/RecipeCard/RecipeCard";
-
+import RecipeCalculatorButton from "../../components/RecipeCalculatorButton";
+import ExploreRecipesButton from "../../components/ExploreRecipesButton";
 export default function MyRecipes() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   const history = useHistory();
@@ -25,29 +26,19 @@ export default function MyRecipes() {
   return (
     <div className="my-recipes">
       <div className="buttons-row">
-        <Button
-          className="MyRecipes-buttons"
-          onClick={() => history.push("/recipe-calculator")}
-        >
-          {" "}
-          {t_recipe_calculator}
-        </Button>
-        <Button
-          className="MyRecipes-buttons"
-          onClick={() => history.push("/explore-recipes")}
-        >
-          {" "}
-          {t_import_recipe}
-        </Button>
+        <RecipeCalculatorButton />
+        <ExploreRecipesButton />
       </div>
       <Jumbotron fluid>
         <h2>{t_my_recipes}</h2>
       </Jumbotron>
-      <div style={{ display: "flex" }}>
-        {myRecipes.map((recipe: RecipeWithAuthorName) => {
-          const { id } = recipe;
-          return <RecipeCard recipe={recipe} isInLibrary={true} key={id} />;
-        })}
+      <div>
+        <CardGroup>
+          {myRecipes.map((recipe: RecipeWithAuthorName) => {
+            const { id } = recipe;
+            return <RecipeCard recipe={recipe} isInLibrary={true} key={id} />;
+          })}
+        </CardGroup>
       </div>
     </div>
   );

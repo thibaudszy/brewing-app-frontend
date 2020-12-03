@@ -15,6 +15,7 @@ import {
   AddNewMashStepToNewRecipe,
   updateComment,
   submitNewRecipe,
+  SET_NEW_RECIPE,
 } from "../../store/recipes/actions";
 import {
   selectNewRecipeMaltAdditions,
@@ -35,6 +36,10 @@ import {
 import HopAdditionsRow from "./HopAdditionRow";
 import MashStepsRow from "./MashStepsRow";
 import FermentationFormGroup from "./FermentationFormGroup";
+import { beeratron5000 } from "./beeratron5000";
+import "./RecipeCalculator.css";
+import emptyRecipe from "../RecipePage/emptyRecipe";
+import { useHistory } from "react-router-dom";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -42,7 +47,16 @@ export default function RecipeCalculator() {
   const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
   const newRecipe = useSelector(selectNewRecipe);
-  const { t_recipe_calculator } = translation[userLanguage];
+  const history = useHistory();
+  const {
+    t_recipe_calculator,
+    t_about_your_beer,
+    t_specifications,
+    t_malt_additions,
+    t_hop_additions,
+    t_mash_steps,
+    t_comments,
+  } = translation[userLanguage];
 
   const dispatch = useDispatch();
 
@@ -137,25 +151,36 @@ export default function RecipeCalculator() {
       dispatch(AddNewMashStepToNewRecipe());
     }
   });
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
-    dispatch(submitNewRecipe(newRecipe));
+    await dispatch(submitNewRecipe(newRecipe));
+    history.push("/recipes");
   }
+
+  const callTheBeeratron = () => {
+    dispatch({ type: SET_NEW_RECIPE, payload: beeratron5000() });
+  };
   return (
     <div>
       <Jumbotron fluid>
         <h2>{t_recipe_calculator}</h2>
+        <Button variant="danger" onClick={() => callTheBeeratron()}>
+          {" "}
+          Activate the beeratron5000
+        </Button>
       </Jumbotron>
       <div>
-        <Form>
-          <Form.Group>
-            <h2>t_about_your_beer</h2>
+        <Form className="calculator">
+          <Form.Group className="form-group">
+            <h2>{t_about_your_beer}</h2>
             <Form.Row className="align-items-center">
               {aboutData.map(
                 ({ param, label, type, range, placeholder }, index) => {
                   return (
                     <Col xs={index + 2} key={param}>
-                      <Form.Label htmlFor="inlineFormInput">{label}</Form.Label>
+                      <Form.Label htmlFor="inlineFormInput">
+                        {translation[userLanguage][label]}
+                      </Form.Label>
                       <Form.Control
                         className="mb-2"
                         id="inlineFormInput"
@@ -178,19 +203,21 @@ export default function RecipeCalculator() {
             </Form.Row>
           </Form.Group>
           <Form.Group>
-            <h2>t_specifications</h2>
+            <h2>{t_specifications}</h2>
             <Form.Row className="align-items-center">
               {specifications.map(
                 ({ param, label, type, range, placeholder }) => {
                   return (
                     <Col xs="auto" key={param}>
-                      <Form.Label htmlFor="inlineFormInput">{label}</Form.Label>
+                      <Form.Label htmlFor="inlineFormInput">
+                        {translation[userLanguage][label]}
+                      </Form.Label>
                       <Form.Control
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder={placeholder}
                         // @ts-ignore
-                        defaultValue={newRecipe[param]}
+                        defaultValue={newRecipe[param] || ""}
                         onChange={(e) =>
                           handleFieldChange(
                             param,
@@ -208,6 +235,7 @@ export default function RecipeCalculator() {
           </Form.Group>
           <Form.Group>
             <h2>
+              {t_malt_additions}{" "}
               <Button
                 onClick={() => {
                   decrementNumberOfMaltAdditions();
@@ -215,7 +243,6 @@ export default function RecipeCalculator() {
               >
                 -
               </Button>{" "}
-              t_malt_additions{" "}
               <Button
                 onClick={() => {
                   incrementNumberOfMaltAdditions();
@@ -228,6 +255,7 @@ export default function RecipeCalculator() {
           </Form.Group>
           <Form.Group>
             <h2>
+              {t_hop_additions}{" "}
               <Button
                 onClick={() => {
                   decrementNumberOfHopAdditions();
@@ -235,7 +263,6 @@ export default function RecipeCalculator() {
               >
                 -
               </Button>{" "}
-              t_hop_additions{" "}
               <Button
                 onClick={() => {
                   incrementNumberOfHopAdditions();
@@ -248,6 +275,7 @@ export default function RecipeCalculator() {
           </Form.Group>
           <Form.Group>
             <h2>
+              {t_mash_steps}{" "}
               <Button
                 onClick={() => {
                   decrementNumberOfMashSteps();
@@ -255,7 +283,6 @@ export default function RecipeCalculator() {
               >
                 -
               </Button>{" "}
-              t_mash_steps{" "}
               <Button
                 onClick={() => {
                   incrementNumberOfMashSteps();
@@ -269,14 +296,20 @@ export default function RecipeCalculator() {
 
           <FermentationFormGroup />
           <Form.Group>
-            <h2>Comments</h2>
+            <h2>{t_comments}</h2>
             <FormControl
               as="textarea"
               aria-label="With textarea"
               onChange={(e) => handleCommentsInput(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={handleSubmit}
+            style={{ width: "5em", alignSelf: "center", margin: "1em" }}
+            defaultValue={newRecipe["comments"]}
+          >
             Submit
           </Button>
         </Form>

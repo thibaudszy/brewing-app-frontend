@@ -29,6 +29,7 @@ export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
 export const UPDATE_COMMENT_NEW_RECIPE = "UPDATE_COMMENT_NEW_RECIPE";
 export const SET_FULL_RECIPE = "SET_FULL_RECIPE";
+export const SET_NEW_RECIPE = "SET_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -131,14 +132,14 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
     const userId = selectUserId(getState());
-    console.log(userId, recipeId);
+
     const serverResponse: AxiosResponse = await Axios.delete(
       `${apiUrl}/libraries/${userId}${recipeId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("server response:", serverResponse);
+
     if (!(serverResponse.status === 200)) {
       dispatch({
         type: "SET_MESSAGE",
@@ -287,7 +288,12 @@ export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("server response", serverResponse);
+      console.log(
+        "server response recipe id",
+        serverResponse.data.addedRecipe.id
+      );
+      dispatch(addRecipeToLibrary(serverResponse.data.addedRecipe.id));
+
       dispatch(appDoneLoading());
       dispatch(showMessageWithTimeout("sucess", true, "recipe created"));
     } catch (e) {
