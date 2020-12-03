@@ -6,7 +6,6 @@ import "./Footer.css";
 export default function MyFooter() {
   const dispatch = useDispatch();
   function changeLanguage(language: Language) {
-    console.log("lang", changeLanguageAction(language));
     dispatch(changeLanguageAction(language));
   }
   return (

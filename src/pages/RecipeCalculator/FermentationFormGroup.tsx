@@ -28,7 +28,7 @@ export default function FermentationFormGroup() {
     dryHops,
   } = useSelector(selectNewRecipefermentatioData);
   const numberOfDryHops = dryHops.length;
-  console.log(dryHops);
+
   const handleHopAdditionInput = (
     index: number,
     key: any,

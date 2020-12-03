@@ -103,7 +103,6 @@ export default function RecipePage() {
     );
     return volume.toFixed(volume > 50 ? 0 : 1);
   };
-  console.log(recipe);
 
   const handleStartABrewClick = async (clickRecipeId: number) => {
     dispatch(createNewBrew(clickRecipeId, brewLengthInL));

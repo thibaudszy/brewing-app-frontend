@@ -9,7 +9,7 @@ export default function MessageBox() {
   const dispatch = useDispatch();
   const showMessage = message !== null;
   if (!showMessage) return null;
-  console.log("message:", message);
+
   const handleCloseAlert = (dismissable: boolean) => {
     if (dismissable) dispatch(clearMessage());
   };

@@ -45,7 +45,7 @@ export const getUserRecipes = (): AppThunk => {
         }
       );
       const userRecipes = userRecipesRequest.data;
-      //console.log("loaded recipes:", userRecipes);
+      //
       dispatch({
         type: SET_MY_RECIPES,
         payload: userRecipes,
@@ -159,8 +159,6 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
 };
 
 export const updateNewBeerData = (param: string, data: any): Action => {
-  console.log("param:", param, "value", data);
-
   return {
     type: UPDATE_NEW_RECIPE,
     payload: { param, value: data.values },
@@ -173,7 +171,6 @@ export const updateNewBeerArrays = (
   key: string,
   value: string | number
 ): Action => {
-  console.log("payload:", { array, index, key, value });
   return {
     type: UPDATE_NEW_RECIPE_MALTADDITIONS,
     payload: { array, index, key, value },
@@ -253,7 +250,7 @@ export const fetchFullRecipe = (recipeId: number): AppThunk => {
         }
       );
       const fullRecipe: FullRecipe = recipeRequest.data;
-      console.log("full recipe action ", fullRecipe);
+
       dispatch({
         type: SET_FULL_RECIPE,
         payload: fullRecipe,

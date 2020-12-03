@@ -35,7 +35,7 @@ const initialState: RecipeState = {
 // eslint-disable-next-line
 export default (state = initialState, action: Action) => {
   const { type, payload } = action;
-  console.log("action type", type);
+
   switch (type) {
     case SET_MY_RECIPES:
       return { ...state, myRecipes: payload };
@@ -185,7 +185,7 @@ export default (state = initialState, action: Action) => {
         }
         return arrayElement;
       });
-      console.log("updated array", updatedArray);
+
       return {
         ...state,
         newRecipe: {

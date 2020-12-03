@@ -43,7 +43,7 @@ export default function FermentationTab() {
       )
     );
   }
-  console.log("dryhops", dryHops);
+
   return (
     <div
       style={{

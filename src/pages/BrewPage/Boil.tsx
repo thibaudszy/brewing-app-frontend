@@ -68,7 +68,7 @@ export default function Boil(props: PropType) {
     setBoilCountdown({ ...boilCountdown, active: true });
   };
   const { countdownInS, active } = boilCountdown;
-  console.log("boilAdditionsWithQuantities", boilAdditionsWithQuantities);
+
   const addButtonHandler = (targetIndex: number) => {
     setBoilAdditionsWithQuantities(
       boilAdditionsWithQuantities.map((boilAddition, index) => {

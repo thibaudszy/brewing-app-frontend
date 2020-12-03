@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Button, CardGroup, Jumbotron } from "react-bootstrap";
+import { CardGroup, Jumbotron } from "react-bootstrap";
 import translation from "./translation";
-import { useHistory } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserLanguage } from "../../store/user/selectors";
 
@@ -13,21 +13,14 @@ import RecipeCalculatorButton from "../../components/RecipeCalculatorButton";
 
 export default function ImportRecipes() {
   const userLanguage: Language = useSelector(selectUserLanguage);
-  const history = useHistory();
-  const {
-    t_explore_recipes,
-    t_my_recipes,
-    t_recipe_calculator,
 
-    t_no_more_recipes,
-  } = translation[userLanguage];
+  const { t_explore_recipes, t_no_more_recipes } = translation[userLanguage];
   const importableRecipes = useSelector(selectImportableRecipes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getImportableRecipes());
   }, [dispatch]);
-  console.log("importable recipes:", importableRecipes);
 
   return (
     <div className="my-recipes">

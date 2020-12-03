@@ -61,7 +61,7 @@ export const updateBrew = (
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("serverResponse", serverResponse);
+
       if (serverResponse.status === 200) {
         dispatch({
           type: UPDATE_BREW_DATA,
