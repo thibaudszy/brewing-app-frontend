@@ -24,12 +24,12 @@ export default function ImportRecipes() {
 
   return (
     <div className="my-recipes">
-      <div className="buttons-row">
-        <RecipeCalculatorButton />
-        <MyRecipesButton />
-      </div>
       <Jumbotron fluid>
         <h2>{t_explore_recipes}</h2>
+        <div className="buttons-row">
+          <RecipeCalculatorButton />
+          <MyRecipesButton />
+        </div>
       </Jumbotron>
       {!importableRecipes.length ? (
         <h1>{t_no_more_recipes}</h1>

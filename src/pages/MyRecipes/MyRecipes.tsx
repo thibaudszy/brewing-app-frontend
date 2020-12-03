@@ -23,12 +23,12 @@ export default function MyRecipes() {
 
   return (
     <div className="my-recipes">
-      <div className="buttons-row">
-        <RecipeCalculatorButton />
-        <ExploreRecipesButton />
-      </div>
       <Jumbotron fluid>
         <h2>{t_my_recipes}</h2>
+        <div className="buttons-row">
+          <RecipeCalculatorButton />
+          <ExploreRecipesButton />
+        </div>
       </Jumbotron>
       <div>
         <CardGroup>

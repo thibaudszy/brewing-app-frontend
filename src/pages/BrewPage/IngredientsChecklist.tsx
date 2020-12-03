@@ -53,8 +53,20 @@ export default function IngredientsChecklist() {
     dispatch(updateBrew("mash", "timeStartMash", now));
   };
   return (
-    <div>
-      <Table striped bordered hover size="sm">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <Table
+        striped
+        bordered
+        hover
+        size="sm"
+        style={{ maxWidth: "50em", alignSelf: "center", marginTop: "1em" }}
+      >
         <thead>
           <tr>
             <th>{t_ingredients}</th>
@@ -64,7 +76,9 @@ export default function IngredientsChecklist() {
         </thead>
         <tbody>
           <tr>
-            <td colSpan={3}>{t_fermentables}</td>
+            <td colSpan={3}>
+              <h5> {t_fermentables}</h5>
+            </td>
           </tr>
 
           {maltAdditions.map((maltAddition: MaltAddition) => (
@@ -84,7 +98,10 @@ export default function IngredientsChecklist() {
             </tr>
           ))}
           <tr>
-            <td colSpan={3}>{t_hop_additions}</td>
+            <td colSpan={3}>
+              {" "}
+              <h5> {t_hop_additions} </h5>{" "}
+            </td>
           </tr>
 
           {boilAdditions.map((hopAddition: HopAddition) => (
@@ -106,7 +123,10 @@ export default function IngredientsChecklist() {
             </tr>
           ))}
           <tr>
-            <td colSpan={3}>{t_yeast}</td>
+            <td colSpan={3}>
+              {" "}
+              <h5> {t_yeast} </h5>{" "}
+            </td>
           </tr>
           <tr>
             <td>{yeastStrain}</td>
@@ -117,7 +137,10 @@ export default function IngredientsChecklist() {
           </tr>
           {dryHopAdditions.length > 0 ? (
             <tr>
-              <td colSpan={3}>{t_dry_hops}</td>
+              <td colSpan={3}>
+                {" "}
+                <h5> {t_dry_hops} </h5>{" "}
+              </td>
             </tr>
           ) : null}
 
@@ -135,7 +158,11 @@ export default function IngredientsChecklist() {
         </tbody>
       </Table>
 
-      <Button variant="warning" onClick={() => handleMashClick()}>
+      <Button
+        variant="warning"
+        style={{ maxWidth: "10em", alignSelf: "center" }}
+        onClick={() => handleMashClick()}
+      >
         {t_start_mash}
       </Button>
     </div>
