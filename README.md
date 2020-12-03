@@ -31,7 +31,7 @@ The app allows a user to :
 <p align="center">
   <img src="src/images/recipe-calculator.gif"  title="recipe calculator example">
 </p>
-The recipe calculator allows a user to enter the beer specifications, the ingredients he/she wishes to use and in what ratios. Once the information is entered, the correct quantities for each ingredients and for a desired volume will be displayed in the full recipe page.
+The recipe calculator allows a user to enter the beer specifications, the ingredients she wishes to use and in what ratios. Once the information is entered, the correct quantities for each ingredients and for a desired volume will be displayed in the full recipe page.
 
 ### Introducing the Beeratron 5000
 
@@ -41,4 +41,30 @@ A completely random beer recipe generator. The Beeratron5000 generates a random 
 
 ## Brewing day tool
 
-## Languages and tools
+The app allows a user to check he has all the ingredients to start the brew. I will also display timers for the relevant step and inform the user when it is time to add a new ingredients or move on to a new step.
+
+# Languages and tools
+
+This app is built using the following languages and tools:
+
+<code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/javascript/javascript.png"></code>
+<code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png"></code>
+<code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png"></code>
+<code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png"></code>
+<code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png"></code>
+<code><img height="20" src="https://icon2.cleanpng.com/20180804/aaz/kisspng-postgresql-object-relational-database-oracle-datab-portfolio-whitebolt-whitebolt-5b65f8213f29d6.5042016815334093132587.jpg"></code>
+<code><img height="20" src="https://camo.githubusercontent.com/58e35d08b53ec029f0e3e587a28a6f65777d352f797add843d153a0db60b9d7d/68747470733a2f2f692e696d6775722e636f6d2f79764559686e5a2e706e67"></code>
+
+# The back end
+
+## DB model
+
+A database model was dran on Lucid chart before starting coding. Here is the database schema:
+
+<p align="center">
+  <img src="src/images/DB-model.png"  title="recipe calculator example">
+</p>
+
+## Source code
+
+<a href='https://github.com/thibaudszy/brewing-app-backend'> Click here to see the back end repo.
