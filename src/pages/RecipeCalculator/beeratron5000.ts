@@ -1,5 +1,21 @@
-const names1 = ["Big", "Funky", "Awesome", "Delicious"];
-const names2 = ["bitter", "Lager", "Belgian", "German"];
+const names1 = [
+  "Big",
+  "Funky",
+  "Awesome",
+  "Delicious",
+  "Perky",
+  "Amber",
+  "Dark",
+];
+const names2 = [
+  "bitter",
+  "Lager",
+  "Belgian",
+  "German",
+  "fizz",
+  "buzz",
+  "dancing buddy",
+];
 
 const randomData = {
   description:

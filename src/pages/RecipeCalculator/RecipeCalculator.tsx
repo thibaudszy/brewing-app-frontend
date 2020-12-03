@@ -38,6 +38,7 @@ import MashStepsRow from "./MashStepsRow";
 import FermentationFormGroup from "./FermentationFormGroup";
 import { beeratron5000 } from "./beeratron5000";
 import "./RecipeCalculator.css";
+import emptyRecipe from "../RecipePage/emptyRecipe";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
