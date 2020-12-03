@@ -36,6 +36,7 @@ export default function Boil(props: PropType) {
         percentageAlphaAcidsFromAddition,
         alphaAcidContent,
       }) => {
+        //Adding this comment to fix a bug
         return {
           name,
           quantity: hopAdditionInGrams(
