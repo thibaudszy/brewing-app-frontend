@@ -7,7 +7,7 @@ const initialState = {
 // eslint-disable-next-line
 export default (state = initialState, action: Action) => {
   const { type, payload } = action;
-  console.log("payload brew", payload);
+
   switch (type) {
     case SET_NEW_BREW:
       return { ...state, brew: payload };

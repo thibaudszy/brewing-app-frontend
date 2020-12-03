@@ -52,39 +52,48 @@ export default function MashTimers() {
       }}
     >
       {stepsWithCountdown.map(
-        ({ stepNo, countdownInS, temperature, active }) => (
-          <Card
-            bg={"dark"}
-            key={stepNo}
-            text={"white"}
-            style={{ width: "18rem" }}
-            className="mb-2"
-          >
-            <Card.Header>{`Step ${stepNo}`}</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                {" "}
-                {`Ends in ${Math.floor(countdownInS / 60)}:${
-                  countdownInS % 60
-                } min`}{" "}
-              </Card.Title>
-              <Card.Text>{`Temperature: ${temperature}C`}</Card.Text>
-              {active ? (
-                countdownInS ? (
-                  <h2>
-                    <Badge variant="warning">Counting down</Badge>
-                  </h2>
+        ({ stepNo, countdownInS, temperature, active }) => {
+          const seconds = countdownInS % 60 ? countdownInS % 60 : "00";
+          return (
+            <Card
+              bg={"dark"}
+              key={stepNo}
+              text={"white"}
+              style={{ width: "18rem" }}
+              className="mb-2"
+            >
+              <Card.Header>{`Step ${stepNo}`}</Card.Header>
+              <Card.Body>
+                <Card.Title>
+                  {" "}
+                  {`Ends in ${Math.floor(
+                    countdownInS / 60
+                  )}:${seconds} min`}{" "}
+                </Card.Title>
+                <Card.Text>{`Temperature: ${temperature}C`}</Card.Text>
+                {active ? (
+                  countdownInS ? (
+                    <h2>
+                      <Badge variant="warning">Counting down</Badge>
+                    </h2>
+                  ) : (
+                    <h2>
+                      <Badge variant="success">Step completed</Badge>
+                    </h2>
+                  )
                 ) : (
-                  <h2>
-                    <Badge variant="success">Step completed</Badge>
-                  </h2>
-                )
-              ) : (
-                <Button onClick={() => startCountdown(stepNo)}> Start </Button>
-              )}
-            </Card.Body>
-          </Card>
-        )
+                  <Button
+                    onClick={() => startCountdown(stepNo)}
+                    className="timer-button"
+                  >
+                    {" "}
+                    Start{" "}
+                  </Button>
+                )}
+              </Card.Body>
+            </Card>
+          );
+        }
       )}
     </div>
   );

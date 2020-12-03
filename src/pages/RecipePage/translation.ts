@@ -26,6 +26,8 @@ const translation: TranslationObject = {
     t_yeast_strain: "Yeast strain",
     t_comments: "Comments",
     t_description: "Description",
+    t_AF: "Dry hop timing in %AF",
+    t_start_a_brew: "Start a brew",
   },
   "Fr-FR": {
     t_enter_your_brewlength: "Combien de biere allez vous faire?  ",
@@ -52,6 +54,8 @@ const translation: TranslationObject = {
     t_fermentation_temperature: "Temperature de fermentation",
     t_comments: "Commentaires",
     t_description: "Description",
+    t_AF: "Timing du houblonage a cru en %AF",
+    t_start_a_brew: "Lancer un brassin",
   },
 };
 

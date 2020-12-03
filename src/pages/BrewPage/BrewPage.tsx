@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Tab, Tabs } from "react-bootstrap";
+import { Button, Jumbotron, Tab, Tabs } from "react-bootstrap";
 import translation from "./translation";
 import { selectUserLanguage } from "../../store/user/selectors";
 import { selectFullRecipe } from "../../store/recipes/selectors";
@@ -11,6 +11,7 @@ import { fetchFullRecipe } from "../../store/recipes/actions";
 import MashTimers from "./MashTimers";
 import Boil from "./Boil";
 import FermentationTab from "./FermentationTab";
+import "./BrewPage.css";
 
 export default function BrewPage() {
   const recipe = useSelector(selectFullRecipe);
@@ -36,16 +37,15 @@ export default function BrewPage() {
 
   const { t_ingredients } = translation[userLanguage];
 
-  const {
-    IBU,
-
-    BoilDurationInMin,
-  } = recipe;
+  const { IBU, name, BoilDurationInMin } = recipe;
   const finishMashHandler = () => {
     dispatch(updateBrew("boil", "timeStartFiltration", new Date()));
   };
   return (
-    <div>
+    <div className="brewpage">
+      <Jumbotron>
+        <h1> {name} </h1>
+      </Jumbotron>
       <Tabs
         id="controlled-tab-example"
         activeKey={key}

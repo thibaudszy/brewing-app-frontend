@@ -29,6 +29,7 @@ export const ADD_MASH_STEP_NEW_RECIPE = "ADD_MASH_STEP_NEW_RECIPE";
 export const UPDATE_NEW_RECIPE_MASH_STEPS = " UPDATE_NEW_RECIPE_MASH_STEPS";
 export const UPDATE_COMMENT_NEW_RECIPE = "UPDATE_COMMENT_NEW_RECIPE";
 export const SET_FULL_RECIPE = "SET_FULL_RECIPE";
+export const SET_NEW_RECIPE = "SET_NEW_RECIPE";
 
 export const getUserRecipes = (): AppThunk => {
   return async (dispatch, getState) => {
@@ -44,7 +45,7 @@ export const getUserRecipes = (): AppThunk => {
         }
       );
       const userRecipes = userRecipesRequest.data;
-      //console.log("loaded recipes:", userRecipes);
+      //
       dispatch({
         type: SET_MY_RECIPES,
         payload: userRecipes,
@@ -131,14 +132,14 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
     const userId = selectUserId(getState());
-    console.log(userId, recipeId);
+
     const serverResponse: AxiosResponse = await Axios.delete(
       `${apiUrl}/libraries/${userId}${recipeId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("server response:", serverResponse);
+
     if (!(serverResponse.status === 200)) {
       dispatch({
         type: "SET_MESSAGE",
@@ -158,8 +159,6 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
 };
 
 export const updateNewBeerData = (param: string, data: any): Action => {
-  console.log("param:", param, "value", data);
-
   return {
     type: UPDATE_NEW_RECIPE,
     payload: { param, value: data.values },
@@ -172,7 +171,6 @@ export const updateNewBeerArrays = (
   key: string,
   value: string | number
 ): Action => {
-  console.log("payload:", { array, index, key, value });
   return {
     type: UPDATE_NEW_RECIPE_MALTADDITIONS,
     payload: { array, index, key, value },
@@ -252,7 +250,7 @@ export const fetchFullRecipe = (recipeId: number): AppThunk => {
         }
       );
       const fullRecipe: FullRecipe = recipeRequest.data;
-      console.log("full recipe action ", fullRecipe);
+
       dispatch({
         type: SET_FULL_RECIPE,
         payload: fullRecipe,
@@ -287,7 +285,12 @@ export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("server response", serverResponse);
+      console.log(
+        "server response recipe id",
+        serverResponse.data.addedRecipe.id
+      );
+      dispatch(addRecipeToLibrary(serverResponse.data.addedRecipe.id));
+
       dispatch(appDoneLoading());
       dispatch(showMessageWithTimeout("sucess", true, "recipe created"));
     } catch (e) {

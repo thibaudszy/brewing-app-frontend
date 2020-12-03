@@ -5,7 +5,7 @@ import { selectFullRecipe } from "../../store/recipes/selectors";
 
 import { hopAdditionInGrams } from "../../BrewingCalculations";
 import CheckIcon from "@material-ui/icons/Check";
-
+import "./BrewPage.css";
 import { updateBrew } from "../../store/brew/actions";
 interface PropType {
   IBU: number;
@@ -68,7 +68,7 @@ export default function Boil(props: PropType) {
     setBoilCountdown({ ...boilCountdown, active: true });
   };
   const { countdownInS, active } = boilCountdown;
-  console.log("boilAdditionsWithQuantities", boilAdditionsWithQuantities);
+
   const addButtonHandler = (targetIndex: number) => {
     setBoilAdditionsWithQuantities(
       boilAdditionsWithQuantities.map((boilAddition, index) => {
@@ -86,6 +86,7 @@ export default function Boil(props: PropType) {
       updateBrew("fermentation", "volumeEndOfBoilingL", endOfBoilVolume)
     );
   }
+  const seconds = countdownInS % 60 ? countdownInS % 60 : "00";
   return (
     <div
       style={{
@@ -98,15 +99,13 @@ export default function Boil(props: PropType) {
       <Card
         bg={"dark"}
         text={"white"}
-        style={{ width: "25rem" }}
+        style={{ width: "25rem", alignSelf: "center", marginTop: "1em" }}
         className="mb-2"
       >
         <Card.Header>Boil Timer</Card.Header>
         <Card.Body>
           <Card.Title>
-            {`Ends in ${Math.floor(countdownInS / 60)}:${
-              countdownInS % 60
-            } min`}
+            {`Ends in ${Math.floor(countdownInS / 60)}:${seconds} min`}
           </Card.Title>
 
           {active ? (
@@ -143,6 +142,7 @@ export default function Boil(props: PropType) {
                     key={`${name}${quantity}`}
                     disabled={disabled}
                     onClick={() => addButtonHandler(index)}
+                    className="timer-button"
                   >
                     {`Add ${quantity}g of ${name} at T-${timeOfAdditionInMinBeforeEndOfBoil}`}{" "}
                     {added ? <CheckIcon style={{ color: "#008000" }} /> : ""}
@@ -155,7 +155,14 @@ export default function Boil(props: PropType) {
       </Card>
 
       <br />
-      <InputGroup size="lg">
+      <InputGroup
+        size="lg"
+        style={{
+          maxWidth: "25rem",
+          alignSelf: "center",
+          justifyContent: "center",
+        }}
+      >
         <InputGroup.Prepend>
           <InputGroup.Text id="inputGroup-sizing-lg">
             Volume transfered to fermenter (L)
@@ -167,9 +174,12 @@ export default function Boil(props: PropType) {
           onChange={(e) => setEndofBoilVolume(parseFloat(e.target.value))}
           defaultValue={endOfBoilVolume}
         />
-        <Button type="submit" onClick={(e) => handleSubmit(e)}>
-          {" "}
-          Submit{" "}
+        <Button
+          type="submit"
+          onClick={(e) => handleSubmit(e)}
+          className="submit-button"
+        >
+          Submit
         </Button>
       </InputGroup>
     </div>

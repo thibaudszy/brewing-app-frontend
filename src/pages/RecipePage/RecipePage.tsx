@@ -48,6 +48,7 @@ export default function RecipePage() {
     t_pitch_rate,
     t_comments,
     t_description,
+    t_start_a_brew,
   } = translation[userLanguage];
 
   const params = useParams<paramsRecipePage>();
@@ -102,7 +103,6 @@ export default function RecipePage() {
     );
     return volume.toFixed(volume > 50 ? 0 : 1);
   };
-  console.log(recipe);
 
   const handleStartABrewClick = async (clickRecipeId: number) => {
     dispatch(createNewBrew(clickRecipeId, brewLengthInL));
@@ -113,8 +113,7 @@ export default function RecipePage() {
       <Jumbotron>
         <h1>{recipe.name}</h1>
         <Button onClick={() => handleStartABrewClick(recipeId)}>
-          {" "}
-          t_start_a_brew
+          {t_start_a_brew}
         </Button>
       </Jumbotron>
       <Form>
