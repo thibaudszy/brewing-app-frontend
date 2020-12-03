@@ -117,7 +117,6 @@ export default function RecipePage() {
         </Button>
       </Jumbotron>
       <Form>
-        <Form.File.Input isValid />
         <Form.Group as={Row}>
           <Form.Label column sm="2">
             {t_enter_your_brewlength}
