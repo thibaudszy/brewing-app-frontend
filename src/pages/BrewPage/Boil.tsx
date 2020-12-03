@@ -156,14 +156,7 @@ export default function Boil(props: PropType) {
       </Card>
 
       <br />
-      <InputGroup
-        size="lg"
-        style={{
-          maxWidth: "25rem",
-          alignSelf: "center",
-          justifyContent: "center",
-        }}
-      >
+      <InputGroup size="lg" className="input-volume">
         <InputGroup.Prepend>
           <InputGroup.Text id="inputGroup-sizing-lg">
             Volume transfered to fermenter (L)

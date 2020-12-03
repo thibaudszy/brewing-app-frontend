@@ -45,87 +45,84 @@ export default function FermentationTab() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-evenly",
-        marginTop: "1em",
-      }}
-    >
-      {!timeStartFermentation ? (
-        <Button onClick={() => handleStartFermentationClick()}>
-          {" "}
-          {`Add ${yeastPitchInGrams} of ${yeastStrain} to the beer at ${FermentationTemperature}C`}{" "}
-        </Button>
-      ) : !pitchingTemperature ? (
-        <InputGroup
-          size="lg"
-          style={{
-            maxWidth: "35rem",
-            alignSelf: "center",
-            justifyContent: "center",
-          }}
-        >
-          <InputGroup.Prepend>
-            <InputGroup.Text id="inputGroup-sizing-lg">
-              Volume transfered to fermenter (L)
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl
-            aria-label="Large"
-            defaultValue={inputPitchingTemperature}
-            onChange={(e) => setInputPitchingTemperature(e.target.value)}
-          />
-          <Button type="submit" onClick={(e) => handlePitchingTempSubmit(e)}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="ferm-group">
+        {!timeStartFermentation ? (
+          <Button
+            onClick={() => handleStartFermentationClick()}
+            style={{ maxWidth: "30em", alignSelf: "center" }}
+          >
             {" "}
-            Submit{" "}
+            {`Add ${yeastPitchInGrams} of ${yeastStrain} to the beer at ${FermentationTemperature}C`}{" "}
           </Button>
-        </InputGroup>
-      ) : (
-        ""
-      )}
-      {dryHops.length ? (
-        <div>
-          {" "}
-          <h2>Dry Hop Schedule</h2>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Variety</th>
-                <th>Amount</th>
-                <th>When beer density reaches</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dryHops.map(
-                ({
-                  id,
-                  name,
-                  dryHopRateInGramsPerLitre,
-                  dryHopTimingInPercentageAF,
-                }) => (
-                  <tr key={id}>
-                    <td>{name}</td>
-                    <td>{`${
-                      dryHopRateInGramsPerLitre * volumeEndOfBoilingL
-                    } g`}</td>
-                    <td>
-                      {Math.round(
-                        //@ts-ignore
-                        ((OGinPlato - FGinPlato) * dryHopTimingInPercentageAF) /
-                          100
-                      )}
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </Table>
-        </div>
-      ) : (
-        ""
-      )}
+        ) : !pitchingTemperature ? (
+          <div className="input-volume">
+            <InputGroup size="lg">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="inputGroup-sizing-lg">
+                  Volume transfered to fermenter (L)
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+                aria-label="Large"
+                defaultValue={inputPitchingTemperature}
+                onChange={(e) => setInputPitchingTemperature(e.target.value)}
+              />
+              <Button
+                type="submit"
+                onClick={(e) => handlePitchingTempSubmit(e)}
+              >
+                {" "}
+                Submit{" "}
+              </Button>
+            </InputGroup>
+          </div>
+        ) : (
+          ""
+        )}
+        {dryHops.length ? (
+          <div>
+            {" "}
+            <h2>Dry Hop Schedule</h2>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Variety</th>
+                  <th>Amount</th>
+                  <th>When beer density reaches</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dryHops.map(
+                  ({
+                    id,
+                    name,
+                    dryHopRateInGramsPerLitre,
+                    dryHopTimingInPercentageAF,
+                  }) => (
+                    <tr key={id}>
+                      <td>{name}</td>
+                      <td>{`${
+                        dryHopRateInGramsPerLitre * volumeEndOfBoilingL
+                      } g`}</td>
+                      <td>
+                        {Math.round(
+                          ((OGinPlato - FGinPlato) *
+                            //@ts-ignore
+                            dryHopTimingInPercentageAF) /
+                            100
+                        )}
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </Table>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }

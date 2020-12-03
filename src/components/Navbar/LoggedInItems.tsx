@@ -41,7 +41,10 @@ export function LogOutButton() {
   const userLanguage: Language = useSelector(selectUserLanguage);
   return (
     <Nav>
-      <p style={{ marginRight: "1em" }}> {userEmail}</p>
+      <div style={{ marginRight: "1em", alignSelf: "center" }}>
+        {" "}
+        {userEmail}
+      </div>
       <Button
         onClick={() => {
           logOutClickHandler();

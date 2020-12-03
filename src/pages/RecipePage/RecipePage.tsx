@@ -116,22 +116,22 @@ export default function RecipePage() {
           {t_start_a_brew}
         </Button>
       </Jumbotron>
-      <Form>
-        <Form.Group as={Row}>
-          <Form.Label column sm="2">
-            {t_enter_your_brewlength}
-          </Form.Label>
-          <Col sm="2">
-            <Form.Control
-              value={brewLengthInL}
-              onChange={(e) => handleBrewLengthInput(e.target.value)}
-            />
-          </Col>
-          <Form.Label column sm="2" style={{ textAlign: "left" }}>
-            {"L"}
-          </Form.Label>
-        </Form.Group>
-      </Form>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Form>
+          <Form.Group as={Row}>
+            <Form.Label column>{t_enter_your_brewlength}</Form.Label>
+            <Col sm="2">
+              <Form.Control
+                value={brewLengthInL}
+                onChange={(e) => handleBrewLengthInput(e.target.value)}
+              />
+            </Col>
+            <Form.Label column sm="2" style={{ textAlign: "left" }}>
+              {"L"}
+            </Form.Label>
+          </Form.Group>
+        </Form>
+      </div>
       <div>
         <h2> {t_description}</h2>
         {description}
