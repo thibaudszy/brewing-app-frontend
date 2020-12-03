@@ -36,17 +36,17 @@ export default function Boil(props: PropType) {
         percentageAlphaAcidsFromAddition,
         alphaAcidContent,
       }) => {
-        //Adding this comment to fix a bug
+        const quantity = hopAdditionInGrams(
+          IBU,
+          //@ts-ignore
+          percentageAlphaAcidsFromAddition,
+          timeOfAdditionInMinBeforeEndOfBoil,
+          alphaAcidContent,
+          brewLengthInL
+        ).toFixed(0);
         return {
           name,
-          quantity: hopAdditionInGrams(
-            IBU,
-            //@ts-ignore
-            percentageAlphaAcidsFromAddition,
-            timeOfAdditionInMinBeforeEndOfBoil,
-            alphaAcidContent,
-            brewLengthInL
-          ).toFixed(0),
+          quantity,
           added: false,
           timeOfAdditionInMinBeforeEndOfBoil,
         };
