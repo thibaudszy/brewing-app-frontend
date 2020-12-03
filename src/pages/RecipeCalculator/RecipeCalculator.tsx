@@ -39,6 +39,7 @@ import FermentationFormGroup from "./FermentationFormGroup";
 import { beeratron5000 } from "./beeratron5000";
 import "./RecipeCalculator.css";
 import emptyRecipe from "../RecipePage/emptyRecipe";
+import { useHistory } from "react-router-dom";
 
 export default function RecipeCalculator() {
   const userLanguage: Language = useSelector(selectUserLanguage);
@@ -46,6 +47,7 @@ export default function RecipeCalculator() {
   const hopAdditions = useSelector(selectNewRecipeBoilHopAdditions);
   const mashSteps = useSelector(selectNewRecipeMashSteps);
   const newRecipe = useSelector(selectNewRecipe);
+  const history = useHistory();
   const {
     t_recipe_calculator,
     t_about_your_beer,
@@ -149,9 +151,10 @@ export default function RecipeCalculator() {
       dispatch(AddNewMashStepToNewRecipe());
     }
   });
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
-    dispatch(submitNewRecipe(newRecipe));
+    await dispatch(submitNewRecipe(newRecipe));
+    history.push("/recipes");
   }
 
   const callTheBeeratron = () => {

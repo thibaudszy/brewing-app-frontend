@@ -46,10 +46,14 @@ export default (state = initialState, action: Action) => {
       const recipeToImport = importableRecipes.find(
         (recipe) => recipe.id === payload
       );
+      if (!recipeToImport) {
+        return state;
+      }
       const updatedImportableRecipes = importableRecipes.filter(
         (recipe) => recipe.id !== payload
       );
       const updatedMyRecipes = [...myRecipes, recipeToImport];
+
       return {
         ...state,
         myRecipes: updatedMyRecipes,

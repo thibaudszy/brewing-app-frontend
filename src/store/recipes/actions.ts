@@ -132,14 +132,14 @@ export const removeRecipeFromLibrary = (recipeId: number): AppThunk => {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
     const userId = selectUserId(getState());
-    console.log(userId, recipeId);
+
     const serverResponse: AxiosResponse = await Axios.delete(
       `${apiUrl}/libraries/${userId}${recipeId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("server response:", serverResponse);
+
     if (!(serverResponse.status === 200)) {
       dispatch({
         type: "SET_MESSAGE",
@@ -288,7 +288,12 @@ export const submitNewRecipe = (newRecipe: FullRecipe): AppThunk => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("server response", serverResponse);
+      console.log(
+        "server response recipe id",
+        serverResponse.data.addedRecipe.id
+      );
+      dispatch(addRecipeToLibrary(serverResponse.data.addedRecipe.id));
+
       dispatch(appDoneLoading());
       dispatch(showMessageWithTimeout("sucess", true, "recipe created"));
     } catch (e) {
