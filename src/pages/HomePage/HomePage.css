@@ -12,10 +12,14 @@
   font-weight: bold;
   font-size: 10vw;
   align-self: center;
+
   /* max-width: 30em; */
   width: 100%;
 }
 .log-in-message {
   color: white;
   background-color: rgba(202, 210, 110, 0.8);
+}
+.message .buttons-row {
+  margin-top: -3vm;
 }

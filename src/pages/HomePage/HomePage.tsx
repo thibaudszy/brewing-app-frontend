@@ -26,12 +26,11 @@ export default function HomePage() {
   return (
     <div className="background">
       <h1 className="message">
-        {" "}
         {t_logged_in_message}
-        <div>
+        <h1>
           <MyRecipesButton />
           {"  "} <RecipeCalculatorButton /> {"  "} <ExploreRecipesButton />
-        </div>
+        </h1>
       </h1>
     </div>
   );
