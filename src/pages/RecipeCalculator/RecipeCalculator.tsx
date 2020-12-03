@@ -38,7 +38,6 @@ import MashStepsRow from "./MashStepsRow";
 import FermentationFormGroup from "./FermentationFormGroup";
 import { beeratron5000 } from "./beeratron5000";
 import "./RecipeCalculator.css";
-import emptyRecipe from "../RecipePage/emptyRecipe";
 import { useHistory } from "react-router-dom";
 
 export default function RecipeCalculator() {
