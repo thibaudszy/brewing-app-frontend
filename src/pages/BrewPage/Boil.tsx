@@ -7,14 +7,15 @@ import { hopAdditionInGrams } from "../../BrewingCalculations";
 import CheckIcon from "@material-ui/icons/Check";
 import "./BrewPage.css";
 import { updateBrew } from "../../store/brew/actions";
+import { selectBrew } from "../../store/brew/selectors";
 interface PropType {
   IBU: number;
-  brewLengthInL: number;
   BoilDurationInMin: number;
 }
 
 export default function Boil(props: PropType) {
-  const { IBU, brewLengthInL, BoilDurationInMin } = props;
+  const { IBU, BoilDurationInMin } = props;
+  const brewLengthInL = useSelector(selectBrew).targetVolumeInLiters;
   const hopAdditions: HopAddition[] = useSelector(selectFullRecipe)
     .hopAdditions;
   const boilAdditions: HopAddition[] = hopAdditions.filter(
