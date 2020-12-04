@@ -60,11 +60,7 @@ export default function BrewPage() {
           <Button onClick={() => finishMashHandler()}> Mash Finished </Button>
         </Tab>
         <Tab eventKey="boil" title="Boil">
-          <Boil
-            IBU={IBU}
-            brewLengthInL={brew.targetVolumeInLiters}
-            BoilDurationInMin={BoilDurationInMin}
-          />
+          <Boil IBU={IBU} BoilDurationInMin={BoilDurationInMin} />
         </Tab>
         <Tab eventKey="fermentation" title="Fermentation">
           <FermentationTab />
