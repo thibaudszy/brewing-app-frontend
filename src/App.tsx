@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
 import AppNavbar from "./components/Navbar/AppNavbar";
 import Login from "./pages/Login/Login";
@@ -19,14 +19,14 @@ import { selectAppLoading } from "./store/appState/selectors";
 import Loading from "./components/Loader";
 import RecipeCalculator from "./pages/RecipeCalculator/RecipeCalculator";
 import BrewPage from "./pages/BrewPage/BrewPage";
-import { Button } from "react-bootstrap";
+
+import Error404 from "./pages/Error404";
 
 function App() {
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const isLoading = useSelector(selectAppLoading);
-  const history = useHistory();
 
   useEffect(() => {
     // if the user reloads the app, we fetch his data from the server.
@@ -34,34 +34,7 @@ function App() {
       dispatch(getUserWithStoredToken());
     }
   });
-  const Error404 = () => (
-    <div
-      className="Error404"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "30%",
-        margin: "auto",
-      }}
-    >
-      <h1 style={{ textAlign: "center" }}>
-        It seems you got lost. This page does not exist
-      </h1>
-      <img
-        src="https://i.kym-cdn.com/photos/images/original/001/042/619/4ea.jpg"
-        alt="John Travolta lost"
-      />
-      <Button
-        onClick={() => {
-          history.push("/");
-        }}
-        style={{ margin: "1em" }}
-      >
-        {" "}
-        Go to the home page
-      </Button>
-    </div>
-  );
+
   return (
     <div className="App">
       <AppNavbar />
