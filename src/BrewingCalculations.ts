@@ -105,10 +105,24 @@ export const mashWaterVolumeInL = (
 };
 
 export const platoToPG = (densityInPlato: number): number => {
-  return densityInPlato * 4;
+  try {
+    if (isNaN(densityInPlato) || densityInPlato < 0) {
+      throw new Error("Density in plato should be a positive number");
+    }
+    return densityInPlato * 4;
+  } catch (e) {
+    return 0;
+  }
 };
 export const PGtoPlato = (densityInPG: number): number => {
-  return densityInPG / 4;
+  try {
+    if (isNaN(densityInPG) || densityInPG < 0) {
+      throw new Error("Density in PG should be a positive number");
+    }
+    return densityInPG / 4;
+  } catch (e) {
+    return 0;
+  }
 };
 export const calculateOG = (targetABV: number, FGinPlato: number): number => {
   const OGinPG = targetABV / 0.129 + platoToPG(FGinPlato);
