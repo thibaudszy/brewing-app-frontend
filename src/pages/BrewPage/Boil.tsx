@@ -8,6 +8,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import "./BrewPage.css";
 import { updateBrew } from "../../store/brew/actions";
 import { selectBrew } from "../../store/brew/selectors";
+
 interface PropType {
   IBU: number;
   BoilDurationInMin: number;
@@ -16,6 +17,7 @@ interface PropType {
 export default function Boil(props: PropType) {
   const { IBU, BoilDurationInMin } = props;
   const brewLengthInL = useSelector(selectBrew).targetVolumeInLiters;
+
   const hopAdditions: HopAddition[] = useSelector(selectFullRecipe)
     .hopAdditions;
   const boilAdditions: HopAddition[] = hopAdditions.filter(
@@ -26,34 +28,65 @@ export default function Boil(props: PropType) {
     countdownInS: BoilDurationInMin * 60,
     active: false,
   });
+  const initialState = boilAdditions.map(
+    ({
+      name,
+      timeOfAdditionInMinBeforeEndOfBoil,
+      percentageAlphaAcidsFromAddition,
+      alphaAcidContent,
+    }) => {
+      const quantity = hopAdditionInGrams(
+        IBU,
+        //@ts-ignore
+        percentageAlphaAcidsFromAddition,
+        timeOfAdditionInMinBeforeEndOfBoil,
+        alphaAcidContent,
+        brewLengthInL
+      ).toFixed(0);
+      return {
+        name,
+        quantity,
+        added: false,
+        timeOfAdditionInMinBeforeEndOfBoil,
+      };
+    }
+  );
   const [
     boilAdditionsWithQuantities,
     setBoilAdditionsWithQuantities,
-  ] = useState(
-    boilAdditions.map(
-      ({
-        name,
-        timeOfAdditionInMinBeforeEndOfBoil,
-        percentageAlphaAcidsFromAddition,
-        alphaAcidContent,
-      }) => {
-        const quantity = hopAdditionInGrams(
-          IBU,
-          //@ts-ignore
-          percentageAlphaAcidsFromAddition,
-          timeOfAdditionInMinBeforeEndOfBoil,
-          alphaAcidContent,
-          brewLengthInL
-        ).toFixed(0);
-        return {
-          name,
-          quantity,
-          added: false,
-          timeOfAdditionInMinBeforeEndOfBoil,
-        };
-      }
-    )
-  );
+  ] = useState(initialState);
+
+  // hacky but it works
+  useEffect(() => {
+    if (isNaN(parseFloat(boilAdditionsWithQuantities[0].quantity))) {
+      setBoilAdditionsWithQuantities(
+        boilAdditions.map(
+          ({
+            name,
+            timeOfAdditionInMinBeforeEndOfBoil,
+            percentageAlphaAcidsFromAddition,
+            alphaAcidContent,
+          }) => {
+            const quantity = hopAdditionInGrams(
+              IBU,
+              //@ts-ignore
+              percentageAlphaAcidsFromAddition,
+              timeOfAdditionInMinBeforeEndOfBoil,
+              alphaAcidContent,
+              brewLengthInL
+            ).toFixed(0);
+            return {
+              name,
+              quantity,
+              added: false,
+              timeOfAdditionInMinBeforeEndOfBoil,
+            };
+          }
+        )
+      );
+    }
+    // eslint-disable-next-line
+  }, [boilAdditionsWithQuantities]);
 
   useEffect(() => {
     let interval: any = null;
