@@ -124,6 +124,7 @@ export const PGtoPlato = (densityInPG: number): number => {
     return 0;
   }
 };
+//
 export const calculateOG = (targetABV: number, FGinPlato: number): number => {
   const OGinPG = targetABV / 0.129 + platoToPG(FGinPlato);
   return parseFloat(PGtoPlato(OGinPG).toFixed(1));

@@ -121,7 +121,7 @@ const randomMaltAddition = () => {
   let maltAdditions = [];
   const max = Math.floor(Math.random() * malts.length - 1) + 2;
   for (let i = 0; i < max; i++) {
-    let randomRatio = Math.round(Math.random() * (100 - ratio - 1)) + 1;
+    let randomRatio = Math.round(Math.random() * (100 - ratio - 2)) + 1;
     const randomIndex = Math.floor(Math.random() * (malts.length - 1));
 
     maltAdditions.push({
@@ -205,7 +205,7 @@ const randomHopAddition = () => {
     },
   ];
   let hopAdditions = [];
-  const max = Math.floor(Math.random() * boilHops.length - 1) + 2;
+  const max = Math.floor(Math.random() * boilHops.length - 2) + 2;
   for (let i = 0; i < max; i++) {
     let randomRatio = Math.round(Math.random() * (100 - ratio - 1)) + 1;
     const randomIndex = Math.floor(Math.random() * (boilHops.length - 1));
